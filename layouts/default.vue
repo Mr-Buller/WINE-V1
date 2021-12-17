@@ -2,41 +2,6 @@
   <div>
     <Header></Header>
     <nuxt />
-    <div
-      style="width:100%;height:100vh;background:rgba(0,0,0,.5);position:fixed;top:0;left:0;z-index:9999"
-    >
-      <div style="width:350px;height:100vh;position:fixed;top:0;right:0;background:#fff;overflow-y:auto">
-        <div class="row p12" style="border-bottom:1px solid #ddd;">
-          <b>SHOPPING CART</b>
-          <i class="fa fa-times go-right mt3 pointer"></i>
-        </div>
-        <div class="row">
-          <div
-            v-for="k in 10"
-            :key="k"
-            style="width:100%;display:inline-block;padding-left:72px;border-bottom:1px solid #ddd;position:relative;"
-          >
-            <img
-              src="https://www.s-liquor.com.kh/wp-content/uploads/2021/02/Poliakov-Lemon-700ml-01-300x300.png"
-              style="width:60px;height:60px;object-fit:cover;position:absolute;top:12px;left:12px;"
-            />
-            <div class="row p12">
-              <p class="mb3">Poliakov Lemon 700ml</p>
-              <p class="font14 txt-primary mb6">Qty : 12</p>
-              <p class="txt-danger mb0">
-                <b>$109.75</b>
-                <span class="font12 txt-danger pointer go-right">Remove</span>
-              </p>
-            </div>
-          </div>
-          <div class="row p12 mt24">
-            <p>Subtotal : <span class="txt-danger">$329.25</span></p>
-            <div class="bg-primary" style="width:100%;padding:10px;color:#fff;text-align:center;cursor:pointer;">CHECKOUT</div>
-            <div class="bg-secondary mt12" style="width:100%;padding:10px;text-align:center;cursor:pointer;">VIEW CART</div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 

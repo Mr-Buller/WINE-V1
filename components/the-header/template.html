@@ -41,12 +41,17 @@
 					<span class="font14 txt-hover">REGISTER</span>
 				</div>
 				<div class="inner-item">
-					<i class="fa fa-search"></i>
+					<i @click="isBoxSearch = !isBoxSearch" class="fa fa-search"></i>
+					<div v-if="isBoxSearch" style="width: 300px;background: #fff;position: absolute;top: 36px;right: 0;z-index: 999;border: 1px solid #ddd;padding: 12px;">
+						<input type="text" style="width: 100%;font-size: 14px;padding: 12px;border: 1px solid #ddd;" placeholder="Search something ..." />
+					</div>
 				</div>
-				<div class="inner-item">
+				<div @click="isCartSidebar = true" class="inner-item">
 					<i class="fa fa-shopping-cart"></i>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<CartSidebar v-if="isCartSidebar" @clicked="hideCartSidebar"></CartSidebar>
 </header>

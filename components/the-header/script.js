@@ -1,12 +1,15 @@
+import CartSidebar from './../cart-sidebar'
+
 export default {
     name: "the-header",
     data() {
         return {
-            
+            isCartSidebar: false,
+            isBoxSearch: false
         }
     },
     components: {
-
+        CartSidebar
     },
     created() {
 
@@ -15,6 +18,8 @@ export default {
 
     },
     methods: {
-
+        hideCartSidebar(bool){
+            this.isCartSidebar = bool
+        }
     },
 }

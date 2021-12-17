@@ -1,0 +1,19 @@
+
+.tag-discount{
+    background:#b12a2a;
+    color:#fff;
+    position:absolute;
+    top:12px;
+    left:12px;
+    padding:2px 6px;
+    font-size:14px;
+}
+.tag-type{
+    background:#c0a483;
+    color:#fff;
+    position:absolute;
+    top:12px;
+    right:12px;
+    padding:2px 6px;
+    font-size:14px;
+}

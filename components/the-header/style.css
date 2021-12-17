@@ -1,0 +1,37 @@
+.topbar-inner{
+    width: 100%;
+    border-bottom: 1px solid var(--border);
+    display: list-item;
+}
+.topbar-inner:last-child{
+    border-bottom: none;
+}
+.inner-item{
+    display:inline-block;
+    padding: 0 12px 0 6px;
+    cursor: pointer;
+}
+.inner-item:last-child{
+    border-right:none
+}
+.inner-menu{
+    list-style-type: none;
+    display: inline-block;
+}
+.inner-menu li{
+    float: left;
+    padding: 0 20px;
+}
+.inner-menu li a{
+    font-size: 16px;
+    color: var(--text);
+    padding: 3px 0;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+.inner-menu li .active{
+    border-bottom: 1px solid var(--text);
+}
+.inner-menu li a:hover{
+    border-bottom: 1px solid var(--text);
+}

@@ -1,0 +1,9 @@
+<div class="row mt40">
+	<p class="font24 txt-center">SHOP BY <span class="txt-primary">CATEGORY</span></p>
+	<div class="row ph9 mt12">
+		<div v-for="(category,categoryIndex) in categories" :key="(category,categoryIndex)" class="col-3 p3">
+			<img :src="category.image" />
+			<div class="btn-category">{{category.name}}</div>
+		</div>
+	</div>
+</div>

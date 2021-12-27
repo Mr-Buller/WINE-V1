@@ -1,8 +1,5 @@
 export default {
-    name: "home-top-seller",
-    props:{
-
-    },
+    name: "profile",
     data() {
         return {
             
@@ -18,6 +15,6 @@ export default {
 
     },
     methods: {
-
+        
     },
 }

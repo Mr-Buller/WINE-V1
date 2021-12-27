@@ -1,11 +1,11 @@
 <section>
 	<div class="row mb36 txt-center">
-		<img src="https://wpbingosite.com/wordpress/kowine/wp-content/uploads/2021/06/Slide5.jpg"
-		style="width: 100%;height: 300px;object-fit: cover;" />
-		<div style="width: 100%;height: 100%;position: absolute;top:0;left:0;background: rgba(0,0,0,.5);"></div>
-		<div style="position: absolute;top:50%;left:50%;transform: translate(-50%,-50%);">
-			<p style="color: #fff;font-size: 76px;">SEARCHING</p>
+		<img src="https://wpbingosite.com/wordpress/kowine/wp-content/uploads/2021/06/Slide5.jpg" class="img-bg-search"/>
+		<div class="search-bg-overlay"></div>
+		<div class="box-search-info">
+			<p class="search-title">SEARCHING</p>
 			<p style="font-size: 18px;color:#fff;">Result search for : "Red Wine"</p>
+			<input type="text" class="search-input" />
 		</div>
 	</div>
 	<div class="row ph40">
@@ -24,20 +24,20 @@
 			<div class="row mt40">
 				<p class="font18"><b>BOTTLE SIZE</b></p>
 				<div class="row">
-					<div v-for="i in 8" style="background: #fff;border: 1px solid #ddd;padding: 8px 16px;float: left;margin-right: 6px;margin-bottom: 6px;">150 cl</div>
+					<div v-for="i in 8" class="item-tag">150 cl</div>
 				</div>
 			</div>
 			<div class="row mt40">
 				<p class="font18"><b>VINTAGE</b></p>
 				<div class="row">
-					<div v-for="i in 8" style="background: #fff;border: 1px solid #ddd;padding: 8px 16px;float: left;margin-right: 6px;margin-bottom: 6px;">2011</div>
+					<div v-for="i in 8" class="item-tag">2011</div>
 				</div>
 			</div>
 			<div class="row mt40">
 				<p class="font18"><b>BRANDS</b></p>
 				<div class="row">
 					<div v-for="i in 4" class="col-4 p3">
-						<div style="width:100%;border:1px solid #ddd">
+						<div class="row border">
 							<img src="https://wpbingosite.com/wordpress/kowine/wp-content/uploads/2021/05/brand3.jpg" class="img-cover" />
 						</div>
 					</div>

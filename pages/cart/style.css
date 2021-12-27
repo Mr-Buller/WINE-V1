@@ -1,0 +1,17 @@
+table th {
+    padding: 12px;
+}
+table tr td {
+    padding: 12px;
+}
+.btn-checkout{
+    width: 100%;
+    padding: 12px;
+    background: #000;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+}
+.btn-checkout:hover{
+    background: var(--primary);
+}

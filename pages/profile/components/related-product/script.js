@@ -1,5 +1,5 @@
 export default {
-    name: "home-category",
+    name: "related-product",
     props:{
         categories: Array
     },

@@ -26,8 +26,10 @@
 		</div>
 		<div class="topbar-inner ph50 pv20">
 			<div class="col-7">
-				<img src="https://wpbingosite.com/wordpress/kowine/wp-content/webp-express/webp-images/uploads/2021/06/logo.png.webp"
+				<nuxt-link to="/">
+					<img src="https://wpbingosite.com/wordpress/kowine/wp-content/webp-express/webp-images/uploads/2021/06/logo.png.webp"
 					class="h22 go-left mr26" />
+				</nuxt-link>
 				<ul class="inner-menu">
 					<li><a class="active">Home</a></li>
 					<li><a>Shop</a></li>
@@ -42,8 +44,8 @@
 				</div>
 				<div class="inner-item">
 					<i @click="isBoxSearch = !isBoxSearch" class="fa fa-search"></i>
-					<div v-if="isBoxSearch" style="width: 300px;background: #fff;position: absolute;top: 36px;right: 0;z-index: 999;border: 1px solid #ddd;padding: 12px;">
-						<input type="text" style="width: 100%;font-size: 14px;padding: 12px;border: 1px solid #ddd;" placeholder="Search something ..." />
+					<div v-if="isBoxSearch" class="box-search">
+						<input @keyup.enter="onSearch" type="text" placeholder="Search something ..." />
 					</div>
 				</div>
 				<div @click="isCartSidebar = true" class="inner-item">

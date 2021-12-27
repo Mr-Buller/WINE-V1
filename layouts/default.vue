@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import HomeService from "./../utils/services/home";
+import HomeService from "./../utils/services/HomeService";
 import Header from "./../components/the-header";
 
 export default {
@@ -15,7 +15,7 @@ export default {
   },
   created() {
     this.googleAnaltic();
-    this.getBanner();
+    // this.getBanner();
   },
   methods: {
     getBanner() {

@@ -1,4 +1,5 @@
-import HomeService from './../../utils/services/home'
+import HomeService from './../../utils/services/HomeService'
+import CategoryService from './../../utils/services/CategoryService'
 import Slider from './components/slider'
 import Category from './components/category'
 import FeaturedProduct from './components/featured-product'
@@ -21,22 +22,24 @@ export default {
     },
     data() {
         return {
-            vfOptions: {
-                autoplay: true
+            slide: {
+                vfOptions: {
+                    autoplay: true
+                },
+                vfImages: [],
+                vfTransitions: ['fade', 'swipe', 'slide', 'blinds2d', 'book', 'fall', 'blinds3d',],
+                vfCaptions: [],
             },
-            vfImages: ['https://wpbingosite.com/wordpress/kowine/wp-content/uploads/2021/06/Slide4.jpg',
-                'https://wpbingosite.com/wordpress/kowine/wp-content/uploads/2021/06/Slide5.jpg'],
-            vfTransitions: ['fade', 'swipe', 'slide', 'blinds2d', 'book', 'fall', 'blinds3d',],
-            vfCaptions: [
-                'Caption for image 1',
-                'Caption for image 2',
+            categories: [
+                { image: "https://wpbingosite.com/wordpress/kowine/wp-content/webp-express/webp-images/uploads/2021/06/banner39.jpg.webp", name: "RED WINE" },
+                { image: "https://wpbingosite.com/wordpress/kowine/wp-content/webp-express/webp-images/uploads/2021/06/banner40.jpg.webp", name: "WHITE WINE" },
+                { image: "https://wpbingosite.com/wordpress/kowine/wp-content/webp-express/webp-images/uploads/2021/06/banner41.jpg.webp", name: "CHAMPAGNE" },
+                { image: "https://wpbingosite.com/wordpress/kowine/wp-content/webp-express/webp-images/uploads/2021/06/banner42.jpg.webp", name: "ROSE WINE" }
             ],
-            categories:[
-                { image: "https://wpbingosite.com/wordpress/kowine/wp-content/webp-express/webp-images/uploads/2021/06/banner39.jpg.webp", name: "RED WINE"},
-                { image: "https://wpbingosite.com/wordpress/kowine/wp-content/webp-express/webp-images/uploads/2021/06/banner40.jpg.webp", name: "WHITE WINE"},
-                { image: "https://wpbingosite.com/wordpress/kowine/wp-content/webp-express/webp-images/uploads/2021/06/banner41.jpg.webp", name: "CHAMPAGNE"},
-                { image: "https://wpbingosite.com/wordpress/kowine/wp-content/webp-express/webp-images/uploads/2021/06/banner42.jpg.webp", name: "ROSE WINE"}
-            ]
+            data: {
+                home: "",
+                categories: []
+            }
         }
     },
     components: {
@@ -50,19 +53,35 @@ export default {
 
     },
     mounted() {
-
+        this.getHomePage()
+        this.getCategory()
     },
     methods: {
-        getArticlesHome() {
-            let params = ""
-            HomeService.getArticlesHome(params)
-                .then((response) => {
-                    if (response.status === 1) {
-                        this.data.articles = response.data.records
-                    } else {
-                        alert(response.message.description)
+        getHomePage() {
+            HomeService.getHomepage().then((response) => {
+                if (response.response && response.response.status == 200) {
+                    this.data.home = response.results
+                    for (let i = 0; i < response.results.slides.length; i++) {
+                        let slide = response.results.slides[i]
+                        let image = process.env.BASE_URL + slide.image
+                        this.slide.vfImages.push(image.replaceAll(' ', '%20'))
+
+                        let caption = {
+                            title: slide.title,
+                            description: slide.description
+                        }
+                        this.slide.vfCaptions.push(caption)
                     }
-                })
-        }
+                }
+            }).catch(err => { console.log(err) })
+        },
+
+        getCategory() {
+            CategoryService.getCategory().then((response) => {
+                if (response.response && response.response.status == 200) {
+                    this.data.categories = response.results
+                }
+            }).catch(err => { console.log(err) })
+        },
     },
 }

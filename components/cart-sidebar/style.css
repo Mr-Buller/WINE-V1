@@ -35,3 +35,58 @@
 .inner-menu li a:hover{
     border-bottom: 1px solid var(--text);
 }
+
+/* sidebar */
+.sidebar-container{
+    width:100%;
+    height:100vh;
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:9999;
+}
+.sidebar-overlay{
+    width: 100%;
+    height: 100%;
+    background:rgba(0,0,0,.5);
+    position: absolute;
+    top:0;
+    left: 0;
+}
+.box-sidebar{
+    width:350px;
+    height:100vh;
+    position:fixed;
+    top:0;
+    right:0;
+    background:var(--white);
+    overflow-y:auto;
+}
+.product-item{
+    width:100%;
+    display:inline-block;
+    padding-left:72px;
+    border-bottom:1px solid var(--secondary);
+    position:relative;
+}
+.item-thumb{
+    width:60px;
+    height:60px;
+    object-fit:cover;
+    position:absolute;
+    top:12px;
+    left:12px;
+}
+.btn-checkout{
+    width:100%;
+    padding:10px;
+    color: var(--white);
+    text-align:center;
+    cursor:pointer;
+}
+.btn-view-cart{
+    width:100%;
+    padding:10px;
+    text-align:center;
+    cursor:pointer;
+}

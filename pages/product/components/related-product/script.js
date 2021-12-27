@@ -1,7 +1,7 @@
 export default {
-    name: "home-brand",
+    name: "related-product",
     props:{
-
+        categories: Array
     },
     data() {
         return {

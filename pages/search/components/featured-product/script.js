@@ -1,5 +1,5 @@
 export default {
-    name: "home-featured-product",
+    name: "search",
     props:{
         categories: Array
     },

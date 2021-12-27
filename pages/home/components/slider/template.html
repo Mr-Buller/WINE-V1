@@ -5,16 +5,17 @@
 			:transitions="vfTransitions" 
 			:captions="vfCaptions"
 			ref="slider">
-			<template v-slot:caption>
+			<!-- <template v-slot:caption>
+				<div style="width: 100%;height:100%;position: absolute;top:0;left:0;background: rgba(0,0,0,.25);"></div>
 				<div class="flux-title">
-					<span class="title">CHAMPAGNE & FIZZ</span>
+					<span class="title">{{vfCaptions[0].title}}</span>
 					<div class="font20 color-white mb24">Explore the diversity of one of our favourite wine regions.</div>
 					<a class="btn-flux">SHOP NOW</a>
 				</div>
-			</template>
+			</template> -->
 		</vue-flux>
 
-		<div @click="$refs.slider.show('prev')" class="flux-arrow-left">
+		<div @click="prevSlide" class="flux-arrow-left">
 			<img :src="require('~/assets/images/icons/arrow-left.png')" />
 		</div>
 		<div @click="$refs.slider.show('next')" class="flux-arrow-right">

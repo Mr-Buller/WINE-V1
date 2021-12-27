@@ -50,6 +50,7 @@ export default {
     '~/assets/css/color.css',
     '~/assets/css/bg.css',
     '~/assets/css/font-awesome.min.css',
+    '~/assets/css/form.css',
   ],
   /*
   ** Global JS
@@ -72,7 +73,8 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
-    "@nuxtjs/axios"
+    "@nuxtjs/axios",
+    '@nuxtjs/dotenv'
   ],
   /*
   ** Build configuration

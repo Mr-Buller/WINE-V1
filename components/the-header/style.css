@@ -35,3 +35,19 @@
 .inner-menu li a:hover{
     border-bottom: 1px solid var(--text);
 }
+.box-search{
+    width: 300px;
+    background: #fff;
+    position: absolute;
+    top: 36px;
+    right: 0;
+    border: 1px solid #ddd;
+    padding: 12px;
+    z-index: 999;
+}
+.box-search input{
+    width: 100%;
+    font-size: 14px;
+    padding: 12px;
+    border: 1px solid #ddd;
+}

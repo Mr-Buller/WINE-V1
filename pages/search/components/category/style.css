@@ -1,8 +1,0 @@
-.btn-category{
-    padding: 12px 24px;
-    background: var(--white);
-    position: absolute;
-    bottom: 16px;
-    left: 50%;
-    transform: translate(-50%,-50%);
-}

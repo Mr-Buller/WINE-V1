@@ -1,0 +1,59 @@
+<section>
+	<div class="row p50">
+		<p class="font30">SHOPPING CART</p>
+		<div class="col-8">
+			<table style="width: 100%;border: 1px solid #ddd;">
+				<thead>
+					<th>Product</th>
+					<th>Price</th>
+					<th>Quantity</th>
+					<th>Subtotal</th>
+				</thead>
+				<thead>
+					<tr v-for="k in 5" class="border">
+						<td>
+							<img src="https://wpbingosite.com/wordpress/kowine/wp-content/webp-express/webp-images/uploads/2018/10/Wine-01-01-450x450.jpg.webp"
+							style="width: 72px;height:72px;object-fit: cover;" />
+							<span class="ml12">In hac habitasse platea dictumst tempor vet</span>
+						</td>
+						<td>$1000.00</td>
+						<td>
+							<div style="width: 120px;padding: 0 32px;border:1px solid #ddd;position: relative;">
+								<i class="fa fa-plus" style="position: absolute;top:50%;left:10px;transform: translateY(-50%);cursor: pointer;"></i>
+								<i class="fa fa-minus" style="position: absolute;top:50%;right:10px;transform: translateY(-50%);cursor: pointer;"></i>
+								<input type="text" value="1" style="width: 100%;height: 36px;font-size: 16px;border: none;text-align: center;outline: none;" />
+							</div>
+						</td>
+						<td>$1000.00</td>
+						<td><i class="fa fa-times-circle pointer"></i></td>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		<div class="col-4 pl50">
+			<div class="row" style="background: #ddd;padding: 14px;">
+				<span>CART TOTALS</span>
+			</div>
+			<table style="background: #f2f2f2;">
+				<tbody>
+					<tr>
+						<td width="30%">Subtotal</td>
+						<td>$700.00</td>
+					</tr>
+					<tr>
+						<td>Shipping </td>
+						<td><span class="txt-dark-light">Shipping to</span> <b>Phnom Penh, Mean Chey/Phnom Penh, 1350, Cambodia</b></td>
+					</tr>
+					<tr>
+						<td>Total</td>
+						<td class="font24">$700.00</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div class="row p16" style="background: #f2f2f2;border-top: 1px solid #ddd;">
+				<div class="btn-checkout">PROCEED TO CHECKOUT</div>
+			</div>
+		</div>
+	</div>
+</section>

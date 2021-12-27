@@ -1,0 +1,77 @@
+<section>
+	<div v-if="data.product" class="row p50">
+		<div class="col-6">
+			<div class="box-square border">
+				<img src="https://wpbingosite.com/wordpress/kowine/wp-content/webp-express/webp-images/uploads/2021/05/Product15-450x450.jpg.webp"
+					class="item-img" />
+			</div>
+
+			<div class="h-scroll mt12">
+				<div v-for="i in 10" class="item-scroll">
+					<img src="https://wpbingosite.com/wordpress/kowine/wp-content/webp-express/webp-images/uploads/2021/05/Product15-450x450.jpg.webp"
+						class="img-cover" />
+				</div>
+			</div>
+		</div>
+		<div class="col-6 pl50">
+			<p class="font46">{{data.product.name}}</p>
+			<p v-if="data.product.discount > 0" class="txt-danger">Discount {{data.product.discount}}%</p>
+			<p v-if="data.product.discount == 0" class="txt-primary font24">${{data.product.price}}</p>
+			<p v-else class="font24"><del class="txt-dark-light mr12">${{data.product.price}}</del> <span class="txt-primary">${{getDiscount(data.product.price,data.product.discount)}}</span></p>
+
+			<div v-if="data.product.brand" class="row border-top pv12">
+				<span>Brand</span>
+				<span class="go-right">{{data.product.brand.name}}</span>
+			</div>
+			<div v-if="data.product.brand" class="row border-top pv12">
+				<span>Category</span>
+				<span class="go-right">{{data.product.category.name}}</span>
+			</div>
+
+			<div hidden class="row pt24 border-top">
+				<p class="txt-dark-light" style="line-height: 26px;">Lorem ipsum dolor sit amet, consectetur adipiscing
+					elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+					dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+			</div>
+			<div class="box-add-to-cart">
+				<div class="box-qty">
+					<i class="fa fa-plus ic-plus"></i>
+					<i class="fa fa-minus ic-minus"></i>
+					<input type="text" value="1" class="input-text" />
+				</div>
+				<div class="btn-add-to-cart">ADD TO CART</div>
+			</div>
+			<div class="row mt12">
+				<div class="btn-buy-now">BUY NOW</div>
+			</div>
+			<div class="row mt20">
+				<p hidden class="mt20"><span class="txt-dark-light">Categories:</span> <b class="mh12">Red Wines</b>
+					<b>Sparkling</b></p>
+				<p hidden class="mt20"><span class="txt-dark-light">Tags:</span> <b class="mh12">Fashion</b> <b>Women</b></p>
+				<p class="mt20"><span class="txt-dark-light">Share:</span> <i class="fa fa-facebook mh12"></i> <i
+						class="fa fa-twitter mr12"></i></p>
+			</div>
+		</div>
+	</div>
+	<div class="row pt50 border-top">
+		<p class="font26 txt-center">DESCRIPTION</p>
+		<div class="row ph50">
+			<p class="txt-dark-light" style="line-height: 24px;">Lorem ipsum dolor sit amet, consectetur adipisicing
+				elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+				nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+				reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+				cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut
+				perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+				aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+				explicabo.</p>
+			<p class="txt-dark-light" style="line-height: 24px;">Nemo enim ipsam voluptatem quia voluptas sit aspernatur
+				aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque
+				porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non
+				numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+		</div>
+	</div>
+	<div class="row pv70 ph38">
+		<RelatedProduct></RelatedProduct>
+	</div>
+</section>

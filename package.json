@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
+    "@nuxtjs/dotenv": "^1.4.1",
     "nuxt": "^2.15.8",
     "vue-cookies": "^1.7.4",
     "vue-flux": "^6.4.0",

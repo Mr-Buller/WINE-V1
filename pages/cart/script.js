@@ -1,8 +1,5 @@
 export default {
-    name: "home-brand",
-    props:{
-        brands: Array
-    },
+    name: "cart",
     data() {
         return {
             
@@ -18,8 +15,6 @@ export default {
 
     },
     methods: {
-        getFullPath(path){
-            return process.env.BASE_URL+path
-        }
+        
     },
 }

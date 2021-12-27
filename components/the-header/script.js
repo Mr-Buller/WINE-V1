@@ -20,6 +20,10 @@ export default {
     methods: {
         hideCartSidebar(bool){
             this.isCartSidebar = bool
+        },
+        onSearch(){
+            this.isBoxSearch = false
+            $nuxt.$router.push({path: '/search'})
         }
     },
 }

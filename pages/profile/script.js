@@ -1,20 +1,53 @@
+import MainService from './../../utils/services/MainService'
+import ProfileInfo from './components/profile-info'
+import OrderHistory from './components/order-history'
+import Address from './components/address'
+import Unauthorize from './../../components/unauthorized'
+import { mapState } from 'vuex'
+
 export default {
     name: "profile",
     data() {
         return {
-            
+            isAuthenticated: false,
+            tabActive: "profile"
         }
     },
     components: {
-
+        OrderHistory,
+        ProfileInfo,
+        Address,
+        Unauthorize,
     },
     created() {
-
+        if(process.client)
+        this.checkAuthentication()
     },
     mounted() {
 
     },
+    computed: {
+        ...mapState([
+            'MainStore'
+        ])
+    },
     methods: {
-        
+        checkAuthentication() {
+            let isAuthenticated = this.$cookies.get("token")
+            if (isAuthenticated) {
+                this.isAuthenticated = true
+            } else {
+                this.switchAuthDialog('login')
+            }
+        },
+
+        switchAuthDialog(type) {
+            this.$store.commit("SHOW_LOGIN_DIALOG", type);
+        },
+
+        onLogout() {
+            MainService.logout()
+        },
+
     },
 }

@@ -2,71 +2,47 @@
 	<div class="row p50">
 		<div class="col-3">
 			<table class="row border">
-				<tr class="row border-bottom">
+				<tr @click="tabActive = 'profile'" class="row border-bottom pointer">
 					<td>
-						<i class="fa fa-user"></i>
-						<span>MY PROFILE</span>
+						<img :src="require('~/assets/images/icons/account.png')" class="h20 go-left mr12"/>
+						<span class="go-left">MY PROFILE</span>
 					</td>
 				</tr>
-				<tr class="row border-bottom">
+				<tr @click="tabActive = 'order'" class="row border-bottom pointer">
 					<td>
-						<i class="fa fa-user"></i>
-						<span>MY ORDER</span>
+						<img :src="require('~/assets/images/icons/shopping-bag.png')" class="h20 go-left mr12"/>
+						<span class="go-left">MY ORDER</span>
 					</td>
 				</tr>
-				<tr class="row border-bottom">
+				<tr @click="tabActive = 'address'" class="row border-bottom pointer">
 					<td>
-						<i class="fa fa-user"></i>
-						<span>MY ADDRESS</span>
+						<img :src="require('~/assets/images/icons/location.png')" class="h20 go-left mr12"/>
+						<span class="go-left">MY ADDRESS</span>
 					</td>
 				</tr>
-				<tr class="row">
+				<tr @click="onLogout" class="row pointer">
 					<td>
-						<i class="fa fa-user"></i>
-						<span>LOGOUT</span>
+						<img :src="require('~/assets/images/icons/logout.png')" class="h20 go-left mr12"/>
+						<span class="go-left">LOGOUT</span>
 					</td>
 				</tr>
 			</table>
 		</div>
 		<div class="col-9 pl50">
-			<div class="row bg-secondary p24">
-				<div class="row mb6">
-					<div class="col-6 ph12">
-						<p class="mb6">First name <span class="txt-danger">*</span></p>
-						<input type="text" class="input" />
-					</div>
-					<div class="col-6 ph12">
-						<p class="mb6">Last name <span class="txt-danger">*</span></p>
-						<input type="text" class="input" />
-					</div>
+			<div v-if="isAuthenticated" class="row">
+				<div v-if="tabActive == 'profile'" class="row">
+					<ProfileInfo></ProfileInfo>
 				</div>
-				<div class="row mb6">
-					<div class="col-6 ph12">
-						<p class="mb6">Display name <span class="txt-danger">*</span></p>
-						<input type="text" class="input" />
-					</div>
-					<div class="col-6 ph12">
-						<p class="mb6">Email address <span class="txt-danger">*</span></p>
-						<input type="email" class="input" />
-					</div>
+	
+				<div v-if="tabActive == 'order'" class="row">
+					<OrderHistory></OrderHistory>
 				</div>
-			
-				<p class="font20 ph12 mt24"><b>Password Change</b></p>
-				<div class="row mb6">
-					<div class="col-6 ph12">
-						<p class="mb6">New password</p>
-						<input type="password" class="input" />
-					</div>
-					<div class="col-6 ph12">
-						<p class="mb6">Confirm password</p>
-						<input type="password" class="input" />
-					</div>
+	
+				<div v-if="tabActive == 'address'" class="row">
+					<Address></Address>
 				</div>
-				<div class="row p12">
-					<div class="btn-checkout go-right">SAVE CHANGE</div>
-				</div>
-				
 			</div>
+			<Unauthorize v-else></Unauthorize>
 		</div>
 	</div>
 </section>

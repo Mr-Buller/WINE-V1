@@ -1,11 +1,13 @@
 import CartSidebar from './../cart-sidebar'
+import { mapState } from 'vuex'
 
 export default {
     name: "the-header",
     data() {
         return {
             isCartSidebar: false,
-            isBoxSearch: false
+            isBoxSearch: false,
+            keySearch: ""
         }
     },
     components: {
@@ -17,13 +19,21 @@ export default {
     mounted() {
 
     },
+    computed: {
+        ...mapState([
+            'MainStore'
+        ])
+    },
     methods: {
-        hideCartSidebar(bool){
+        hideCartSidebar(bool) {
             this.isCartSidebar = bool
         },
-        onSearch(){
+        onSearch() {
             this.isBoxSearch = false
-            $nuxt.$router.push({path: '/search'})
-        }
+            $nuxt.$router.push({ path: '/search?search='+this.keySearch })
+        },
+        switchAuthDialog(type) {
+            this.$store.commit("SHOW_LOGIN_DIALOG", type);
+        },
     },
 }

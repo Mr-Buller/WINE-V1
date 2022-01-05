@@ -1,11 +1,12 @@
+import Helper from './../../../../utils/Helper'
 export default {
     name: "home-featured-product",
-    props:{
+    props: {
         products: Array,
     },
     data() {
         return {
-            
+
         }
     },
     components: {
@@ -18,13 +19,17 @@ export default {
 
     },
     methods: {
-        getFullPath(path){
-            return process.env.BASE_URL+path
+        getFullPath(path) {
+            return process.env.BASE_URL + path
         },
 
-        getDiscount(price,discount){
+        getDiscount(price, discount) {
             var totalValue = price - (price * (discount / 100))
-            return totalValue.toFixed(2)
+            return this.formatPrice(totalValue)
+        },
+
+        formatPrice(price){
+            return Helper.formatPrice(price)
         }
     },
 }

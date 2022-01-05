@@ -1,14 +1,14 @@
 import axios from 'axios'
-import Service from './MainService'
+import MainService from './MainService'
 import ApiContant from './../constants/ApiContants'
 
 const HomeService = {}
 
 HomeService.getHomepage = async function (){
     return await axios.get(ApiContant.homepage,
-        Service.headers())
+        MainService.headerWithoutToken())
     .then((response) => {
-        return Service.validateError(response);
+        return MainService.validateError(response);
     }).catch(function (error) {
         return error.response.data;
     })

@@ -1,11 +1,8 @@
 export default {
-    name: "related-product",
-    props:{
-        categories: Array
-    },
+    name: "loading",
     data() {
         return {
-            
+
         }
     },
     components: {
@@ -18,6 +15,6 @@ export default {
 
     },
     methods: {
-
+        
     },
 }

@@ -11,8 +11,8 @@
 				</div>
 				<div class="row txt-center mt12">
 					<p class="txt-dark mb6">{{product.name}}</p>
-					<p v-if="product.discount == 0" class="txt-primary font16">${{product.price}}</p>
-					<p v-else class="font16"><del class="txt-dark-light mr6">${{product.price}}</del> <span class="txt-primary">${{getDiscount(product.price,product.discount)}}</span></p>
+					<p v-if="product.discount == 0" class="txt-primary font16">{{formatPrice(product.price)}}</p>
+					<p v-else class="font16"><del class="txt-dark-light mr6">{{formatPrice(product.price)}}</del> <span class="txt-primary">{{getDiscount(product.price,product.discount)}}</span></p>
 				</div>
 			</nuxt-link>
 		</div>

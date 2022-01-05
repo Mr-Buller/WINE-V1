@@ -5,6 +5,7 @@ import Category from './components/category'
 import FeaturedProduct from './components/featured-product'
 import TopSeller from './components/top-seller'
 import Brand from './components/brand'
+import Loading from './../../components/loading'
 
 export default {
     name: "home",
@@ -22,6 +23,7 @@ export default {
     },
     data() {
         return {
+            isFetching: true,
             slide: {
                 vfOptions: {
                     autoplay: true
@@ -30,12 +32,6 @@ export default {
                 vfTransitions: ['fade', 'swipe', 'slide', 'blinds2d', 'book', 'fall', 'blinds3d',],
                 vfCaptions: [],
             },
-            categories: [
-                { image: "https://wpbingosite.com/wordpress/kowine/wp-content/webp-express/webp-images/uploads/2021/06/banner39.jpg.webp", name: "RED WINE" },
-                { image: "https://wpbingosite.com/wordpress/kowine/wp-content/webp-express/webp-images/uploads/2021/06/banner40.jpg.webp", name: "WHITE WINE" },
-                { image: "https://wpbingosite.com/wordpress/kowine/wp-content/webp-express/webp-images/uploads/2021/06/banner41.jpg.webp", name: "CHAMPAGNE" },
-                { image: "https://wpbingosite.com/wordpress/kowine/wp-content/webp-express/webp-images/uploads/2021/06/banner42.jpg.webp", name: "ROSE WINE" }
-            ],
             data: {
                 home: "",
                 categories: []
@@ -47,7 +43,8 @@ export default {
         Category,
         FeaturedProduct,
         TopSeller,
-        Brand
+        Brand,
+        Loading
     },
     created() {
 
@@ -59,6 +56,7 @@ export default {
     methods: {
         getHomePage() {
             HomeService.getHomepage().then((response) => {
+                this.isFetching = false
                 if (response.response && response.response.status == 200) {
                     this.data.home = response.results
                     for (let i = 0; i < response.results.slides.length; i++) {

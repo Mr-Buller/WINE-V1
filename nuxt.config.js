@@ -74,7 +74,8 @@ export default {
   */
   modules: [
     "@nuxtjs/axios",
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    "@nuxtjs/auth-next"
   ],
   /*
   ** Build configuration

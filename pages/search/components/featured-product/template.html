@@ -1,32 +1,22 @@
 <div class="row">
-	<div class="row ph12 mb12">
-		<span>Showing 1–12 of 29 item(s)</span>
-		<div style="border: 1px solid #000;padding: 5px 12px;float: right;cursor: pointer;">
-			<select style="max-width: 146px;border:none;background:#fff;outline: none;font-size: 16px;padding-right: 6px;cursor: pointer;">
-				<option>Default Shorting</option>
-				<option>Relevance</option>
-				<option>Sort By Popularity</option>
-				<option>Sort By Average Rating</option>
-				<option>Sort By Latest</option>
-				<option>Sort By Price: Low To High</option>
-				<option>Sort By Price: Low To Low</option>
-			</select>
-		</div>
-	</div>
-	<div class="row">
-		<div v-for="i in 21" class="col-4 p12">
-			<div class="row border">
+	<div v-for="(product,productIndex) in products" :key="(product,productIndex)" class="col-4 p12">
+		<div class="row border">
+			<nuxt-link :to="'/product/'+product.id">
 				<div class="box-square">
-					<img src="https://wpbingosite.com/wordpress/kowine/wp-content/webp-express/webp-images/uploads/2021/05/Product27-450x450.jpg.webp" 
+					<img :src="getFullPath(product.thumbnail)"  
 					class="item-img" />
-					<div class="tag-discount">-10%</div>
-					<div class="tag-type">Hot</div>
+					<div v-if="product.discount > 0" class="tag-discount">-{{product.discount}}%</div>
+					<div class="tag-type">{{product.brand.name}}</div>
 				</div>
 				<div class="row txt-center mt12">
-					<p class="mb6">In Hac Habitasse Platea Dictumst Tempor vet</p>
-					<p class="txt-primary font16">$100.00</p>
+					<p class="txt-ellipsis txt-dark mb6 ph12" :title="product.name">{{product.name}}</p>
+					<p v-if="product.discount == 0" class="txt-primary font16">${{product.price.toFixed(2)}}</p>
+					<p v-else class="font16">
+						<del v-if="product.price" class="txt-dark-light mr6">${{product.price.toFixed(2)}}</del>
+						<span class="txt-primary">${{getDiscount(product.price,product.discount)}}</span>
+					</p>
 				</div>
-			</div>
+			</nuxt-link>
 		</div>
 	</div>
 </div>

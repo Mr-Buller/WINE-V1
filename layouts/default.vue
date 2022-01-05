@@ -2,30 +2,36 @@
   <div>
     <Header></Header>
     <nuxt />
+
+    <Login></Login>
+    <Register></Register>
   </div>
 </template>
 
 <script>
-import HomeService from "./../utils/services/HomeService";
 import Header from "./../components/the-header";
+import Login from "./../components/auth/login";
+import Register from "./../components/auth/register";
+import { mapState } from "vuex";
 
 export default {
-  components: {
-    Header
-  },
   created() {
-    this.googleAnaltic();
-    // this.getBanner();
+    // this.googleAnaltic();
+    if(process.client)
+    this.getToken();
+  },
+  components: {
+    Header,
+    Login,
+    Register
+  },
+  computed: {
+    ...mapState(["MainStore"])
   },
   methods: {
-    getBanner() {
-      HomeService.getBanner().then(response => {
-        if (response.status === 1) {
-          console.log("banner", response);
-          // this.$store.dispatch("storeBanners", response.data.records);
-          this.$store.commit("BANNERS", response.data.records);
-        }
-      });
+    getToken() {
+      let token = this.$cookies.get('token')
+      this.$store.commit("STORE_TOKEN", token);
     },
 
     googleAnaltic() {
@@ -124,6 +130,37 @@ export default {
   max-height: 80vh !important;
   background-size: cover !important;
   background-position: center !important;
+}
+
+.auth-container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+}
+.auth-bg {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+.block-auth {
+  width: 520px;
+  background: #fff;
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-top: 3px solid #bfa483;
+  padding: 24px;
+}
+.w-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  outline: none;
+  font-size: 16px;
 }
 
 @media screen and (max-width: 991px) {

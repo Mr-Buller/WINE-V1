@@ -1,6 +1,7 @@
 import Vuex from "vuex";
 import Vue from "vue";
 import Banner from "./modules/banner";
+import MainStore from "./modules/mainStore"
 
 Vue.use(Vuex)
 Vue.config.devtools = true
@@ -11,6 +12,7 @@ const store = () => {
 
         },
         modules: {
+          MainStore,
           Banner
         }
     })

@@ -1,5 +1,6 @@
 import ProductService from './../../utils/services/ProductService'
 import RelatedProduct from './components/related-product'
+import Loading from './../../components/loading'
 
 export default {
     name: "product-detail",
@@ -17,33 +18,153 @@ export default {
     },
     data() {
         return {
-            data:{
-                product: ""
+            isFetching: true,
+            isFetchingProductRelated: true,
+            data: {
+                product: "",
+                productRelated: []
+            },
+            body: {
+                qty: 1,
+                options: []
             }
         }
     },
     components: {
-        RelatedProduct
+        RelatedProduct,
+        Loading
     },
     created() {
+        if(process.client)
         this.getProductDetail()
     },
     mounted() {
 
     },
+    watch: {
+        "$route.fullPath": function () {
+            this.getProductDetail()
+        }
+    },
     methods: {
         getProductDetail() {
+            this.isFetching = true
             let productId = this.$route.params.id
             ProductService.getProductDetail(productId).then((response) => {
+                this.isFetching = false
                 if (response.response && response.response.status == 200) {
                     this.data.product = response.results
+                    this.getProductByCategory(response.results.category.id)
                 }
             }).catch(err => { console.log(err) })
         },
 
-        getDiscount(price,discount){
+        getProductByCategory(categoryId){
+            this.isFetchingProductRelated = true
+            let params = "?page=0&size=8&orderBy=DEFAULT&categoryId="+categoryId
+            ProductService.searchProduct(params).then((response) => {
+                this.isFetchingProductRelated = false
+                if (response.response && response.response.status == 200) {
+                    this.data.productRelated = response.results
+                }
+            }).catch(err => { console.log(err) })
+        },
+
+        selectProductOption(optionIndex,optionValueIndex){
+            let resultMessage = this.removeOptionSelect(optionIndex,optionValueIndex)
+            if(resultMessage == "OK"){
+                let option = this.data.product.productOption[optionIndex]
+
+                // Reset Option was selected to false
+                for(let i=0; i<option.productOptionValue.length; i++){
+                    let optionValue = option.productOptionValue[i]
+                    optionValue.isSelected = false
+                }
+
+                // Set Option was selected to true
+                option.productOptionValue[optionValueIndex].isSelected = true
+
+                // Update Option Value state
+                this.$set(option.productOptionValue, optionValueIndex, option.productOptionValue[optionValueIndex])
+            }else{
+                this.$toast.info(resultMessage)
+            }
+        },
+
+        removeOptionSelect(optionIndex,optionValueIndex){
+            let option = this.data.product.productOption[optionIndex]
+            if(option.productOptionValue[optionValueIndex].isSelected){
+                return "This option value already selected."
+            }else{
+                return "OK"
+            }
+        },
+
+        addToCart(){
+            let options = this.getVariantCombination()
+            if(options){
+                let products = []
+                let productInCart = this.$auth.$storage.getLocalStorage('productInCart')
+                let obj = {
+                    id: this.data.product.id,
+                    thumbnail: this.data.product.thumbnail,
+                    name: this.data.product.name,
+                    qty: this.body.qty,
+                    price: this.data.product.price,
+                    variant: options.join(", ")
+                }
+                if(productInCart){
+                    products = productInCart
+                    products.push(obj);
+                    products = this.getUniqueArray(products)
+                    console.log("products ", products)
+                    this.$auth.$storage.setLocalStorage('productInCart', products)
+                }else{
+                    products.push(obj)
+                    this.$auth.$storage.setLocalStorage('productInCart', products)
+                }
+                this.$toast.info("Product was added to cart.")
+            }else{
+                this.$toast.error("All options are required.")
+            }
+        },
+
+        getVariantCombination(){
+            let combination = []
+            for(let i=0; i<this.data.product.productOption.length; i++){
+                let option = this.data.product.productOption[i]
+                for(let v=0; v<option.productOptionValue.length>0; v++){
+                    let optionValue = option.productOptionValue[v]
+                    if(optionValue.isSelected){
+                        combination.push(optionValue.optionValue)
+                    }
+                }
+            }
+            if(combination.length == this.data.product.productOption.length){
+                return combination
+            }
+            return
+        },
+
+        adjustQuantity(value){
+            let qty = parseInt(this.body.qty)+value
+            this.body.qty = (qty > 0) ? qty : 1
+        },
+
+        getUniqueArray(array){
+            let uniqueArray = array.filter((c, index) => {
+                return array.indexOf(c) === index;
+            });
+            return uniqueArray
+        },
+
+        getDiscount(price, discount) {
             var totalValue = price - (price * (discount / 100))
             return totalValue.toFixed(2)
+        },
+
+        getFullPath(path) {
+            return process.env.BASE_URL + path
         }
     },
 }

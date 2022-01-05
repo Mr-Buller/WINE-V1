@@ -17,3 +17,8 @@
     padding:2px 6px;
     font-size:14px;
 }
+.txt-ellipsis{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

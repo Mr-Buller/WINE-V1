@@ -11,6 +11,7 @@
     "heroku-postbuild": "npm run build"
   },
   "dependencies": {
+    "@nuxtjs/auth-next": "5.0.0-1640716105.da0587d",
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/dotenv": "^1.4.1",
     "nuxt": "^2.15.8",
@@ -18,7 +19,8 @@
     "vue-flux": "^6.4.0",
     "vue-gtag": "^1.16.1",
     "vue-moment": "^4.1.0",
-    "vue-social-sharing": "^3.0.8"
+    "vue-social-sharing": "^3.0.8",
+    "vue-toastification": "^1.7.14"
   },
   "devDependencies": {}
 }

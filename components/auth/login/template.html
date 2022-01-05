@@ -1,0 +1,20 @@
+<div v-if="MainStore.showLoginDialog == 'login'" class="auth-container">
+	<div @click="switchAuthDialog('')" class="auth-bg"></div>
+	<div class="block-auth">
+		<div class="row">
+			<span class="font24">Sign in</span>
+			<span @click="switchAuthDialog('register')" class="font20 go-right txt-primary pointer">Create An Account</span>
+		</div>
+		<div class="row mv24">
+			<p class="txt-dark-light">Email <span class="txt-danger">*</span></p>
+			<input v-model="body.email" type="text" placeholder="Your email" class="w-input" />
+			<p class="txt-dark-light mt24">Password <span class="txt-danger">*</span></p>
+			<input v-model="body.password" type="password" placeholder="Password" class="w-input" />
+			<div class="row txt-right mt12">
+				<span>Forgot password</span>
+			</div>
+			<div v-if="!isLogging" @click="loginCustomer" class="btn-default mt24">LOGIN</div>
+			<div v-else class="btn-default mt24">LOADING...</div>
+		</div>
+	</div>
+</div>

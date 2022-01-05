@@ -1,59 +1,82 @@
 <section>
 	<div class="row p50">
 		<p class="font30">SHOPPING CART</p>
-		<div class="col-8">
-			<table style="width: 100%;border: 1px solid #ddd;">
-				<thead>
-					<th>Product</th>
-					<th>Price</th>
-					<th>Quantity</th>
-					<th>Subtotal</th>
-				</thead>
-				<thead>
-					<tr v-for="k in 5" class="border">
-						<td>
-							<img src="https://wpbingosite.com/wordpress/kowine/wp-content/webp-express/webp-images/uploads/2018/10/Wine-01-01-450x450.jpg.webp"
-							style="width: 72px;height:72px;object-fit: cover;" />
-							<span class="ml12">In hac habitasse platea dictumst tempor vet</span>
-						</td>
-						<td>$1000.00</td>
-						<td>
-							<div style="width: 120px;padding: 0 32px;border:1px solid #ddd;position: relative;">
-								<i class="fa fa-plus" style="position: absolute;top:50%;left:10px;transform: translateY(-50%);cursor: pointer;"></i>
-								<i class="fa fa-minus" style="position: absolute;top:50%;right:10px;transform: translateY(-50%);cursor: pointer;"></i>
-								<input type="text" value="1" style="width: 100%;height: 36px;font-size: 16px;border: none;text-align: center;outline: none;" />
-							</div>
-						</td>
-						<td>$1000.00</td>
-						<td><i class="fa fa-times-circle pointer"></i></td>
-					</tr>
-				</thead>
-			</table>
-		</div>
-		<div class="col-4 pl50">
-			<div class="row" style="background: #ddd;padding: 14px;">
-				<span>CART TOTALS</span>
+		<div v-if="isAuthenticated" class="col-12">
+			<div class="col-8">
+				<table style="width: 100%;border: 1px solid #ddd;">
+					<thead>
+						<th>Thumbnail</th>
+						<th>Product</th>
+						<th>Price</th>
+						<th>Quantity</th>
+						<th>Subtotal</th>
+					</thead>
+					<thead>
+						<tr v-for="(product,productIndex) in data.products" :key="(product,productIndex)" class="border">
+							<td>
+								<img :src="getFullPath(product.thumbnail)"
+								style="width: 72px;height:72px;object-fit: cover;" />
+							</td>
+							<td>
+								<p class="txt-primary mb6">{{product.name}}</p>
+								<span>Variant :</span> <span class="txt-dark-light">{{product.variant}}</span>
+							</td>
+							<td>${{product.price}}</td>
+							<td>
+								<div style="width: 120px;padding: 0 32px;border:1px solid #ddd;position: relative;">
+									<i @click="increaseQty(productIndex)" class="fa fa-plus" style="position: absolute;top:50%;left:10px;transform: translateY(-50%);cursor: pointer;"></i>
+									<i @click="decreaseQty(productIndex)" class="fa fa-minus" style="position: absolute;top:50%;right:10px;transform: translateY(-50%);cursor: pointer;"></i>
+									<input v-model="product.qty" type="text" value="1" disabled="true" style="width: 100%;height: 36px;font-size: 16px;border: none;text-align: center;outline: none;" />
+								</div>
+							</td>
+							<td>${{getSubtotalPrice(product)}}</td>
+							<td @click="removeProductFromCart(productIndex)"><i class="fa fa-times-circle pointer"></i></td>
+						</tr>
+					</thead>
+				</table>
+				<div v-if="data.products && data.products.length == 0" class="row pv50 txt-center">
+					No Data
+				</div>
 			</div>
-			<table style="background: #f2f2f2;">
-				<tbody>
-					<tr>
-						<td width="30%">Subtotal</td>
-						<td>$700.00</td>
-					</tr>
-					<tr>
-						<td>Shipping </td>
-						<td><span class="txt-dark-light">Shipping to</span> <b>Phnom Penh, Mean Chey/Phnom Penh, 1350, Cambodia</b></td>
-					</tr>
-					<tr>
-						<td>Total</td>
-						<td class="font24">$700.00</td>
-					</tr>
-				</tbody>
-			</table>
-
-			<div class="row p16" style="background: #f2f2f2;border-top: 1px solid #ddd;">
-				<div class="btn-checkout">PROCEED TO CHECKOUT</div>
+			<div class="col-4 pl50">
+				<div class="row" style="background: #ddd;padding: 14px;">
+					<span>CART TOTALS</span>
+				</div>
+				<table style="background: #f2f2f2;">
+					<tbody>
+						<tr hidden>
+							<td width="30%">Subtotal</td>
+							<td>$700.00</td>
+						</tr>
+						<tr>
+							<td>Shipping </td>
+							<td>
+								<p class="txt-dark-light">Shipping to</p>
+								<select v-model="body.customerAddressId" class="input">
+									<option v-for="(address,addressIndex) in data.addresses" 
+										:key="(address,addressIndex)"
+										:value="address.id">
+										{{address.address}}
+									</option>
+								</select>
+							</td>
+						</tr>
+						<tr v-if="data.products && data.products.length > 0">
+							<td>Total</td>
+							<td class="font24">${{getTotalPrice()}}</td>
+						</tr>
+					</tbody>
+				</table>
+	
+				<div v-if="!isCreateing" class="row p16" style="background: #f2f2f2;border-top: 1px solid #ddd;">
+					<div v-if="data.products && data.products.length > 0" @click="createOrder" class="btn-checkout">PROCEED TO CHECKOUT</div>
+					<div v-else class="btn-checkout btn-disabled">PROCEED TO CHECKOUT</div>
+				</div>
+				<div v-if="isCreateing" class="row p16" style="background: #f2f2f2;border-top: 1px solid #ddd;">
+					<div class="btn-checkout">LOADING...</div>
+				</div>
 			</div>
 		</div>
+		<Unauthorize v-else></Unauthorize>
 	</div>
 </section>

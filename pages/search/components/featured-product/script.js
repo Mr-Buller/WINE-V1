@@ -1,7 +1,7 @@
 export default {
     name: "search",
     props:{
-        categories: Array
+        products: Array
     },
     data() {
         return {
@@ -18,6 +18,13 @@ export default {
 
     },
     methods: {
+        getFullPath(path){
+            return process.env.BASE_URL+path
+        },
 
+        getDiscount(price,discount){
+            var totalValue = price - (price * (discount / 100))
+            return totalValue.toFixed(2)
+        }
     },
 }

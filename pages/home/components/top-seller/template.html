@@ -1,17 +1,20 @@
 <section class="row pt60">
 	<p class="font24 txt-center">TOP <span class="txt-primary">SELLERS</span></p>
 	<div class="row mt12">
-		<div v-for="i in 8" class="col-3 p12">
-			<div class="box-square border">
-				<img src="https://wpbingosite.com/wordpress/kowine/wp-content/webp-express/webp-images/uploads/2021/05/Product27-450x450.jpg.webp"
-				class="item-img" />
-				<div class="tag-discount">-10%</div>
-				<div class="tag-type">Hot</div>
-			</div>
-			<div class="row txt-center mt12">
-				<p class="mb6 ph24">In Hac Habitasse Platea Dictumst Tempor vet</p>
-				<p class="txt-primary font16">$100.00</p>
-			</div>
+		<div v-for="(product, productIndex) in products" :key="(product, productIndex)" class="col-3 p12">
+			<nuxt-link :to="'/product/'+product.id">
+				<div class="box-square border">
+					<img :src="getFullPath(product.thumbnail)" 
+						class="item-img" />
+					<div class="tag-discount">-{{product.discount}}%</div>
+					<div class="tag-type">{{product.brand.name}}</div>
+				</div>
+				<div class="row txt-center mt12">
+					<p class="txt-dark mb6 ph24">{{product.name}}</p>
+					<p v-if="product.discount == 0" class="txt-primary font16">{{formatPrice(product.price)}}</p>
+					<p v-else class="font16"><del class="txt-dark-light mr6">{{formatPrice(product.price)}}</del> <span class="txt-primary">${{getDiscount(product.price,product.discount)}}</span></p>
+				</div>
+			</nuxt-link>
 		</div>
 	</div>
 </section>

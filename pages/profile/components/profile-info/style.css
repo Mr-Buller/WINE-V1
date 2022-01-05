@@ -1,0 +1,10 @@
+.btn-checkout{
+    padding: 12px 24px;
+    background: #000;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+}
+.btn-checkout:hover{
+    background: var(--primary);
+}

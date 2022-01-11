@@ -34,7 +34,7 @@
 			</tr>
 			<tr>
 				<td>
-					<p>Ordered At : <span class="txt-dark-light">{{order.created | moment("MMM-DD-YYYY")}}</span></p>
+					<p>Ordered Ref : <span class="txt-dark-light">{{order.created | moment("MMM-DD-YYYY")}}</span></p>
 					<span>Status : </span><span v-if="order.orderState == 'PENDING'"
 						class="txt-warning">{{order.orderState}}</span>
 				</td>

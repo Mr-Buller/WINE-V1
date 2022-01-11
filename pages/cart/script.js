@@ -1,5 +1,5 @@
 import CustomerService from "../../utils/services/CustomerService"
-import Unauthorize from './../../components/unauthorized'
+import AddressService from "./../../utils/services/AddressService"
 import Helper from './../../utils/Helper'
 import { mapState } from 'vuex'
 
@@ -7,26 +7,29 @@ export default {
     name: "cart",
     data() {
         return {
-            isAuthenticated : false,
             isFetching: true,
             isCreateing: false,
             data:{
                 products: [],
-                addresses: []
+                addresses: [],
+                provinces: []
             },
             body:{
+                provinceId: "",
                 customerAddressId: ""
             }
         }
     },
     components: {
-        Unauthorize,
+
     },
     created() {
-        
+        if(process.client)
+        this.getProductInCart()
     },
     mounted() {
-        this.checkAuthentication()
+        
+        // this.getAddress()
     },
     computed: {
         ...mapState([
@@ -34,22 +37,15 @@ export default {
         ])
     },
     methods: {
-        checkAuthentication() {
-            let isAuthenticated = this.$cookies.get("token")
-            if (isAuthenticated) {
-                this.isAuthenticated = true
-                this.getProductInCart()
-                this.getAddress()
-            } else {
-                this.switchAuthDialog('login')
-            }
-        },
 
         switchAuthDialog(type) {
             this.$store.commit("SHOW_LOGIN_DIALOG", type);
         },
 
         getProductInCart() {
+            let token = this.$cookies.get('token')
+            token ? this.getAddress() : this.getProvince()
+
             let products = this.$auth.$storage.getLocalStorage('productInCart')
             if(products){
                 this.data.products = products
@@ -63,6 +59,17 @@ export default {
                     this.data.addresses = addresses
                     if(addresses && addresses.length > 0){
                         this.body.customerAddressId = addresses[0].id
+                    }
+                }
+            }).catch(err => { console.log(err) })
+        },
+
+        getProvince() {
+            AddressService.getProvice().then((response) => {
+                if (response.response && response.response.status == 200) {
+                    this.data.provinces = response.results
+                    if (this.data.provinces.length > 0) {
+                        this.body.provinceId = this.data.provinces[0].id
                     }
                 }
             }).catch(err => { console.log(err) })

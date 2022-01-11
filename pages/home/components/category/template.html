@@ -3,7 +3,10 @@
 	<div class="row ph9 mt12">
 		<div v-for="(category,categoryIndex) in categories" :key="(category,categoryIndex)" class="col-3 p3">
 			<nuxt-link :to="'/search?categoryId='+category.id">
-				<img :src="images[categoryIndex].image" />
+				<div class="box-square">
+					<img :src="getFullPath(category.image)" 
+					class="item-img" />
+				</div>
 				<div class="btn-category txt-dark">{{category.name}}</div>
 			</nuxt-link>
 		</div>

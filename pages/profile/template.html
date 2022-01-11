@@ -1,0 +1,48 @@
+<section>
+	<div class="row p50">
+		<div class="col-3">
+			<table class="row border">
+				<tr @click="tabActive = 'profile'" class="row border-bottom pointer">
+					<td>
+						<img :src="require('~/assets/images/icons/account.png')" class="h20 go-left mr12"/>
+						<span class="go-left">MY PROFILE</span>
+					</td>
+				</tr>
+				<tr @click="tabActive = 'order'" class="row border-bottom pointer">
+					<td>
+						<img :src="require('~/assets/images/icons/shopping-bag.png')" class="h20 go-left mr12"/>
+						<span class="go-left">MY ORDER</span>
+					</td>
+				</tr>
+				<tr @click="tabActive = 'address'" class="row border-bottom pointer">
+					<td>
+						<img :src="require('~/assets/images/icons/location.png')" class="h20 go-left mr12"/>
+						<span class="go-left">MY ADDRESS</span>
+					</td>
+				</tr>
+				<tr @click="onLogout" class="row pointer">
+					<td>
+						<img :src="require('~/assets/images/icons/logout.png')" class="h20 go-left mr12"/>
+						<span class="go-left">LOGOUT</span>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="col-9 pl50">
+			<div v-if="isAuthenticated" class="row">
+				<div v-if="tabActive == 'profile'" class="row">
+					<ProfileInfo></ProfileInfo>
+				</div>
+	
+				<div v-if="tabActive == 'order'" class="row">
+					<OrderHistory></OrderHistory>
+				</div>
+	
+				<div v-if="tabActive == 'address'" class="row">
+					<Address></Address>
+				</div>
+			</div>
+			<Unauthorize v-else></Unauthorize>
+		</div>
+	</div>
+</section>

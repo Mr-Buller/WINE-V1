@@ -2,6 +2,7 @@
     width: 100%;
     display: inline-block;
     padding: 0 12px;
+    position: relative;
 }
 .flux-arrow-left{
     width: 42px;
@@ -10,7 +11,8 @@
     border: 1px solid var(--white);
     position: absolute;
     top:50%;
-    left:24px;
+    left:36px;
+    transform: translateY(-50%);
     z-index: 999;
     cursor: pointer;
 }
@@ -28,7 +30,8 @@
     border: 1px solid var(--white);
     position: absolute;
     top:50%;
-    right:24px;
+    right:36px;
+    transform: translateY(-50%);
     z-index: 999;
     cursor: pointer;
 }

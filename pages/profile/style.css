@@ -1,0 +1,9 @@
+table th {
+    padding: 12px;
+}
+table tr td {
+    padding: 12px;
+}
+.btn-checkout:hover{
+    background: var(--primary);
+}

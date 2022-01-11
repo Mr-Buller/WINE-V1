@@ -1,66 +1,41 @@
 <template>
   <div>
-    <Header></Header>
+    <client-only>
+      <Header></Header>
+    </client-only>
+    
     <nuxt />
-    <div
-      style="width:100%;height:100vh;background:rgba(0,0,0,.5);position:fixed;top:0;left:0;z-index:9999"
-    >
-      <div style="width:350px;height:100vh;position:fixed;top:0;right:0;background:#fff;overflow-y:auto">
-        <div class="row p12" style="border-bottom:1px solid #ddd;">
-          <b>SHOPPING CART</b>
-          <i class="fa fa-times go-right mt3 pointer"></i>
-        </div>
-        <div class="row">
-          <div
-            v-for="k in 10"
-            :key="k"
-            style="width:100%;display:inline-block;padding-left:72px;border-bottom:1px solid #ddd;position:relative;"
-          >
-            <img
-              src="https://www.s-liquor.com.kh/wp-content/uploads/2021/02/Poliakov-Lemon-700ml-01-300x300.png"
-              style="width:60px;height:60px;object-fit:cover;position:absolute;top:12px;left:12px;"
-            />
-            <div class="row p12">
-              <p class="mb3">Poliakov Lemon 700ml</p>
-              <p class="font14 txt-primary mb6">Qty : 12</p>
-              <p class="txt-danger mb0">
-                <b>$109.75</b>
-                <span class="font12 txt-danger pointer go-right">Remove</span>
-              </p>
-            </div>
-          </div>
-          <div class="row p12 mt24">
-            <p>Subtotal : <span class="txt-danger">$329.25</span></p>
-            <div class="bg-primary" style="width:100%;padding:10px;color:#fff;text-align:center;cursor:pointer;">CHECKOUT</div>
-            <div class="bg-secondary mt12" style="width:100%;padding:10px;text-align:center;cursor:pointer;">VIEW CART</div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <client-only>
+      <Login></Login>
+      <Register></Register>
+    </client-only>
   </div>
 </template>
 
 <script>
-import HomeService from "./../utils/services/home";
 import Header from "./../components/the-header";
+import Login from "./../components/auth/login";
+import Register from "./../components/auth/register";
+import { mapState } from "vuex";
 
 export default {
-  components: {
-    Header
-  },
   created() {
-    this.googleAnaltic();
-    this.getBanner();
+    // this.googleAnaltic();
+    if(process.client)
+    this.getToken();
+  },
+  components: {
+    Header,
+    Login,
+    Register
+  },
+  computed: {
+    ...mapState(["MainStore"])
   },
   methods: {
-    getBanner() {
-      HomeService.getBanner().then(response => {
-        if (response.status === 1) {
-          console.log("banner", response);
-          // this.$store.dispatch("storeBanners", response.data.records);
-          this.$store.commit("BANNERS", response.data.records);
-        }
-      });
+    getToken() {
+      let token = this.$cookies.get('token')
+      this.$store.commit("STORE_TOKEN", token);
     },
 
     googleAnaltic() {
@@ -159,6 +134,37 @@ export default {
   max-height: 80vh !important;
   background-size: cover !important;
   background-position: center !important;
+}
+
+.auth-container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+}
+.auth-bg {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+.block-auth {
+  width: 520px;
+  background: #fff;
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-top: 3px solid #bfa483;
+  padding: 24px;
+}
+.w-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  outline: none;
+  font-size: 16px;
 }
 
 @media screen and (max-width: 991px) {

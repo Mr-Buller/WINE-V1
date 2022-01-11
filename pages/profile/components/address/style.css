@@ -1,0 +1,13 @@
+.btn-checkout{
+    padding: 12px 24px;
+    background: #000;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+}
+table th {
+    padding: 12px;
+}
+table tr td {
+    padding: 12px;
+}

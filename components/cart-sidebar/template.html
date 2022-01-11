@@ -1,0 +1,28 @@
+<section class="sidebar-container">
+	<div @click="hideCartSidebar" class="sidebar-overlay"></div>
+	<div class="box-sidebar">
+		<div class="row p12 border-bottom">
+			<b>SHOPPING CART</b>
+			<i @click="hideCartSidebar" class="fa fa-times go-right mt3 pointer"></i>
+		</div>
+		<div class="row">
+			<div v-for="(product,productIndex) in data.products" :key="(product,productIndex)" class="product-item">
+				<img :src="getFullPath(product.thumbnail)" class="item-thumb" />
+				<div class="row p12">
+					<p class="mb3">{{product.name}}</p>
+					<p class="font14 txt-primary mb6">Qty : {{product.qty}}</p>
+					<p class="txt-danger mb0">
+						<b>${{product.price}}</b>
+						<span @click="removeProductFromCart(productIndex)"
+							class="font12 txt-danger pointer go-right">Remove</span>
+					</p>
+				</div>
+			</div>
+			<div class="row p12 mt24">
+				<p>Subtotal : <span class="txt-danger">${{getTotalPrice()}}</span></p>
+				<div class="bg-primary btn-checkout">CHECKOUT</div>
+				<div @click="viewCart" class="bg-secondary mt12 btn-view-cart">VIEW CART</div>
+			</div>
+		</div>
+	</div>
+</section>

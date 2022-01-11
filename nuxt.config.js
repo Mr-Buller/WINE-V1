@@ -50,6 +50,7 @@ export default {
     '~/assets/css/color.css',
     '~/assets/css/bg.css',
     '~/assets/css/font-awesome.min.css',
+    '~/assets/css/form.css',
   ],
   /*
   ** Global JS
@@ -72,7 +73,9 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
-    "@nuxtjs/axios"
+    "@nuxtjs/axios",
+    '@nuxtjs/dotenv',
+    "@nuxtjs/auth-next"
   ],
   /*
   ** Build configuration
@@ -86,7 +89,7 @@ export default {
   },
 
   server: {
-    port: process.env.PORT || 3002, // default: 3000
+    port: process.env.PORT || 3012, // default: 3000
     host: process.env.HOST || '0.0.0.0', // default: localhost
   },
 }

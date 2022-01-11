@@ -1,0 +1,81 @@
+<section>
+	<div class="row mb36 txt-center">
+		<img src="https://wpbingosite.com/wordpress/kowine/wp-content/uploads/2021/06/Slide5.jpg"
+			class="img-bg-search" />
+		<div class="search-bg-overlay"></div>
+		<div class="box-search-info">
+			<p class="search-title">SEARCHING</p>
+			<p style="font-size: 18px;color:#fff;">Search something in your mind</p>
+			<input @keyup.enter="searchProduct" v-model="search.key" type="text" placeholder="Product name" class="search-input" />
+		</div>
+	</div>
+	<div class="row ph40">
+		<div class="col-3 p12">
+			<div class="row">
+				<p class="font18"><b>CATEGORIES</b></p>
+				<div class="row">
+					<div v-for="(category,categoryIndex) in data.categories" :key="(category,categoryIndex)"
+						@click="searchByCategory(categoryIndex)"
+						:class="search.categoryId == category.id ? 'item-tag-active' : 'item-tag'">{{category.name}}
+					</div>
+				</div>
+			</div>
+			<div class="row mt40">
+				<p class="font18"><b>BRANDS</b></p>
+				<div class="row">
+					<div v-for="(brand,brandIndex) in data.brands" :key="(brand,brandIndex)"
+						@click="searchByBrand(brandIndex)"
+						:class="search.brandId == brand.id ? 'item-tag-active' : 'item-tag'">{{brand.name}}</div>
+				</div>
+			</div>
+
+			<div class="row mt36">
+				<div class="row">
+					<div class="col-6 pr6">
+						<p class="font18"><b>Min</b></p>
+						<input v-model="search.minPrice"
+							@keyup.enter="searchByPriceRange" type="number" class="w-input"/>
+					</div>
+					<div class="col-6 ph6">
+						<p class="font18"><b>Max</b></p>
+						<input v-model="search.maxPrice"
+							@keyup.enter="searchByPriceRange" type="number" class="w-input"/>
+					</div>
+				</div>
+				<div hidden class="row ph16">
+					<!-- <price-range-slider :trackHeight="0.5" /> -->
+				</div>
+			</div>
+
+			<div hidden class="row mt40">
+				<p class="font18"><b>BRANDS</b></p>
+				<div class="row">
+					<div v-for="(brand,brandIndex) in data.brands" :key="(brand,brandIndex)" class="col-4 p3">
+						<div class="row border">
+							<img :src="getFullPath(brand.logo)" class="img-cover" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-9 p12">
+			<div class="row ph12 mb12">
+				<span>Showing 1–12 of 29 item(s)</span>
+				<div style="border: 1px solid #000;padding: 5px 12px;float: right;cursor: pointer;">
+					<select @change="searchByOrdering" v-model="search.orderBy" style="max-width: 146px;border:none;background:#fff;outline: none;font-size: 16px;padding-right: 6px;cursor: pointer;">
+						<option value="DEFAULT">Default Shorting</option>
+						<option value="POPULAR">Sort By Popularity</option>
+						<option value="LATEST">Sort By Latest</option>
+						<option value="LOW_PRICE">Sort By Price: Low To High</option>
+						<option value="HIGH_PRICE">Sort By Price: High To Low</option>
+					</select>
+				</div>
+			</div>
+			<FeaturedProduct v-if="!isFetching" :products="data.products"></FeaturedProduct>
+			<Loading v-if="isFetching"></Loading>
+			<div v-if="data.products && data.products.length == 0" class="row pv50 txt-center">
+				No Data
+			</div>
+		</div>
+	</div>
+</section>

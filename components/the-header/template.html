@@ -3,12 +3,12 @@
 		<div class="topbar-inner ph50 pv10">
 			<div class="col-6">
 				<div class="inner-item">
-					<i class="fa fa-phone"></i>
+					<img :src="require('~/assets/images/icons/telephone.png')" class="h20" />
 					<small class="">070212332</small>
 				</div>
 				<span>|</span>
 				<div class="inner-item">
-					<i class="fa fa-envelope"></i>
+					<img :src="require('~/assets/images/icons/envelope.png')" class="h20" />
 					<small class="">cheavanto.it@gmail.com</small>
 				</div>
 			</div>
@@ -24,29 +24,39 @@
 				</div>
 			</div>
 		</div>
-		<div class="topbar-inner ph50 pv20">
-			<div class="col-7">
-				<img src="https://wpbingosite.com/wordpress/kowine/wp-content/webp-express/webp-images/uploads/2021/06/logo.png.webp"
-					class="h22 go-left mr26" />
-				<ul class="inner-menu">
+		<div class="topbar-inner ph50 pv12">
+			<div class="col-7 mb12">
+				<nuxt-link to="/">
+					<img :src="require('@/assets/images/logos/logo.svg')"
+					class="h42 go-left mr26" />
+				</nuxt-link>
+				<ul class="inner-menu mt6">
 					<li><a class="active">Home</a></li>
-					<li><a>Shop</a></li>
-					<li><a>Product</a></li>
+					<li><a>About Us</a></li>
+					<li><a>Contact Us</a></li>
 				</ul>
 			</div>
-			<div class="col-5 txt-right">
-				<div class="inner-item">
-					<span class="font14 txt-hover">LOGIN</span>
+			<div class="col-5 txt-right pt6">
+				<div v-if="MainStore.token" class="inner-item">
+					<nuxt-link to="/profile" class="font14 txt-hover txt-dark">ACCOUNT</nuxt-link>
+				</div>
+				<div v-if="!MainStore.token" class="inner-item">
+					<span @click="switchAuthDialog('login')" class="font14 txt-hover">LOGIN</span>
 					<span>/</span>
-					<span class="font14 txt-hover">REGISTER</span>
+					<span @click="switchAuthDialog('register')" class="font14 txt-hover">REGISTER</span>
 				</div>
 				<div class="inner-item">
-					<i class="fa fa-search"></i>
+					<img @click="isBoxSearch = !isBoxSearch" :src="require('~/assets/images/icons/search.png')" class="h20" />
+					<div v-if="isBoxSearch" class="box-search">
+						<input @keyup.enter="onSearch" v-model="keySearch" type="text" placeholder="Search something ..." />
+					</div>
 				</div>
-				<div class="inner-item">
-					<i class="fa fa-shopping-cart"></i>
-				</div>
+				<nuxt-link to="/cart" class="inner-item">
+					<img :src="require('~/assets/images/icons/shopping-cart.png')" class="h20" />
+				</nuxt-link>
 			</div>
 		</div>
 	</div>
+
+	<CartSidebar v-if="isCartSidebar" @clicked="hideCartSidebar"></CartSidebar>
 </header>

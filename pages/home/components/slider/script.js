@@ -1,4 +1,4 @@
-import { VueFlux,FluxCaption } from 'vue-flux/dist-ssr/vue-flux.umd.min.js';
+import { VueFlux,FluxCaption,FluxIndex } from 'vue-flux/dist-ssr/vue-flux.umd.min.js';
 import 'vue-flux/dist-ssr/vue-flux.css';
 
 export default {
@@ -16,7 +16,8 @@ export default {
     },
     components: {
         VueFlux,
-        FluxCaption
+        FluxCaption,
+        FluxIndex
     },
     created() {
 
@@ -25,6 +26,13 @@ export default {
 
     },
     methods: {
+        slider(e){
+            console.log(e)
+        },
 
+        prevSlide(){
+            console.log(this.$refs)
+            this.$refs.slider.show('prev')
+        }
     },
 }

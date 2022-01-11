@@ -16,8 +16,8 @@ RUN npm install
 # since it builds the server as well
 RUN npm run build
 
-# expose 5000 on container
-EXPOSE 5000
+# expose 3012 on container
+EXPOSE 3012
 
 # set app serving to permissive / assigned
 ENV NUXT_HOST=0.0.0.0

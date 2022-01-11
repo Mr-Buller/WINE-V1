@@ -14,7 +14,7 @@ export default {
     baseUrl: process.env.BASE_URL || 'https://api.cambodiabusinessjournal.com'
   },
   head: {
-    title: 'Cambodia Business Journal',
+    title: 'Albinomosaic',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no' },
@@ -26,7 +26,7 @@ export default {
       // { property: 'fb:app_id', content: '112456712745118' },
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/logo.png' },
+      { rel: 'icon', type: 'image/x-icon', href: '/logo.svg' },
       { rel: 'preconnect', href: 'https://fonts.googleapis.com'},
       { rel: 'preconnect', href: 'https://fonts.gstatic.com'},
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Marcellus&display=swap'}

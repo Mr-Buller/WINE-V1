@@ -1,6 +1,6 @@
 <header>
 	<div class="row">
-		<div class="topbar-inner ph50 pv10">
+		<div hidden class="topbar-inner ph50 pv10">
 			<div class="col-6">
 				<div class="inner-item">
 					<img :src="require('~/assets/images/icons/telephone.png')" class="h20" />
@@ -24,16 +24,16 @@
 				</div>
 			</div>
 		</div>
-		<div class="topbar-inner ph50 pv12">
-			<div class="col-7 mb12">
+		<div class="topbar-inner ph50 pv12" style="border-bottom: 1px solid #ddd;">
+			<div class="col-7 mb0">
 				<nuxt-link to="/">
 					<img :src="require('@/assets/images/logos/logo.svg')"
 					class="h42 go-left mr26" />
 				</nuxt-link>
-				<ul class="inner-menu mt6">
-					<li><a class="active">Home</a></li>
-					<li><a>About Us</a></li>
-					<li><a>Contact Us</a></li>
+				<ul class="inner-menu mt6 mb0">
+					<li><nuxt-link to="/" class="active">Home</nuxt-link></li>
+					<li><a>Products</a></li>
+					<li><nuxt-link to="/contact-us">Contact Us</nuxt-link></li>
 				</ul>
 			</div>
 			<div class="col-5 txt-right pt6">

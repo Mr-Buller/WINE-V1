@@ -4,8 +4,12 @@
       <Header></Header>
     </client-only>
     
-    <nuxt />
+    <div class="pt45">
+      <nuxt />
+    </div>
+
     <client-only>
+      <Footer></Footer>
       <Login></Login>
       <Register></Register>
     </client-only>
@@ -14,6 +18,7 @@
 
 <script>
 import Header from "./../components/the-header";
+import Footer from "./../components/the-footer";
 import Login from "./../components/auth/login";
 import Register from "./../components/auth/register";
 import { mapState } from "vuex";
@@ -26,6 +31,7 @@ export default {
   },
   components: {
     Header,
+    Footer,
     Login,
     Register
   },

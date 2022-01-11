@@ -1,0 +1,9 @@
+.inner-item{
+    width: 36px;
+    height: 36px;
+    padding: 5px 10px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    float: left;
+    margin-right: 12px;
+}

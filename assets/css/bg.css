@@ -9,7 +9,7 @@
     background: var(--danger);
 }
 .bg-secondary{
-    background: var(--secondary-light);
+    background: var(--white-light);
 }
 .bg-success{
     background: var(--success);

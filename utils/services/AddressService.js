@@ -6,7 +6,7 @@ const AddressService = {}
 
 AddressService.getProvice = async function (){
     return await axios.get(ApiContant.province,
-        MainService.headers())
+        MainService.headerWithoutToken())
     .then((response) => {
         return MainService.validateError(response);
     }).catch(function (error) {

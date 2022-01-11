@@ -1,10 +1,14 @@
 <template>
   <div>
-    <Header></Header>
+    <client-only>
+      <Header></Header>
+    </client-only>
+    
     <nuxt />
-
-    <Login></Login>
-    <Register></Register>
+    <client-only>
+      <Login></Login>
+      <Register></Register>
+    </client-only>
   </div>
 </template>
 

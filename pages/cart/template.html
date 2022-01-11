@@ -1,7 +1,7 @@
 <section>
 	<div class="row p50">
 		<p class="font30">SHOPPING CART</p>
-		<div v-if="isAuthenticated" class="col-12">
+		<div class="col-12">
 			<div class="col-8">
 				<table style="width: 100%;border: 1px solid #ddd;">
 					<thead>
@@ -52,11 +52,18 @@
 							<td>Shipping </td>
 							<td>
 								<p class="txt-dark-light">Shipping to</p>
-								<select v-model="body.customerAddressId" class="input">
+								<select v-if="data.addresses.length > 0" v-model="body.customerAddressId" class="input">
 									<option v-for="(address,addressIndex) in data.addresses" 
 										:key="(address,addressIndex)"
 										:value="address.id">
 										{{address.address}}
+									</option>
+								</select>
+								<select v-if="data.provinces.length > 0" v-model="body.provinceId" class="input">
+									<option v-for="(province,provinceIndex) in data.provinces" 
+										:key="(province,provinceIndex)"
+										:value="province.id">
+										{{province.province}}
 									</option>
 								</select>
 							</td>
@@ -77,6 +84,5 @@
 				</div>
 			</div>
 		</div>
-		<Unauthorize v-else></Unauthorize>
 	</div>
 </section>

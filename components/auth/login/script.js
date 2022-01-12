@@ -28,12 +28,14 @@ export default {
     },
     methods: {
         loginCustomer() {
-            this.isLogging = true
-            let body = {
-                "username": this.body.email,
-                "password": this.body.password
-            }
-            CustomerService.loginCustomer(body)
+            let msgValidation = this.validateBody()
+            if(msgValidation == "OK"){
+                this.isLogging = true
+                let body = {
+                    "username": this.body.email,
+                    "password": this.body.password
+                }
+                CustomerService.loginCustomer(body)
                 .then((response) => {
                     this.isLogging = false
                     if (response.response && response.response.status == 200) {
@@ -44,10 +46,18 @@ export default {
                     }
                     if (response.response && response.response.status >= 400) {
                         this.$toast.error(response.response.message)
-                        console.log(response)
                     }
                 }).catch(err => { console.log(err) })
+            }else{
+                this.$toast.error(msgValidation)
+            }
         },
+
+        validateBody() {
+			if (!this.body.email) { return "Email is required." }
+			if (!this.body.password) { return "Password is required." }
+			return "OK"
+		},
 
         switchAuthDialog(type) {
             this.$store.commit("SHOW_LOGIN_DIALOG", type);

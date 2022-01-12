@@ -1,31 +1,29 @@
 <div>
 	<Loading v-if="isFetching"></Loading>
 	<div v-if="!isFetching" class="row">
-		<Slider v-if="slide.vfImages.length > 0" :vfOptions="slide.vfOptions" 
-			:vfImages="slide.vfImages" 
-			:vfTransitions="slide.vfTransitions" 
-			:vfCaptions="slide.vfCaptions"></Slider>
-	
-		<Category :categories="data.categories"></Category>
-	
+		<div class="m-container">
+			<Slider v-if="slide.vfImages.length > 0" :vfOptions="slide.vfOptions" :vfImages="slide.vfImages"
+				:vfTransitions="slide.vfTransitions" :vfCaptions="slide.vfCaptions"></Slider>
+			<Category :categories="data.categories"></Category>
+		</div>
 		<FeaturedProduct v-if="data.home" :products="data.home.products"></FeaturedProduct>
-	
 		<section class="row pt42 ph12">
 			<div class="box-explore">
 				<img src="https://wpbingosite.com/wordpress/kowine/wp-content/uploads/2021/05/banner8.jpg"
-				class="img-cover" />
+					class="img-cover" />
 				<div class="explore-info">
 					<p class="font30">
-						<span class="txt-white">HANDPICKED WINES, UNMISSABLE DEALS,</span> 
+						<span class="txt-white">HANDPICKED WINES, UNMISSABLE DEALS,</span>
 						<span class="txt-primary">UP TO 80% DISCOUNT</span>
 					</p>
 					<div class="btn-explore">EXPLORE NOW</div>
 				</div>
 			</div>
 		</section>
-	
-		<TopSeller :products="data.home.topSell"></TopSeller>
-	
-		<Brand v-if="data.home" :brands="data.home.brands"></Brand>
+		<div class="m-container">
+			<TopSeller :products="data.home.topSell"></TopSeller>
+			<Populated></Populated>
+			<Brand v-if="data.home" :brands="data.home.brands"></Brand>
+		</div>
 	</div>
 </div>

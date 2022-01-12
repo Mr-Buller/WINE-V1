@@ -1,12 +1,16 @@
-.topbar-inner{
+.h-container{
     width: 100%;
-    border-bottom: 1px solid var(--border);
-    display: list-item;
     position: fixed;
     top:0;
     left: 0;
     z-index: 99;
+    border-bottom: 1px solid var(--border);
     background: var(--white);
+}
+.topbar-inner{
+    max-width: 1410px;
+    width: 100%;
+    margin: 0 auto;
 }
 .topbar-inner:last-child{
     border-bottom: none;

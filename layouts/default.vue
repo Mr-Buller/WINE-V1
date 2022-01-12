@@ -4,7 +4,7 @@
       <Header></Header>
     </client-only>
     
-    <div class="pt45">
+    <div class="pt72">
       <nuxt />
     </div>
 
@@ -63,6 +63,13 @@ export default {
 *:after {
   box-sizing: border-box;
   margin: 0;
+}
+
+.m-container{
+  max-width: 1410px;
+  margin: 0 auto;
+  position: relative;
+  display: block;
 }
 
 .ic-play-xs {

@@ -5,6 +5,7 @@ import Category from './components/category'
 import FeaturedProduct from './components/featured-product'
 import TopSeller from './components/top-seller'
 import Brand from './components/brand'
+import Populated from './components/populated'
 import Loading from './../../components/loading'
 
 export default {
@@ -44,6 +45,7 @@ export default {
         FeaturedProduct,
         TopSeller,
         Brand,
+        Populated,
         Loading
     },
     created() {

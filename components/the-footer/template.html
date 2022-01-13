@@ -8,24 +8,33 @@
 					<span class="ml6 txt-dark-light font14" style="line-height: 20px;"> 26 Wyle Cop, Shrewsbury,
 						Shropshire, SY1 1XD</span>
 				</p>
-				<p>
+				<p v-if="MainStore.contact.phone">
 					<span style="font-weight: bold;">Tel :</span>
-					<span class="ml6 txt-dark-light font14" style="line-height: 20px;"> 01743 234500</span>
+					<span class="ml6 txt-dark-light font14" style="line-height: 20px;">
+						{{MainStore.contact.phone}}</span>
 				</p>
-				<p>
+				<p v-if="MainStore.contact.email">
 					<span style="font-weight: bold;">Email :</span>
-					<span class="ml6 txt-dark-light font14" style="line-height: 20px;"> support&kowine.com</span>
+					<span class="ml6 txt-dark-light font14" style="line-height: 20px;">
+						{{MainStore.contact.email}}</span>
 				</p>
 				<p>
-				<div class="inner-item">
-					<i class="fa fa-twitter"></i>
-				</div>
-				<div class="inner-item">
-					<i class="fa fa-facebook"></i>
-				</div>
-				<div class="inner-item">
-					<i class="fa fa-instagram"></i>
-				</div>
+					<a v-if="MainStore.contact.telegram" :href="MainStore.contact.telegram" target="_blank"
+						class="inner-item">
+						<img :src="require('~/assets/images/icons/telegram.png')" style="height: 14px;" />
+					</a>
+					<a v-if="MainStore.contact.youTube" :href="MainStore.contact.youTube" target="_blank"
+						class="inner-item">
+						<i class="fa fa-youtube"></i>
+					</a>
+					<a v-if="MainStore.contact.facebook" :href="MainStore.contact.facebook" target="_blank"
+						class="inner-item">
+						<i class="fa fa-facebook"></i>
+					</a>
+					<a v-if="MainStore.contact.instagram" :href="MainStore.contact.instagram" target="_blank"
+						class="inner-item">
+						<i class="fa fa-instagram"></i>
+					</a>
 				</p>
 			</div>
 			<div class="col-3">
@@ -44,9 +53,9 @@
 			</div>
 			<div class="col-3">
 				<p class="font20 mb24">COUNTRIES</p>
-				<p v-for="(category,categoryIndex) in data.categories" :key="(category,categoryIndex)"
-					v-if="categoryIndex < 5" class="txt-dark-light">
-					{{category.name}}
+				<p v-for="(country,countryIndex) in data.countries" :key="(country,countryIndex)"
+					v-if="countryIndex < 5" class="txt-dark-light">
+					{{country.name}}
 				</p>
 			</div>
 		</div>

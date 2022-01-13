@@ -24,4 +24,14 @@ ProductService.searchProduct = async function (params){
     })
 };
 
+ProductService.getProductEachBrand = async function (){
+    return await axios.get(ApiContant.productEachBrand,
+        MainService.headerWithoutToken())
+    .then((response) => {
+        return MainService.validateError(response);
+    }).catch(function (error) {
+        return error.response.data;
+    })
+};
+
 export default ProductService;

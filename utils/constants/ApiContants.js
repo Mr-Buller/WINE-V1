@@ -13,6 +13,8 @@ const ApiContant = {
     searchProduct : baseUrl + v1 + '/product/search',
     category : baseUrl + v1 + '/product/category',
     brand : baseUrl + v1 + '/product/brand',
+    country : baseUrl + v1 + '/product/country',
+    productEachBrand : baseUrl + v1 + '/product/each-brand',
 
     // Customer
     customer : baseUrl + '/v1/api/customer/profile',
@@ -25,6 +27,9 @@ const ApiContant = {
 
     // Address
     province : baseUrl + v1 + '/province/all',
+
+    // Contact
+    contact : baseUrl + v1 + '/contact-us',
     
 }
 

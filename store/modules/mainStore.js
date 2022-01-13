@@ -1,6 +1,8 @@
 const state = () => ({
     token: "",
     user: "",
+    contact: "",
+    productEachBrand: [],
     showLoginDialog : "" // enum: "", "login", "register", "forgot_password", "change_password"
 });
 
@@ -17,6 +19,12 @@ const mutations = {
     },
     STORE_USER_INFO: (state, payload) => {
         state.user = payload;
+    },
+    STORE_CONTACT: (state, payload) => {
+        state.contact = payload;
+    },
+    STORE_PRODUCT_EACH_BRAND: (state, payload) => {
+        state.productEachBrand = payload;
     },
 };
 

@@ -1,3 +1,6 @@
+a{
+    text-decoration: none;
+}
 .h-container{
     width: 100%;
     position: fixed;
@@ -6,6 +9,7 @@
     z-index: 99;
     border-bottom: 1px solid var(--border);
     background: var(--white);
+    box-shadow: 0 0 8px rgb(0 0 0 / 30%);
 }
 .topbar-inner{
     max-width: 1410px;
@@ -27,14 +31,14 @@
     list-style-type: none;
     display: inline-block;
 }
-.inner-menu a{
+.inner-menu .menu-title{
     text-decoration: none;
 }
 .inner-menu li{
     float: left;
-    padding: 0 20px;
+    padding: 12px 20px;
 }
-.inner-menu li a{
+.inner-menu li .menu-title{
     font-size: 16px;
     color: var(--text);
     padding: 3px 0;
@@ -44,7 +48,7 @@
 .inner-menu li .active{
     border-bottom: 1px solid var(--text);
 }
-.inner-menu li a:hover{
+.inner-menu li .menu-title:hover{
     border-bottom: 1px solid var(--text);
 }
 .box-search{
@@ -62,4 +66,20 @@
     font-size: 14px;
     padding: 12px;
     border: 1px solid #ddd;
+}
+.p-brand{
+    width: 720px;background: #fff;position: absolute;top:42px;left: 0;border: 1px solid #ddd;padding: 16px;
+    display: none;
+}
+.menu-dropdown:hover .p-brand{
+    display: block;
+}
+.p-brand:hover{
+    display: block;
+}
+.p-item{
+    font-size: 14px;margin-bottom:10px;display: block;
+}
+.p-item:hover{
+    color: var(--primary);
 }

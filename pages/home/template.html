@@ -22,7 +22,9 @@
 		</section>
 		<div class="m-container">
 			<TopSeller :products="data.home.topSell"></TopSeller>
-			<Populated></Populated>
+		</div>
+		<Populated></Populated>
+		<div class="m-container">
 			<Brand v-if="data.home" :brands="data.home.brands"></Brand>
 		</div>
 	</div>

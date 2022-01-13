@@ -1,11 +1,11 @@
 <div class="row mt40">
 	<p class="font24 txt-center">SHOP BY <span class="txt-primary">CATEGORY</span></p>
 	<div class="row ph9 mt12">
-		<div v-for="(category,categoryIndex) in categories" :key="(category,categoryIndex)" class="col-3 p3">
+		<div v-for="(category,categoryIndex) in categories" :key="(category,categoryIndex)" class="col-3 p12">
 			<nuxt-link :to="'/search?categoryId='+category.id">
 				<div class="box-square">
 					<img :src="getFullPath(category.image)" 
-					class="item-img" />
+					class="item-img" style="box-shadow: 0 0 8px rgb(0 0 0 / 30%);border-bottom: 1px solid rgb(221, 221, 221);" />
 				</div>
 				<div class="btn-category txt-dark">{{category.name}}</div>
 			</nuxt-link>

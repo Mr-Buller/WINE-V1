@@ -1,4 +1,6 @@
 import Helper from './../../../../utils/Helper'
+import { Hooper, Slide, Navigation as HooperNavigation, Pagination as HooperPagination } from 'hooper';
+import 'hooper/dist/hooper.css';
 
 export default {
     name: "home-top-seller",
@@ -11,7 +13,10 @@ export default {
         }
     },
     components: {
-
+        Hooper, 
+        Slide,
+        HooperNavigation,
+        HooperPagination
     },
     created() {
 

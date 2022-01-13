@@ -24,22 +24,32 @@
 				</div>
 			</div>
 		</div>
-		<div class="topbar-inner p12">
+		<div class="topbar-inner ph12" style="display: flex;">
 			<div class="col-7 mb0">
 				<nuxt-link to="/">
 					<img :src="require('@/assets/images/logos/logo.svg')"
-					class="h42 go-left mr26" />
+					class="h42 go-left mr26 mt10" />
 				</nuxt-link>
 				<ul class="inner-menu mt6 mb0">
-					<li><nuxt-link to="/" class="active">Home</nuxt-link></li>
-					<li><a>Products</a></li>
-					<li><nuxt-link to="/contact-us">Contact Us</nuxt-link></li>
+					<li><nuxt-link to="/" class="active menu-title">Home</nuxt-link></li>
+					<li class="menu-dropdown" style="position: relative;">
+						<a class="menu-title">Products</a>
+						<div class="p-brand">
+							<div v-for="(brand, brandIndex) in MainStore.productEachBrand" :key="(brand, brandIndex)" class="col-4 p12">
+								<p style="font-weight: bold;font-size: 18px;">{{brand.brand.brand}}</p>
+								<nuxt-link :to="'/product/'+product.id" v-for="(product, productIndex) in brand.product" 
+									:key="(product, productIndex)"
+									class="p-item txt-dark-light txt-ellipsis">{{product.name}}</nuxt-link>
+							</div>
+						</div>
+					</li>
+					<li><nuxt-link to="/contact-us" class="menu-title">Contact Us</nuxt-link></li>
 				</ul>
 			</div>
-			<div class="col-5 txt-right pt6">
-				<div v-if="MainStore.token" class="inner-item">
-					<nuxt-link to="/profile" class="font14 txt-hover txt-dark">ACCOUNT</nuxt-link>
-				</div>
+			<div class="col-5 txt-right pt6 mt10">
+				<nuxt-link v-if="MainStore.token" to="/cart" class="inner-item">
+					<img :src="require('~/assets/images/icons/user.png')" class="h20" />
+				</nuxt-link>
 				<div v-if="!MainStore.token" class="inner-item">
 					<span @click="switchAuthDialog('login')" class="font14 txt-hover">LOGIN</span>
 					<span>/</span>

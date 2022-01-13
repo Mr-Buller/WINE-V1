@@ -1,3 +1,6 @@
+import { Hooper, Slide, Navigation as HooperNavigation, Pagination as HooperPagination } from 'hooper';
+import 'hooper/dist/hooper.css';
+
 export default {
     name: "home-brand",
     props:{
@@ -9,7 +12,10 @@ export default {
         }
     },
     components: {
-
+        Hooper, 
+        Slide,
+        HooperNavigation,
+        HooperPagination
     },
     created() {
 

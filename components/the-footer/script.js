@@ -1,5 +1,6 @@
 import CategoryService from './../../utils/services/CategoryService'
 import BrandService from './../../utils/services/BrandService'
+import CountryService from './../../utils/services/CountryService'
 import { mapState } from 'vuex'
 
 export default {
@@ -8,7 +9,8 @@ export default {
         return {
             data:{
                 categories : [],
-                brands: []
+                brands: [],
+                countries: []
             }
         }
     },
@@ -21,6 +23,7 @@ export default {
     mounted() {
         this.getCategory()
         this.getBrand()
+        this.getCountry()
     },
     computed: {
         ...mapState([
@@ -40,6 +43,14 @@ export default {
             BrandService.getBrand().then((response) => {
                 if (response.response && response.response.status == 200) {
                     this.data.brands = response.results
+                }
+            }).catch(err => { console.log(err) })
+        },
+
+        getCountry() {
+            CountryService.getCountry().then((response) => {
+                if (response.response && response.response.status == 200) {
+                    this.data.countries = response.results
                 }
             }).catch(err => { console.log(err) })
         },

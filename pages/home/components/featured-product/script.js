@@ -1,4 +1,7 @@
 import Helper from './../../../../utils/Helper'
+import { Hooper, Slide, Navigation as HooperNavigation, Pagination as HooperPagination } from 'hooper';
+import 'hooper/dist/hooper.css';
+
 export default {
     name: "home-featured-product",
     props: {
@@ -6,11 +9,17 @@ export default {
     },
     data() {
         return {
-
+            slickOptions: {
+                slidesToShow: 3,
+                // Any other options that can be got from plugin documentation
+            },
         }
     },
     components: {
-
+        Hooper, 
+        Slide,
+        HooperNavigation,
+        HooperPagination
     },
     created() {
 
@@ -30,6 +39,6 @@ export default {
 
         formatPrice(price){
             return Helper.formatPrice(price)
-        }
+        },
     },
 }

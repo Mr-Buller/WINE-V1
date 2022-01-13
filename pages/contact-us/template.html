@@ -5,28 +5,32 @@
 				<h2>Contact Us</h2>
 				<div class="row bg-secondary p30">
 					<p class="font18 mb16" style="font-weight: bold;">Call our hotline to place an order or talk to our customer service team:</p>
-					<div class="row mb6">
+					<div v-if="MainStore.contact.phone" class="row mb6">
 						<img :src="require('~/assets/images/icons/telephone.png')" class="h16" />
-						<small class="txt-dark-light">070212332</small>
+						<small class="txt-dark-light">{{MainStore.contact.phone}}</small>
 					</div>
-					<div class="row mb6">
+					<div v-if="MainStore.contact.email" class="row mb6">
 						<img :src="require('~/assets/images/icons/envelope.png')" class="h16" />
-						<small class="txt-dark-light">cheavanto.it@gmail.com</small>
+						<small class="txt-dark-light">{{MainStore.contact.email}}</small>
 					</div>
 	
 					<p class="font18 mt24" style="font-weight: bold;">Follow us on</p>
-					<div class="row mb6">
-						<i class="fa fa-facebook"></i>
+					<a v-if="MainStore.contact.telegram" :href="MainStore.contact.telegram" target="_blank" class="row mb6">
+						<img :src="require('~/assets/images/icons/telegram.png')" height="14px" />
+						<small class="txt-dark-light">Telegram</small>
+					</a>
+					<a v-if="MainStore.contact.youTube" :href="MainStore.contact.youTube" target="_blank" class="row mb6">
+						<i class="fa fa-youtube txt-dark"></i>
+						<small class="txt-dark-light">YouTube</small>
+					</a>
+					<a v-if="MainStore.contact.facebook" :href="MainStore.contact.facebook" target="_blank" class="row mb6">
+						<i class="fa fa-facebook txt-dark"></i>
 						<small class="txt-dark-light">Facebook</small>
-					</div>
-					<div class="row mb6">
-						<i class="fa fa-instagram"></i>
+					</a>
+					<a v-if="MainStore.contact.instagram" :href="MainStore.contact.instagram" target="_blank" class="row mb6">
+						<i class="fa fa-instagram txt-dark"></i>
 						<small class="txt-dark-light">Instagram</small>
-					</div>
-					<div class="row mb6">
-						<i class="fa fa-twitter"></i>
-						<small class="txt-dark-light">Twitter</small>
-					</div>
+					</a>
 				</div>
 			</div>
 			<div class="col-6 pl24">

@@ -21,19 +21,22 @@ import Header from "./../components/the-header";
 import Footer from "./../components/the-footer";
 import Login from "./../components/auth/login";
 import Register from "./../components/auth/register";
+import ContactService from "./../utils/services/ContactService"
+import ProductService from "./../utils/services/ProductService"
 import { mapState } from "vuex";
 
 export default {
-  created() {
-    // this.googleAnaltic();
-    if(process.client)
-    this.getToken();
-  },
   components: {
     Header,
     Footer,
     Login,
     Register
+  },
+  created(){
+    if(process.client)
+    this.getToken();
+    this.getContact()
+    this.getProductEachBrand()
   },
   computed: {
     ...mapState(["MainStore"])
@@ -42,6 +45,22 @@ export default {
     getToken() {
       let token = this.$cookies.get('token')
       this.$store.commit("STORE_TOKEN", token);
+    },
+
+    getContact(){
+      ContactService.getContact().then((response) => {
+        if (response.response && response.response.status == 200) {
+          this.$store.commit("STORE_CONTACT", response.results);
+        }
+      }).catch(err => { console.log(err) })
+    },
+
+    getProductEachBrand(){
+      ProductService.getProductEachBrand().then((response) => {
+        if (response.response && response.response.status == 200) {
+          this.$store.commit("STORE_PRODUCT_EACH_BRAND", response.results)
+        }
+      }).catch(err => { console.log(err) })
     },
 
     googleAnaltic() {
@@ -178,6 +197,10 @@ export default {
   border: 1px solid #ddd;
   outline: none;
   font-size: 16px;
+}
+
+.hooper{
+  height: auto !important;
 }
 
 @media screen and (max-width: 991px) {

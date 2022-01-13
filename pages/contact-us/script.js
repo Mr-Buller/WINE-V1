@@ -1,8 +1,10 @@
+import { mapState } from "vuex";
+
 export default {
     name: "contact-us",
     data() {
         return {
-            
+
         }
     },
     components: {
@@ -14,6 +16,7 @@ export default {
     mounted() {
     },
     computed: {
+        ...mapState(["MainStore"])
     },
     methods: {
 

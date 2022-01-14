@@ -21,7 +21,7 @@
 							<span class="go-left">MY ADDRESS</span>
 						</td>
 					</tr>
-					<tr @click="onLogout" class="tab-menu">
+					<tr @click="showLogoutDialog = true" class="tab-menu">
 						<td>
 							<img :src="require('~/assets/images/icons/logout.png')" class="h20 go-left mr12" />
 							<span class="go-left">LOGOUT</span>
@@ -44,6 +44,19 @@
 					</div>
 				</div>
 				<Unauthorize v-else></Unauthorize>
+			</div>
+		</div>
+	</div>
+
+	<div v-if="showLogoutDialog" class="auth-container">
+		<div @click="showLogoutDialog = false" class="auth-bg"></div>
+		<div class="block-auth">
+			<div class="row">
+				<span class="font24">Log out</span>
+			</div>
+			<div class="row mt24">
+				<p class="txt-dark-light">Are you sure you want to log out?</p>
+				<div @click="onLogout" class="btn-default mt24 go-right ph50">Logout</div>
 			</div>
 		</div>
 	</div>

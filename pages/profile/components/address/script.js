@@ -1,6 +1,7 @@
 import CustomerService from './../../../../utils/services/CustomerService'
 import AddressService from './../../../../utils/services/AddressService'
 import Loading from './../../../../components/loading'
+import { mapState } from 'vuex'
 
 export default {
     name: "address",
@@ -36,6 +37,11 @@ export default {
     mounted() {
 
     },
+    computed: {
+        ...mapState([
+            'MainStore'
+        ])
+    },
     methods: {
         checkAuthorization() {
             let token = this.$cookies.get("token");
@@ -44,6 +50,12 @@ export default {
             } else {
                 this.getAddress()
                 this.getProvince()
+                if (this.MainStore.user) {
+                    this.body.firstname = this.MainStore.user.firstName
+                    this.body.lastname = this.MainStore.user.lastName
+                    this.body.phone = this.MainStore.user.phone
+                    this.body.email = this.MainStore.user.email
+                }
             }
         },
 
@@ -60,7 +72,7 @@ export default {
             this.isCreating = true
             let body = {
                 "phone": this.body.phone,
-                "fullName": this.body.firstname+" "+this.body.lastname,
+                "fullName": this.body.firstname + " " + this.body.lastname,
                 "firstName": this.body.firstname,
                 "lastName": this.body.lastname,
                 "address": this.body.address,
@@ -77,21 +89,21 @@ export default {
             }).catch(err => { console.log(err) })
         },
 
-        removeAddress(){
+        removeAddress() {
             this.isRemoving = true
             let addressId = this.data.addresses[this.updateIndex].id
             CustomerService.removeAddress(addressId).then((response) => {
                 this.isRemoving = false
                 if (response.response && response.response.status == 200) {
                     this.$toast.success("Address was removed.")
-                    this.data.addresses.splice(this.updateIndex,1)
+                    this.data.addresses.splice(this.updateIndex, 1)
                     this.updateIndex = -1
                     this.showRemoveDialog = false
                 }
             }).catch(err => { console.log(err) })
         },
 
-        showConfirmRemoveDialog(addressIndex){
+        showConfirmRemoveDialog(addressIndex) {
             this.updateIndex = addressIndex
             this.showRemoveDialog = true
         },

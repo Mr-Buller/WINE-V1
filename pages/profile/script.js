@@ -10,7 +10,8 @@ export default {
     data() {
         return {
             isAuthenticated: false,
-            tabActive: "profile"
+            tabActive: "profile",
+            showLogoutDialog: false
         }
     },
     components: {

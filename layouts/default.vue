@@ -3,7 +3,7 @@
     <client-only>
       <Header></Header>
     </client-only>
-    
+
     <div class="pt72">
       <nuxt />
     </div>
@@ -21,8 +21,9 @@ import Header from "./../components/the-header";
 import Footer from "./../components/the-footer";
 import Login from "./../components/auth/login";
 import Register from "./../components/auth/register";
-import ContactService from "./../utils/services/ContactService"
-import ProductService from "./../utils/services/ProductService"
+import ContactService from "./../utils/services/ContactService";
+import ProductService from "./../utils/services/ProductService";
+import CustomerService from "./../utils/services/CustomerService";
 import { mapState } from "vuex";
 
 export default {
@@ -32,35 +33,59 @@ export default {
     Login,
     Register
   },
-  created(){
-    if(process.client)
+  created() {
+    if (process.client) 
     this.getToken();
-    this.getContact()
-    this.getProductEachBrand()
+    this.getContact();
+    this.getProductEachBrand();
   },
   computed: {
     ...mapState(["MainStore"])
   },
   methods: {
     getToken() {
-      let token = this.$cookies.get('token')
-      this.$store.commit("STORE_TOKEN", token);
+      let token = this.$cookies.get("token");
+      if(token){
+        this.$store.commit("STORE_TOKEN", token);
+        this.getCustomerDetail()
+      }
     },
 
-    getContact(){
-      ContactService.getContact().then((response) => {
-        if (response.response && response.response.status == 200) {
-          this.$store.commit("STORE_CONTACT", response.results);
-        }
-      }).catch(err => { console.log(err) })
+    getCustomerDetail() {
+      CustomerService.getCustomerDetail()
+        .then(response => {
+          if (response.response && response.response.status == 200) {
+            let customer = response.results;
+            this.$store.commit("STORE_USER_INFO", customer);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
 
-    getProductEachBrand(){
-      ProductService.getProductEachBrand().then((response) => {
-        if (response.response && response.response.status == 200) {
-          this.$store.commit("STORE_PRODUCT_EACH_BRAND", response.results)
-        }
-      }).catch(err => { console.log(err) })
+    getContact() {
+      ContactService.getContact()
+        .then(response => {
+          if (response.response && response.response.status == 200) {
+            this.$store.commit("STORE_CONTACT", response.results);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+
+    getProductEachBrand() {
+      ProductService.getProductEachBrand()
+        .then(response => {
+          if (response.response && response.response.status == 200) {
+            this.$store.commit("STORE_PRODUCT_EACH_BRAND", response.results);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
 
     googleAnaltic() {
@@ -84,7 +109,7 @@ export default {
   margin: 0;
 }
 
-.m-container{
+.m-container {
   max-width: 1410px;
   margin: 0 auto;
   position: relative;
@@ -199,7 +224,7 @@ export default {
   font-size: 16px;
 }
 
-.hooper{
+.hooper {
   height: auto !important;
 }
 

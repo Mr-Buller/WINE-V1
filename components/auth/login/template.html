@@ -9,7 +9,7 @@
 			<p class="txt-dark-light">Email <span class="txt-danger">*</span></p>
 			<input v-model="body.email" type="text" placeholder="Your email" class="w-input" />
 			<p class="txt-dark-light mt24">Password <span class="txt-danger">*</span></p>
-			<input v-model="body.password" type="password" placeholder="Password" class="w-input" />
+			<input @keyup.enter="loginCustomer" v-model="body.password" type="password" placeholder="Password" class="w-input" />
 			<div class="row txt-right mt12">
 				<span>Forgot password</span>
 			</div>

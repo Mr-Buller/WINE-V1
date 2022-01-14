@@ -47,7 +47,7 @@ MainService.validateError = function (data) {
 MainService.logout = function (){
     VueCookies.remove("token");
     VueCookies.remove("userId");
-    location.reload();
+    location.href="/"
 };
 
 export default MainService;

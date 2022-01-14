@@ -18,10 +18,10 @@
 			</div>
 			<p class="txt-dark-light mt12">Phone <span class="txt-danger">*</span></p>
 			<input v-model="body.phone" type="text" placeholder="Phone" class="w-input" />
-			<p class="txt-dark-light mt24">Email</p>
+			<p class="txt-dark-light mt24">Email <span class="txt-danger">*</span></p>
 			<input v-model="body.email" type="text" placeholder="Your email" class="w-input" />
 			<p class="txt-dark-light mt24">Password <span class="txt-danger">*</span></p>
-			<input v-model="body.password" type="password" placeholder="Password" class="w-input" />
+			<input @keyup.enter="createCustomer" v-model="body.password" type="password" placeholder="Password" class="w-input" />
 			<div v-if="!isCreating" @click="createCustomer" class="btn-default mt24">REGISTER</div>
 			<div v-else class="btn-default mt24">LOADING...</div>
 		</div>

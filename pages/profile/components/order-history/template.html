@@ -5,7 +5,7 @@
 	<table v-if="!isFetching" v-for="(order,orderIndex) in data.orders" :key="(order,orderIndex)"
 		style="width: 100%;border: 1px solid #ddd;margin-bottom: 24px;">
 		<thead class="bg-secondary">
-			<th>Order ID : {{order.id}}</th>
+			<th>Order Ref : {{order.id}}</th>
 			<th class="txt-right">Discount(%)</th>
 			<th class="txt-right">Price($)</th>
 			<th class="txt-right">Quantity</th>
@@ -34,7 +34,7 @@
 			</tr>
 			<tr>
 				<td>
-					<p>Ordered Ref : <span class="txt-dark-light">{{order.created | moment("MMM-DD-YYYY")}}</span></p>
+					<p>Ordered Date : <span class="txt-dark-light">{{order.created | moment("MMM-DD-YYYY")}}</span></p>
 					<span>Status : </span><span v-if="order.orderState == 'PENDING'"
 						class="txt-warning">{{order.orderState}}</span>
 				</td>
@@ -44,7 +44,7 @@
 						<span v-else>N/A</span>
 					</p>
 					<p class="font14 mb6">Total Discount : 
-						<span v-if="order.totalPriceDiscount">{{formatPrice(order.totalPriceDiscount)}}</span>
+						<span v-if="order.totalPriceDiscount != null">- {{formatPrice(order.totalPriceDiscount)}}</span>
 						<span v-else>N/A</span>
 					</p>
 					<p class="font14 mb6">Grand Total : 

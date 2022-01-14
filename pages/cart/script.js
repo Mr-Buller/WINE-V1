@@ -158,9 +158,9 @@ export default {
                         province: {
                             id: this.userAddress.provinceId
                         }
-                    }
+                    },
+                    orderDetail: products,
                 },
-                orderDetail: products,
                 registerRequest: {
                     phone: this.userInfo.phone,
                     email: this.userInfo.email,
@@ -177,7 +177,7 @@ export default {
 
                     this.$cookies.set('userId', response.results.jwtCustomerResponse.customer.id)
                     this.$cookies.set('token', response.results.jwtCustomerResponse.jwtResponse.token)
-                    location.href = "/profile?tab=order"
+                    // location.href = "/profile?tab=order"
                 }else{
                     this.$toast.error(response.response.message)
                 }

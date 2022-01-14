@@ -10,3 +10,10 @@
 .inner-item i{
     color: #000;
 }
+.footer-item{
+    width: 100%;display:inline-block;font-size: 14px;color: var(--dark-light);
+    text-decoration: none;
+}
+.footer-item:hover{
+    color: var(--primary);
+}

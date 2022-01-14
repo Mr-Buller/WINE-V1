@@ -22,14 +22,16 @@ const ApiContant = {
     changePassword : baseUrl + '/v1/api/customer/change-password',
     registerCustomer : baseUrl + '/v1/api/customer/register',
     loginCustomer : baseUrl + '/v1/api/customer/login',
-    order : baseUrl + '/v1/api/customer/order',
     address : baseUrl + '/v1/api/customer/address',
+    order : baseUrl + '/v1/api/customer/order',
+    orderWithoutLogin : baseUrl + '/v1/api/customer/order-and-register',
 
     // Address
     province : baseUrl + v1 + '/province/all',
 
     // Contact
     contact : baseUrl + v1 + '/contact-us',
+    askQuestion : baseUrl + v1 + '/ask-question'
     
 }
 

@@ -58,27 +58,6 @@ CustomerService.getCustomerDetail = async function (){
     })
 };
 
-CustomerService.createOrder = async function (body){
-    return await axios.post(ApiContant.order,
-        body,
-        MainService.headers())
-    .then((response) => {
-        return MainService.validateError(response);
-    }).catch(function (error) {
-        return error.response.data;
-    })
-};
-
-CustomerService.getOrderHistory = async function (){
-    return await axios.get(ApiContant.order,
-        MainService.headers())
-    .then((response) => {
-        return MainService.validateError(response);
-    }).catch(function (error) {
-        return error.response.data;
-    })
-};
-
 CustomerService.getAddress = async function (){
     return await axios.get(ApiContant.address,
         MainService.headers())
@@ -102,6 +81,38 @@ CustomerService.createAddress = async function (body){
 
 CustomerService.removeAddress = async function (addressId){
     return await axios.delete(ApiContant.address+"/"+addressId,
+        MainService.headers())
+    .then((response) => {
+        return MainService.validateError(response);
+    }).catch(function (error) {
+        return error.response.data;
+    })
+};
+
+CustomerService.createOrder = async function (body){
+    return await axios.post(ApiContant.order,
+        body,
+        MainService.headers())
+    .then((response) => {
+        return MainService.validateError(response);
+    }).catch(function (error) {
+        return error.response.data;
+    })
+};
+
+CustomerService.createOrderWithoutLogin = async function (body){
+    return await axios.post(ApiContant.orderWithoutLogin,
+        body,
+        MainService.headerWithoutToken())
+    .then((response) => {
+        return MainService.validateError(response);
+    }).catch(function (error) {
+        return error.response.data;
+    })
+};
+
+CustomerService.getOrderHistory = async function (){
+    return await axios.get(ApiContant.order,
         MainService.headers())
     .then((response) => {
         return MainService.validateError(response);

@@ -14,4 +14,15 @@ ContactService.getContact = async function (){
     })
 };
 
+ContactService.askQuestion = async function (body){
+    return await axios.post(ApiContant.askQuestion,
+        body,
+        MainService.headerWithoutToken())
+    .then((response) => {
+        return MainService.validateError(response);
+    }).catch(function (error) {
+        return error.response.data;
+    })
+};
+
 export default ContactService;

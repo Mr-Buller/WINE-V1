@@ -7,3 +7,19 @@ table tr td {
 .btn-checkout:hover{
     background: var(--primary);
 }
+.tab-menu{
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+.tab-menu-active{
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    background: #c0a483;
+    color:#fff;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}

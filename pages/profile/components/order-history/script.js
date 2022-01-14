@@ -1,4 +1,5 @@
 import CustomerService from './../../../../utils/services/CustomerService'
+import Helper from './../../../../utils/Helper'
 import Loading from './../../../../components/loading'
 
 export default {
@@ -43,9 +44,8 @@ export default {
             return process.env.BASE_URL + path
         },
 
-        formatBalance(x) {
-            let result = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            return result
-        }
+        formatPrice(price){
+            return Helper.formatPrice(parseFloat(price))
+        },
     },
 }

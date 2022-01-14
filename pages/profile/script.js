@@ -36,6 +36,10 @@ export default {
             let isAuthenticated = this.$cookies.get("token")
             if (isAuthenticated) {
                 this.isAuthenticated = true
+                let tabActiveName = this.$route.query.tab
+                if(tabActiveName){
+                    this.tabActive = tabActiveName
+                }
             } else {
                 this.switchAuthDialog('login')
             }

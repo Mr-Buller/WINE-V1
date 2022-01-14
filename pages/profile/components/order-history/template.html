@@ -26,7 +26,7 @@
 					<span>{{product.product.discount}}%</span>
 				</td>
 				<td class="txt-right">
-					<span>${{formatBalance(product.product.price)}}</span>
+					<span>{{formatPrice(product.product.price)}}</span>
 				</td>
 				<td class="txt-right">
 					<span>{{product.quantity}}</span>
@@ -38,7 +38,20 @@
 					<span>Status : </span><span v-if="order.orderState == 'PENDING'"
 						class="txt-warning">{{order.orderState}}</span>
 				</td>
-				<td class="txt-right" colspan="3"><span>Total : $1234</span></td>
+				<td class="txt-right" colspan="3">
+					<p class="font14 mb6">Total :
+						<span v-if="order.total">{{formatPrice(order.total)}}</span>
+						<span v-else>N/A</span>
+					</p>
+					<p class="font14 mb6">Total Discount : 
+						<span v-if="order.totalPriceDiscount">{{formatPrice(order.totalPriceDiscount)}}</span>
+						<span v-else>N/A</span>
+					</p>
+					<p class="font14 mb6">Grand Total : 
+						<span v-if="order.grandTotal">{{formatPrice(order.grandTotal)}}</span>
+						<span v-else>N/A</span>
+					</p>
+				</td>
 			</tr>
 		</thead>
 	</table>

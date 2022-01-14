@@ -6,12 +6,16 @@
 				<div class="row bg-secondary p30">
 					<p class="font18 mb16" style="font-weight: bold;">Call our hotline to place an order or talk to our customer service team:</p>
 					<div v-if="MainStore.contact.phone" class="row mb6">
-						<img :src="require('~/assets/images/icons/telephone.png')" class="h16" />
-						<small class="txt-dark-light">{{MainStore.contact.phone}}</small>
+						<a :href="'tel:'+MainStore.contact.phone">
+							<img :src="require('~/assets/images/icons/telephone.png')" class="h16" />
+							<small class="txt-dark-light">{{MainStore.contact.phone}}</small>
+						</a>
 					</div>
 					<div v-if="MainStore.contact.email" class="row mb6">
-						<img :src="require('~/assets/images/icons/envelope.png')" class="h16" />
-						<small class="txt-dark-light">{{MainStore.contact.email}}</small>
+						<a :href="'mailto:'+MainStore.contact.email">
+							<img :src="require('~/assets/images/icons/envelope.png')" class="h16" />
+							<small class="txt-dark-light">{{MainStore.contact.email}}</small>
+						</a>
 					</div>
 	
 					<p class="font18 mt24" style="font-weight: bold;">Follow us on</p>
@@ -38,21 +42,22 @@
 				<p>Prefer to send us a message? We’ll get right back to you</p>
 				<div class="col-12 mv16">
 					<div class="col-6 pr12">
-						<input type="text" placeholder="Your name" class="input" />
+						<input v-model="body.name" type="text" placeholder="Your name" class="input" />
 					</div>
 					<div class="col-6 pl12">
-						<input type="text" placeholder="Your email" class="input" />
+						<input v-model="body.email" type="text" placeholder="Your email" class="input" />
 					</div>
 				</div>
 				<div class="row mb16">
-					<input type="text" placeholder="Your phone" class="input" />
+					<input v-model="body.phone" type="text" placeholder="Your phone" class="input" />
 				</div>
 				<div class="row mb16">
-					<textarea class="input" rows="5" placeholder="Write your message"></textarea>
+					<textarea v-model="body.message" class="input" rows="5" placeholder="Write your message"></textarea>
 				</div>
 	
 				<div class="row mb16">
-					<button class="btn btn-default ph100">Submit</button>
+					<button v-if="!isCreating" @click="askQuestion" class="btn btn-default ph100">Submit</button>
+					<button v-else class="btn btn-default ph100">Loading...</button>
 				</div>
 			</div>
 		</div>

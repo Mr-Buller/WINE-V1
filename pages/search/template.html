@@ -30,6 +30,14 @@
 							:class="search.brandId == brand.id ? 'item-tag-active' : 'item-tag'">{{brand.name}}</div>
 					</div>
 				</div>
+				<div class="row mt40">
+					<p class="font18"><b>COUNTRIES</b></p>
+					<div class="row">
+						<div v-for="(country,countryIndex) in data.countries" :key="(country,countryIndex)"
+							@click="searchByCountry(countryIndex)"
+							:class="search.countryId == country.id ? 'item-tag-active' : 'item-tag'">{{country.name}}</div>
+					</div>
+				</div>
 
 				<div class="row mt36">
 					<div class="row">

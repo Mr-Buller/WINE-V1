@@ -3,10 +3,9 @@
 		<div class="m-container ph12">
 			<div class="col-3 pr50">
 				<p class="font20 mb24">CONTACT US</p>
-				<p>
+				<p v-if="MainStore.contact.address">
 					<span style="font-weight: bold;">Head Office :</span>
-					<span class="ml6 txt-dark-light font14" style="line-height: 20px;"> 26 Wyle Cop, Shrewsbury,
-						Shropshire, SY1 1XD</span>
+					<span class="ml6 txt-dark-light font14" style="line-height: 20px;"> {{MainStore.contact.address}}</span>
 				</p>
 				<p v-if="MainStore.contact.phone">
 					<span style="font-weight: bold;">Tel :</span>
@@ -39,24 +38,24 @@
 			</div>
 			<div class="col-3">
 				<p class="font20 mb24">CATEGORIES</p>
-				<p v-for="(category,categoryIndex) in data.categories" :key="(category,categoryIndex)"
-					v-if="categoryIndex < 5" class="txt-dark-light">
+				<nuxt-link :to="'/search?categoryId='+category.id" v-for="(category,categoryIndex) in data.categories" :key="(category,categoryIndex)"
+					v-if="categoryIndex < 5" class="footer-item">
 					{{category.name}}
-				</p>
+				</nuxt-link>
 			</div>
 			<div class="col-3">
 				<p class="font20 mb24">BRANDS</p>
-				<p v-for="(brand,brandIndex) in data.brands" :key="(brand,brandIndex)" v-if="brandIndex < 5"
-					class="txt-dark-light">
+				<nuxt-link :to="'/search?brandId='+brand.id" v-for="(brand,brandIndex) in data.brands" :key="(brand,brandIndex)" v-if="brandIndex < 5"
+					class="footer-item">
 					{{brand.name}}
-				</p>
+				</nuxt-link>
 			</div>
 			<div class="col-3">
 				<p class="font20 mb24">COUNTRIES</p>
-				<p v-for="(country,countryIndex) in data.countries" :key="(country,countryIndex)"
-					v-if="countryIndex < 5" class="txt-dark-light">
+				<nuxt-link :to="'/search?countryId='+country.id" v-for="(country,countryIndex) in data.countries" :key="(country,countryIndex)"
+					v-if="countryIndex < 5" class="footer-item">
 					{{country.name}}
-				</p>
+				</nuxt-link>
 			</div>
 		</div>
 

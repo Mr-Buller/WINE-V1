@@ -111,6 +111,7 @@ export default {
                     name: this.data.product.name,
                     qty: this.body.qty,
                     price: this.data.product.price,
+                    discount: this.data.product.discount ? parseInt(this.data.product.discount) : 0 ,
                     variant: options.join(", ")
                 }
                 if(productInCart){

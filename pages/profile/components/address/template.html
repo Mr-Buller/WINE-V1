@@ -39,35 +39,40 @@
 				<div class="row mb6">
 					<div class="col-6 ph12">
 						<p class="mb6">First name <span class="txt-danger">*</span></p>
-						<input v-model="body.firstname" type="text" class="w-input" />
+						<input v-model="body.firstname" type="text" :class="isSubmitted && !body.firstname ? 'w-input-error' : 'w-input'" />
+						<p v-if="isSubmitted && !body.firstname" class="msg-error">First name is required.</p>
 					</div>
 					<div class="col-6 ph12">
 						<p class="mb6">Last name <span class="txt-danger">*</span></p>
-						<input v-model="body.lastname" type="text" class="w-input" />
+						<input v-model="body.lastname" type="text" :class="isSubmitted && !body.lastname ? 'w-input-error' : 'w-input'" />
+						<p v-if="isSubmitted && !body.lastname" class="msg-error">Last name is required.</p>
 					</div>
 				</div>
 				<div class="row mb6">
 					<div class="col-12 ph12">
 						<p class="mb6">Phone <span class="txt-danger">*</span></p>
-						<input v-model="body.phone" type="text" class="w-input" />
+						<input v-model="body.phone" type="text" :class="isSubmitted && !body.phone ? 'w-input-error' : 'w-input'" />
+						<p v-if="isSubmitted && !body.phone" class="msg-error">Phone is required.</p>
 					</div>
 				</div>
 				<div class="row mb6">
 					<div class="col-12 ph12">
 						<p class="mb6">Email <span class="txt-danger">*</span></p>
-						<input v-model="body.email" type="text" class="w-input" />
+						<input v-model="body.email" type="text" :class="isSubmitted && !body.email ? 'w-input-error' : 'w-input'" />
+						<p v-if="isSubmitted && !body.email" class="msg-error">Email is required.</p>
 					</div>
 				</div>
 				<div class="row mb6">
 					<div class="col-12 ph12">
 						<p class="mb6">Address <span class="txt-danger">*</span></p>
-						<input v-model="body.address" type="text" class="w-input" />
+						<input v-model="body.address" type="text" :class="isSubmitted && !body.address ? 'w-input-error' : 'w-input'" />
+						<p v-if="isSubmitted && !body.address" class="msg-error">Address is required.</p>
 					</div>
 				</div>
 				<div class="row mb6">
 					<div class="col-12 ph12">
 						<p class="mb6">City/Province <span class="txt-danger">*</span></p>
-						<select v-model="address.provinceId" class="w-input">
+						<select v-model="body.provinceId" class="w-input">
 							<option v-for="(province, provinceIndex) in data.provinces" 
 								:key="(province, provinceIndex)"
 								:value="province.id">{{province.province}}</option>

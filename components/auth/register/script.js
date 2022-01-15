@@ -6,6 +6,7 @@ export default {
     data() {
         return {
             isCreating: false,
+            isSubmitted: false,
             body:{
                 firstname: "",
                 lastname: "",
@@ -31,6 +32,7 @@ export default {
       },
     methods: {
         createCustomer(){
+            this.isSubmitted = true
             let msgValidation = this.validateBody()
             if(msgValidation == "OK"){
                 this.isCreating = true
@@ -47,6 +49,9 @@ export default {
                     if(response.response && response.response.status == 200){
                         this.$toast.info("Registered successfully!");
                         this.switchAuthDialog('login')
+                    }
+                    if (response.response && response.response.status >= 400) {
+                        this.$toast.error(response.response.message)
                     }
                 }).catch(err => { console.log(err) })
             }else{

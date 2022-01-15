@@ -7,6 +7,8 @@ export default {
             isFetching: true,
             isUpdating: false,
             isChangingPassword: false,
+            isSubmitted: false,
+            isSubmittedPassword: false,
             data: {
                 customer: ""
             },
@@ -61,26 +63,33 @@ export default {
         },
 
         updateCustomerInfo() {
-            this.isUpdating = true
-            let body = {
-                "id": this.data.customer.id,
-                "email": this.body.email,
-                "fullName": this.body.firstname+" "+this.body.lastname,
-                "firstName": this.body.firstname,
-                "lastName": this.body.lastname,
-                "phone": this.body.phone,
-                "photo": ""
-            }
-            CustomerService.updateCustomer(body).then((response) => {
-                this.isUpdating = false
-                if (response.response && response.response.status == 200) {
-                    this.data.customer = response.results
-                    this.$toast.success("Customer info was updated.")
+            this.isSubmitted = true
+            let msgValidation = this.validateBody()
+            if(msgValidation == "OK"){
+                this.isUpdating = true
+                let body = {
+                    "id": this.data.customer.id,
+                    "email": this.body.email,
+                    "fullName": this.body.firstname+" "+this.body.lastname,
+                    "firstName": this.body.firstname,
+                    "lastName": this.body.lastname,
+                    "phone": this.body.phone,
+                    "photo": ""
                 }
-            }).catch(err => { console.log(err) })
+                CustomerService.updateCustomer(body).then((response) => {
+                    this.isUpdating = false
+                    if (response.response && response.response.status == 200) {
+                        this.data.customer = response.results
+                        this.$toast.success("Customer info was updated.")
+                    }
+                }).catch(err => { console.log(err) })
+            }else{
+                this.$toast.error(msgValidation)
+            }
         },
 
         changePassword() {
+            this.isSubmittedPassword = true
             this.isChangingPassword = true
             let body = {
                 "currentPassword": this.password.currentPassword,
@@ -98,6 +107,14 @@ export default {
                     this.$toast.error(response.response.message)
                 }
             }).catch(err => { console.log(err) })
-        }
+        },
+
+        validateBody() {
+			if (!this.body.email) { return "Email is required." }
+            if (!this.body.firstname) { return "First name is required." }
+            if (!this.body.lastname) { return "Last name is required." }
+            if (!this.body.phone) { return "Phone is required." }
+			return "OK"
+		},
     },
 }

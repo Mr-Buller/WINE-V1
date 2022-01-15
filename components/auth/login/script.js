@@ -6,6 +6,7 @@ export default {
     data() {
         return {
             isLogging: false,
+            isSubmitted: false,
             body: {
                 email: "",
                 password: ""
@@ -28,6 +29,7 @@ export default {
     },
     methods: {
         loginCustomer() {
+            this.isSubmitted = true
             let msgValidation = this.validateBody()
             if(msgValidation == "OK"){
                 this.isLogging = true

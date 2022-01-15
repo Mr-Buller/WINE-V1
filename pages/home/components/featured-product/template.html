@@ -19,12 +19,15 @@
 								<div v-if="product.brand" class="tag-type">{{product.brand.name}}</div>
 							</div>
 							<div class="row txt-center mt12">
-								<p class="txt-dark mb6">{{product.name}}</p>
+								<p class="txt-dark mb6 txt-ellipsis">{{product.name}}</p>
 								<p v-if="product.discount == 0" class="txt-primary font16">{{formatPrice(product.price)}}</p>
 								<p v-else class="font16"><del class="txt-dark-light mr6">{{formatPrice(product.price)}}</del>
 									<span class="txt-primary">{{getDiscount(product.price,product.discount)}}</span></p>
 							</div>
 						</nuxt-link>
+						<!-- <div @click="addToCart(product)" class="hover-btn-cart">
+							<img :src="require('~/assets/images/icons/shopping-cart.png')"/>
+						</div> -->
 					</div>
 				</slide>
 				<hooper-navigation slot="hooper-addons"></hooper-navigation>

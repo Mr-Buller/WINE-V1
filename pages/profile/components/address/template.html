@@ -23,6 +23,9 @@
 				</tr>
 			</tbody>
 		</table>
+		<div v-if="!isFetching && data.addresses.length == 0" class="row pv50 txt-center">
+			No Data
+		</div>
 		<Loading v-if="isFetching"></Loading>
 	</div>
 
@@ -36,35 +39,35 @@
 				<div class="row mb6">
 					<div class="col-6 ph12">
 						<p class="mb6">First name <span class="txt-danger">*</span></p>
-						<input v-model="body.firstname" type="text" class="input" />
+						<input v-model="body.firstname" type="text" class="w-input" />
 					</div>
 					<div class="col-6 ph12">
 						<p class="mb6">Last name <span class="txt-danger">*</span></p>
-						<input v-model="body.lastname" type="text" class="input" />
+						<input v-model="body.lastname" type="text" class="w-input" />
 					</div>
 				</div>
 				<div class="row mb6">
 					<div class="col-12 ph12">
 						<p class="mb6">Phone <span class="txt-danger">*</span></p>
-						<input v-model="body.phone" type="text" class="input" />
+						<input v-model="body.phone" type="text" class="w-input" />
 					</div>
 				</div>
 				<div class="row mb6">
 					<div class="col-12 ph12">
 						<p class="mb6">Email <span class="txt-danger">*</span></p>
-						<input v-model="body.email" type="text" class="input" />
+						<input v-model="body.email" type="text" class="w-input" />
 					</div>
 				</div>
 				<div class="row mb6">
 					<div class="col-12 ph12">
 						<p class="mb6">Address <span class="txt-danger">*</span></p>
-						<input v-model="body.address" type="text" class="input" />
+						<input v-model="body.address" type="text" class="w-input" />
 					</div>
 				</div>
 				<div class="row mb6">
 					<div class="col-12 ph12">
 						<p class="mb6">City/Province <span class="txt-danger">*</span></p>
-						<select v-model="body.provinceId" class="input">
+						<select v-model="address.provinceId" class="w-input">
 							<option v-for="(province, provinceIndex) in data.provinces" 
 								:key="(province, provinceIndex)"
 								:value="province.id">{{province.province}}</option>

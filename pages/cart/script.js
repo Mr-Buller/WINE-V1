@@ -8,25 +8,35 @@ export default {
     data() {
         return {
             isFetching: true,
-            isCreateing: false,
+            isCreating: false,
             isUserInfo: false,
-            data:{
+            showCreateDialog: false,
+            data: {
                 products: [],
                 addresses: [],
                 provinces: []
             },
-            body:{
+            body: {
+                addressIndex: 0,
                 provinceId: "",
                 customerAddressId: ""
             },
-            userInfo:{
+            userInfo: {
                 phone: "",
                 emai: "",
                 firstName: "",
                 lastName: "",
                 password: ""
             },
-            userAddress:{
+            userAddress: {
+                address: "",
+                provinceId: ""
+            },
+            address:{
+                firstname: "",
+                lastname: "",
+                phone: "",
+                email: "",
                 address: "",
                 provinceId: ""
             }
@@ -36,11 +46,12 @@ export default {
 
     },
     created() {
-        if(process.client)
+        if (process.client)
         this.getProductInCart()
+        this.getProvince()
     },
     mounted() {
-        
+
         // this.getAddress()
     },
     computed: {
@@ -56,10 +67,10 @@ export default {
 
         getProductInCart() {
             let token = this.$cookies.get('token')
-            token ? this.getAddress() : this.getProvince()
-
+            if(token){ this.getAddress() }
+            
             let products = this.$auth.$storage.getLocalStorage('productInCart')
-            if(products){
+            if (products) {
                 this.data.products = products
             }
         },
@@ -69,7 +80,7 @@ export default {
                 if (response.response && response.response.status == 200) {
                     let addresses = response.results
                     this.data.addresses = addresses
-                    if(addresses && addresses.length > 0){
+                    if (addresses && addresses.length > 0) {
                         this.body.customerAddressId = addresses[0].id
                     }
                 }
@@ -83,15 +94,16 @@ export default {
                     if (this.data.provinces.length > 0) {
                         this.body.provinceId = this.data.provinces[0].id
                         this.userAddress.provinceId = this.data.provinces[0].id
+                        this.address.provinceId = this.data.provinces[0].id
                     }
                 }
             }).catch(err => { console.log(err) })
         },
 
-        createOrder(){
-            this.isCreateing = true
+        createOrder() {
+            this.isCreating = true
             let products = []
-            for(let i=0; i<this.data.products.length; i++){
+            for (let i = 0; i < this.data.products.length; i++) {
                 let product = this.data.products[i]
                 let variant = product.variant.toLowerCase()
                 variant = variant.split(', ')
@@ -107,112 +119,149 @@ export default {
                 products.push(obj)
             }
             let body = {
-                customerAddress:{
+                customerAddress: {
                     id: this.body.customerAddressId
                 },
-                customer:{
+                customer: {
                     id: this.$cookies.get('userId'),
                 },
                 orderDetail: products
             }
             CustomerService.createOrder(body).then((response) => {
-                this.isCreateing = false
+                this.isCreating = false
                 if (response.response && response.response.status == 200) {
                     this.$auth.$storage.removeLocalStorage('productInCart')
                     this.$toast.success("Checkout is successfully.")
-                    this.$router.push({path : '/profile?tab=order'})
-                }else{
+                    this.$router.push({ path: '/profile?tab=order' })
+                } else {
                     this.$toast.error("Something went wrong.")
                 }
             }).catch(err => { console.log(err) })
         },
 
-        createOrderWithLogin(){
-            this.isCreateing = true
-            let products = []
-            for(let i=0; i<this.data.products.length; i++){
-                let product = this.data.products[i]
-                let variant = product.variant.toLowerCase()
-                variant = variant.split(', ')
-                let obj = {
-                    unitPrice: product.price,
-                    quantity: product.qty,
-                    variant: variant.join("-"),
-                    discount: product.discount,
-                    product: {
-                        id: product.id
+        createOrderWithLogin() {
+            let msgValidation = this.validateBody()
+            if (msgValidation == "OK") {
+                this.isCreating = true
+                let products = []
+                for (let i = 0; i < this.data.products.length; i++) {
+                    let product = this.data.products[i]
+                    let variant = product.variant.toLowerCase()
+                    variant = variant.split(', ')
+                    let obj = {
+                        unitPrice: product.price,
+                        quantity: product.qty,
+                        variant: variant.join("-"),
+                        discount: product.discount,
+                        product: {
+                            id: product.id
+                        }
+                    }
+                    products.push(obj)
+                }
+                let body = {
+                    order: {
+                        // total: this.sumSubtotal(),
+                        // totalPriceDiscount: this.sumDiscount(),
+                        // grandTotal: this.getGrandTotal(),
+                        total: 0,
+                        totalPriceDiscount: 0,
+                        grandTotal: 0,
+                        customerAddress: {
+                            address: this.userAddress.address,
+                            province: {
+                                id: this.userAddress.provinceId
+                            }
+                        },
+                        orderDetail: products,
+                    },
+                    registerRequest: {
+                        phone: this.userInfo.phone,
+                        email: this.userInfo.email,
+                        firstName: this.userInfo.firstName,
+                        lastName: this.userInfo.lastName,
+                        password: this.userInfo.password
                     }
                 }
-                products.push(obj)
+                CustomerService.createOrderWithoutLogin(body).then((response) => {
+                    this.isCreating = false
+                    if (response.response && response.response.status == 200) {
+                        this.$auth.$storage.removeLocalStorage('productInCart')
+                        this.$toast.success("Checkout is successfully.")
+
+                        this.$cookies.set('userId', response.results.jwtCustomerResponse.customer.id)
+                        this.$cookies.set('token', response.results.jwtCustomerResponse.jwtResponse.token)
+                        location.href = "/profile?tab=order"
+                    } else {
+                        this.$toast.error(response.response.message)
+                    }
+                }).catch(err => { console.log(err) })
+            }else{
+                this.$toast.error(msgValidation)
             }
+        },
+
+        createAddress() {
+            this.isCreating = true
             let body = {
-                order: {
-                    // total: this.sumSubtotal(),
-                    // totalPriceDiscount: this.sumDiscount(),
-                    // grandTotal: this.getGrandTotal(),
-                    total: 0,
-                    totalPriceDiscount: 0,
-                    grandTotal: 0,
-                    customerAddress:{
-                        address: this.userAddress.address,
-                        province: {
-                            id: this.userAddress.provinceId
-                        }
-                    },
-                    orderDetail: products,
-                },
-                registerRequest: {
-                    phone: this.userInfo.phone,
-                    email: this.userInfo.email,
-                    firstName: this.userInfo.firstName,
-                    lastName: this.userInfo.lastName,
-                    password: this.userInfo.password
+                "phone": this.address.phone,
+                "fullName": this.address.firstname + " " + this.address.lastname,
+                "firstName": this.address.firstname,
+                "lastName": this.address.lastname,
+                "address": this.address.address,
+                "province": {
+                    "id": this.address.provinceId
                 }
             }
-            CustomerService.createOrderWithoutLogin(body).then((response) => {
-                this.isCreateing = false
+            CustomerService.createAddress(body).then((response) => {
+                this.isCreating = false
                 if (response.response && response.response.status == 200) {
-                    this.$auth.$storage.removeLocalStorage('productInCart')
-                    this.$toast.success("Checkout is successfully.")
-
-                    this.$cookies.set('userId', response.results.jwtCustomerResponse.customer.id)
-                    this.$cookies.set('token', response.results.jwtCustomerResponse.jwtResponse.token)
-                    // location.href = "/profile?tab=order"
-                }else{
-                    this.$toast.error(response.response.message)
+                    this.data.addresses.push(response.results)
+                    this.body.customerAddressId = response.results.id
+                    this.showCreateDialog = false
                 }
             }).catch(err => { console.log(err) })
         },
 
-        getSubtotalPrice(product){
+        validateBody() {
+            if (!this.userAddress.address) { return "Address is required." }
+            if (!this.userInfo.phone) { return "Phone is required." }
+            if (!this.userInfo.email) { return "Email is required." }
+            if (!this.userInfo.firstName) { return "First name is required." }
+            if (!this.userInfo.lastName) { return "Last name is required." }
+            if (!this.userInfo.password) { return "Password is required." }
+            return "OK"
+        },
+
+        getSubtotalPrice(product) {
             let result = parseFloat(product.price) * parseInt(product.qty)
             return this.formatPrice(result)
         },
 
         getTotalPrice() {
-            if(this.data.products && this.data.products.length > 0){
+            if (this.data.products && this.data.products.length > 0) {
                 return this.data.products.reduce(function (a, b) {
                     let subtotal = b.price - (b.price * (b.discount / 100))
-                    let result = a + (subtotal*b.qty)
+                    let result = a + (subtotal * b.qty)
                     return result
                 }, 0);
             }
         },
 
-        increaseQty(index){
+        increaseQty(index) {
             let qty = this.data.products[index].qty
             qty = parseInt(qty)
             this.data.products[index].qty = qty + 1
             this.$auth.$storage.setLocalStorage('productInCart', this.data.products)
         },
 
-        decreaseQty(index){
+        decreaseQty(index) {
             let qty = this.data.products[index].qty
             qty = parseInt(qty)
-            if(qty > 1){
+            if (qty > 1) {
                 this.data.products[index].qty = qty - 1
                 this.$auth.$storage.setLocalStorage('productInCart', this.data.products)
-            }else{
+            } else {
                 this.$toast.error("Product quantity is required at least 1.")
             }
         },
@@ -227,7 +276,7 @@ export default {
             return process.env.BASE_URL + path
         },
 
-        formatPrice(price){
+        formatPrice(price) {
             return Helper.formatPrice(parseFloat(price))
         },
 
@@ -236,7 +285,7 @@ export default {
             return this.formatPrice(totalValue * qty)
         },
 
-        sumSubtotal(){
+        sumSubtotal() {
             let result = this.data.products.reduce((a, b) => {
                 let totalValue = b.price * b.qty
                 console.log(totalValue)
@@ -245,15 +294,16 @@ export default {
             return this.formatPrice(result)
         },
 
-        sumDiscount(){
+        sumDiscount() {
             let result = this.data.products.reduce((a, b) => {
+                console.log(b)
                 let totalValue = b.price * (b.discount / 100)
                 return a + parseFloat(totalValue)
             }, 0);
             return this.formatPrice(result)
         },
 
-        getGrandTotal(){
+        getGrandTotal() {
             let subtotal = this.data.products.reduce((a, b) => {
                 let totalValue = b.price * b.qty
                 console.log(totalValue)
@@ -263,7 +313,17 @@ export default {
                 let totalValue = b.price * (b.discount / 100)
                 return a + parseFloat(totalValue)
             }, 0);
-            return this.formatPrice(subtotal-discount)
+            return this.formatPrice(subtotal - discount)
+        },
+
+        displayCreateDialog(){
+            this.showCreateDialog = true
+            if (this.MainStore.user) {
+                this.address.firstname = this.MainStore.user.firstName
+                this.address.lastname = this.MainStore.user.lastName
+                this.address.phone = this.MainStore.user.phone
+                this.address.email = this.MainStore.user.email
+            }
         }
     },
 }

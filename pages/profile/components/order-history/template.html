@@ -1,5 +1,5 @@
 <div class="row">
-	<p class="font20 ph12">
+	<p class="font20">
 		<b>Order History</b>
 	</p>
 	<table v-if="!isFetching" v-for="(order,orderIndex) in data.orders" :key="(order,orderIndex)"
@@ -18,7 +18,7 @@
 						style="width: 72px;height:72px;object-fit: cover;float: left;margin-right: 12px;" />
 					<div class="go-left pt10">
 						<p class="txt-primary mb6">{{product.product.name}}</p>
-						<span>Variant :</span> <span class="txt-dark-light">{{product.variant}}</span>
+						<span>Variant :</span> <span class="capitalize txt-dark-light">{{formatVariant(product.variant)}}</span>
 					</div>
 				</td>
 				</td>
@@ -34,20 +34,23 @@
 			</tr>
 			<tr>
 				<td>
-					<p>Ordered Date : <span class="txt-dark-light">{{order.created | moment("MMM-DD-YYYY")}}</span></p>
-					<span>Status : </span><span v-if="order.orderState == 'PENDING'"
-						class="txt-warning">{{order.orderState}}</span>
+					<p class="font14 mb6">Date : <span
+							class="txt-dark-light">{{order.created | moment("MMM-DD-YYYY")}}</span></p>
+					<p class="font14 mb6">Status : <span v-if="order.orderState == 'PENDING'"
+							class="txt-warning">{{order.orderState}}</span></p>
+					<p class="font14 mb6">Address : <span
+							class="txt-dark-light">{{order.customerAddress.address}}</span></p>
 				</td>
 				<td class="txt-right" colspan="3">
 					<p class="font14 mb6">Total :
 						<span v-if="order.total">{{formatPrice(order.total)}}</span>
 						<span v-else>N/A</span>
 					</p>
-					<p class="font14 mb6">Total Discount : 
+					<p class="font14 mb6">Total Discount :
 						<span v-if="order.totalPriceDiscount != null">- {{formatPrice(order.totalPriceDiscount)}}</span>
 						<span v-else>N/A</span>
 					</p>
-					<p class="font14 mb6">Grand Total : 
+					<p class="font14 mb6">Grand Total :
 						<span v-if="order.grandTotal">{{formatPrice(order.grandTotal)}}</span>
 						<span v-else>N/A</span>
 					</p>

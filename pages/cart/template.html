@@ -101,33 +101,50 @@
 				<div class="col-7">
 					<div class="row bg-secondary p24">
 						<p class="font20" style="font-weight: bold;">Address Info</p>
-						<p class="txt-dark-light mt12">Address <span class="txt-danger">*</span></p>
-						<input v-model="userAddress.address" type="text" class="w-input" />
-						<p class="txt-dark-light mt24">City/Province</p>
-						<select v-if="data.provinces.length > 0" v-model="userAddress.provinceId" class="w-input">
-							<option v-for="(province,provinceIndex) in data.provinces" 
-								:key="(province,provinceIndex)"
-								:value="province.id">
-								{{province.province}}
-							</option>
-						</select>
+						<div class="row">
+							<p class="txt-dark-light mt12">Address <span class="txt-danger">*</span></p>
+							<input v-model="userAddress.address" type="text" :class="isSubmitted && !userAddress.address ? 'w-input-error' : 'w-input'" />
+							<p v-if="isSubmitted && !userAddress.address" class="msg-error">Address is required.</p>
+						</div>
+						<div class="row">
+							<p class="txt-dark-light mt24">City/Province <span class="txt-danger">*</span></p>
+							<select v-if="data.provinces.length > 0" v-model="userAddress.provinceId" :class="isSubmitted && !userAddress.provinceId ? 'w-input-error' : 'w-input'">
+								<option v-for="(province,provinceIndex) in data.provinces" 
+									:key="(province,provinceIndex)"
+									:value="province.id">
+									{{province.province}}
+								</option>
+							</select>
+							<p v-if="isSubmitted && !userAddress.provinceId" class="msg-error">Province is required.</p>
+						</div>
 						<hr class="mv24"/>
 						<div class="row">
 							<div class="col-6 pr6">
 								<p class="txt-dark-light">First Name <span class="txt-danger">*</span></p>
-								<input v-model="userInfo.firstName" type="text" placeholder="First name" class="w-input" />
+								<input v-model="userInfo.firstName" type="text" placeholder="First name" :class="isSubmitted && !userInfo.firstName ? 'w-input-error' : 'w-input'" />
+								<p v-if="isSubmitted && !userInfo.firstName" class="msg-error">First name is required.</p>
 							</div>
 							<div class="col-6 pl6">
 								<p class="txt-dark-light">Last Name <span class="txt-danger">*</span></p>
-								<input v-model="userInfo.lastName" type="text" placeholder="Last name" class="w-input" />
+								<input v-model="userInfo.lastName" type="text" placeholder="Last name" :class="isSubmitted && !userInfo.lastName ? 'w-input-error' : 'w-input'" />
+								<p v-if="isSubmitted && !userInfo.lastName" class="msg-error">Last name is required.</p>
 							</div>
 						</div>
-						<p class="txt-dark-light mt12">Phone <span class="txt-danger">*</span></p>
-						<input v-model="userInfo.phone" type="text" placeholder="Phone" class="w-input" />
-						<p class="txt-dark-light mt24">Email</p>
-						<input v-model="userInfo.email" type="text" placeholder="Your email" class="w-input" />
-						<p class="txt-dark-light mt24">Password <span class="txt-danger">*</span></p>
-						<input v-model="userInfo.password" type="password" placeholder="Password" class="w-input" />
+						<div class="row">
+							<p class="txt-dark-light mt12">Phone <span class="txt-danger">*</span></p>
+							<input v-model="userInfo.phone" type="text" placeholder="Phone" :class="isSubmitted && !userInfo.phone ? 'w-input-error' : 'w-input'" />
+							<p v-if="isSubmitted && !userInfo.phone" class="msg-error">Phone is required.</p>
+						</div>
+						<div class="row">
+							<p class="txt-dark-light mt24">Email <span class="txt-danger">*</span></p>
+							<input v-model="userInfo.email" type="text" placeholder="Your email" :class="isSubmitted && !userInfo.email ? 'w-input-error' : 'w-input'" />
+							<p v-if="isSubmitted && !userInfo.email" class="msg-error">Email is required.</p>
+						</div>
+						<div class="row">
+							<p class="txt-dark-light mt24">Password <span class="txt-danger">*</span></p>
+							<input v-model="userInfo.password" type="password" placeholder="Password" :class="isSubmitted && !userInfo.password ? 'w-input-error' : 'w-input'" />
+							<p v-if="isSubmitted && !userInfo.password" class="msg-error">Password is required.</p>
+						</div>
 					</div>
 				</div>
 				<div class="col-5 pl50">
@@ -188,29 +205,34 @@
 				<div class="row mb6">
 					<div class="col-6 ph12">
 						<p class="mb6">First name <span class="txt-danger">*</span></p>
-						<input v-model="address.firstname" type="text" class="w-input" />
+						<input v-model="address.firstname" type="text" :class="isSubmittedAddress && !address.firstname ? 'w-input-error' : 'w-input'" />
+						<p v-if="isSubmittedAddress && !address.firstname" class="msg-error">First name is required.</p>
 					</div>
 					<div class="col-6 ph12">
 						<p class="mb6">Last name <span class="txt-danger">*</span></p>
-						<input v-model="address.lastname" type="text" class="w-input" />
+						<input v-model="address.lastname" type="text" :class="isSubmittedAddress && !address.lastname ? 'w-input-error' : 'w-input'" />
+						<p v-if="isSubmittedAddress && !address.lastname" class="msg-error">Last name is required.</p>
 					</div>
 				</div>
 				<div class="row mb6">
 					<div class="col-12 ph12">
 						<p class="mb6">Phone <span class="txt-danger">*</span></p>
-						<input v-model="address.phone" type="text" class="w-input" />
+						<input v-model="address.phone" type="text" :class="isSubmittedAddress && !address.phone ? 'w-input-error' : 'w-input'" />
+						<p v-if="isSubmittedAddress && !address.phone" class="msg-error">Phone is required.</p>
 					</div>
 				</div>
 				<div class="row mb6">
 					<div class="col-12 ph12">
 						<p class="mb6">Email <span class="txt-danger">*</span></p>
-						<input v-model="address.email" type="text" class="w-input" />
+						<input v-model="address.email" type="text" :class="isSubmittedAddress && !address.email ? 'w-input-error' : 'w-input'" />
+						<p v-if="isSubmittedAddress && !address.email" class="msg-error">Email is required.</p>
 					</div>
 				</div>
 				<div class="row mb6">
 					<div class="col-12 ph12">
 						<p class="mb6">Address <span class="txt-danger">*</span></p>
-						<input v-model="address.address" type="text" class="w-input" />
+						<input v-model="address.address" type="text" :class="isSubmittedAddress && !address.address ? 'w-input-error' : 'w-input'" />
+						<p v-if="isSubmittedAddress && !address.address" class="msg-error">Address is required.</p>
 					</div>
 				</div>
 				<div class="row mb6">

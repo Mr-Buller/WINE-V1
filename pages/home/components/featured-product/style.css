@@ -17,3 +17,27 @@
     padding:2px 6px;
     font-size:14px;
 }
+
+.hover-btn-cart{
+    width: 42px;
+    height:42px;
+    border:1px solid #ddd;
+    position: absolute;
+    bottom:84px;
+    right:24px;
+    background: #fff;
+    cursor: pointer;
+}
+.hover-btn-cart:hover{
+    background: var(--primary);
+}
+.hover-btn-cart:hover img{
+    filter: brightness(0) invert(1);
+}
+.hover-btn-cart img{
+    height: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}

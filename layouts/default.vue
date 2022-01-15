@@ -216,14 +216,6 @@ export default {
   border-top: 3px solid #bfa483;
   padding: 24px;
 }
-.w-input {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #ddd;
-  outline: none;
-  font-size: 16px;
-  border-radius: 0 !important;
-}
 
 .hooper {
   height: auto !important;

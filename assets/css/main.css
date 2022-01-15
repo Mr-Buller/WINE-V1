@@ -425,3 +425,25 @@ button, input, select, option, textarea{
 .capitalize{
     text-transform: capitalize;
 }
+.w-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    outline: none;
+    font-size: 16px;
+    border-radius: 0 !important;
+}
+.w-input-error {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--danger);
+    outline: none;
+    font-size: 16px;
+    border-radius: 0 !important;
+}
+.msg-error{
+    font-size: 12px;
+    margin-bottom: 0;
+    margin-top: 6px;
+    color: var(--danger);
+}

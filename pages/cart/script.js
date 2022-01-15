@@ -9,6 +9,8 @@ export default {
         return {
             isFetching: true,
             isCreating: false,
+            isSubmitted: false,
+            isSubmittedAddress: false,
             isUserInfo: false,
             showCreateDialog: false,
             data: {
@@ -60,7 +62,6 @@ export default {
         ])
     },
     methods: {
-
         switchAuthDialog(type) {
             this.$store.commit("SHOW_LOGIN_DIALOG", type);
         },
@@ -140,6 +141,7 @@ export default {
         },
 
         createOrderWithLogin() {
+            this.isSubmitted = true
             let msgValidation = this.validateBody()
             if (msgValidation == "OK") {
                 this.isCreating = true
@@ -202,25 +204,31 @@ export default {
         },
 
         createAddress() {
-            this.isCreating = true
-            let body = {
-                "phone": this.address.phone,
-                "fullName": this.address.firstname + " " + this.address.lastname,
-                "firstName": this.address.firstname,
-                "lastName": this.address.lastname,
-                "address": this.address.address,
-                "province": {
-                    "id": this.address.provinceId
+            this.isSubmittedAddress = true
+            let msgValidation = this.validateAddressBody()
+            if (msgValidation == "OK") {
+                this.isCreating = true
+                let body = {
+                    "phone": this.address.phone,
+                    "fullName": this.address.firstname + " " + this.address.lastname,
+                    "firstName": this.address.firstname,
+                    "lastName": this.address.lastname,
+                    "address": this.address.address,
+                    "province": {
+                        "id": this.address.provinceId
+                    }
                 }
+                CustomerService.createAddress(body).then((response) => {
+                    this.isCreating = false
+                    if (response.response && response.response.status == 200) {
+                        this.data.addresses.push(response.results)
+                        this.body.customerAddressId = response.results.id
+                        this.showCreateDialog = false
+                    }
+                }).catch(err => { console.log(err) })
+            }else{
+                this.$toast.error(msgValidation)
             }
-            CustomerService.createAddress(body).then((response) => {
-                this.isCreating = false
-                if (response.response && response.response.status == 200) {
-                    this.data.addresses.push(response.results)
-                    this.body.customerAddressId = response.results.id
-                    this.showCreateDialog = false
-                }
-            }).catch(err => { console.log(err) })
         },
 
         validateBody() {
@@ -230,6 +238,15 @@ export default {
             if (!this.userInfo.firstName) { return "First name is required." }
             if (!this.userInfo.lastName) { return "Last name is required." }
             if (!this.userInfo.password) { return "Password is required." }
+            return "OK"
+        },
+
+        validateAddressBody() {
+            if (!this.address.firstName) { return "First name is required." }
+            if (!this.address.lastName) { return "Last name is required." }
+            if (!this.address.phone) { return "Phone is required." }
+            if (!this.address.email) { return "Email is required." }
+            if (!this.address.address) { return "Address is required." }
             return "OK"
         },
 

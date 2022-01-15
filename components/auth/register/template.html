@@ -3,25 +3,47 @@
 	<div class="block-auth">
 		<div class="row">
 			<span class="font24">Register</span>
-			<span @click="switchAuthDialog('login')" class="font20 go-right txt-primary pointer ">Already has an account</span>
+			<span @click="switchAuthDialog('login')" class="font20 go-right txt-primary pointer ">Already has an
+				account</span>
 		</div>
 		<div class="row mv24">
 			<div class="row">
 				<div class="col-6 pr6">
-					<p class="txt-dark-light">First Name <span class="txt-danger">*</span></p>
-					<input v-model="body.firstname" type="text" placeholder="First name" class="w-input" />
+					<div class="row">
+						<p class="txt-dark-light">First Name <span class="txt-danger">*</span></p>
+						<input v-model="body.firstname" type="text" placeholder="First name"
+							:class="isSubmitted && !body.firstname ? 'w-input-error' : 'w-input'" />
+						<p v-if="isSubmitted && !body.firstname" class="msg-error">First name is required.</p>
+					</div>
 				</div>
 				<div class="col-6 pl6">
-					<p class="txt-dark-light">Last Name <span class="txt-danger">*</span></p>
-					<input v-model="body.lastname" type="text" placeholder="Last name" class="w-input" />
+					<div class="row">
+						<p class="txt-dark-light">Last Name <span class="txt-danger">*</span></p>
+						<input v-model="body.lastname" type="text" placeholder="Last name"
+							:class="isSubmitted && !body.firstname ? 'w-input-error' : 'w-input'" />
+						<p v-if="isSubmitted && !body.lastname" class="msg-error">Last name is required.</p>
+					</div>
 				</div>
 			</div>
-			<p class="txt-dark-light mt12">Phone <span class="txt-danger">*</span></p>
-			<input v-model="body.phone" type="text" placeholder="Phone" class="w-input" />
-			<p class="txt-dark-light mt24">Email <span class="txt-danger">*</span></p>
-			<input v-model="body.email" type="text" placeholder="Your email" class="w-input" />
-			<p class="txt-dark-light mt24">Password <span class="txt-danger">*</span></p>
-			<input @keyup.enter="createCustomer" v-model="body.password" type="password" placeholder="Password" class="w-input" />
+			<div class="row">
+				<p class="txt-dark-light mt12">Phone <span class="txt-danger">*</span></p>
+				<input v-model="body.phone" type="text" placeholder="Phone"
+					:class="isSubmitted && !body.phone ? 'w-input-error' : 'w-input'" />
+				<p v-if="isSubmitted && !body.phone" class="msg-error">Phone is required.</p>
+			</div>
+			<div class="row">
+				<p class="txt-dark-light mt24">Email <span class="txt-danger">*</span></p>
+				<input v-model="body.email" type="text" placeholder="Your email"
+					:class="isSubmitted && !body.email ? 'w-input-error' : 'w-input'" />
+				<p v-if="isSubmitted && !body.email" class="msg-error">Email is required.</p>
+			</div>
+			<div class="row">
+				<p class="txt-dark-light mt24">Password <span class="txt-danger">*</span></p>
+				<input @keyup.enter="createCustomer" v-model="body.password" type="password" placeholder="Password"
+					:class="isSubmitted && !body.email ? 'w-input-error' : 'w-input'" />
+				<p v-if="isSubmitted && !body.password" class="msg-error">Password is required.</p>
+			</div>
+
 			<div v-if="!isCreating" @click="createCustomer" class="btn-default mt24">REGISTER</div>
 			<div v-else class="btn-default mt24">LOADING...</div>
 		</div>

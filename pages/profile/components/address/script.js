@@ -10,6 +10,7 @@ export default {
             isFetching: true,
             isCreating: false,
             isRemoving: false,
+            isSubmitted: false,
             showCreateDialog: false,
             showRemoveDialog: false,
             updateIndex: -1,
@@ -69,24 +70,30 @@ export default {
         },
 
         createAddress() {
-            this.isCreating = true
-            let body = {
-                "phone": this.body.phone,
-                "fullName": this.body.firstname + " " + this.body.lastname,
-                "firstName": this.body.firstname,
-                "lastName": this.body.lastname,
-                "address": this.body.address,
-                "province": {
-                    "id": this.body.provinceId
+            this.isSubmitted = true
+            let msgValidation = this.validateBody()
+            if(msgValidation == "OK"){
+                this.isCreating = true
+                let body = {
+                    "phone": this.body.phone,
+                    "fullName": this.body.firstname + " " + this.body.lastname,
+                    "firstName": this.body.firstname,
+                    "lastName": this.body.lastname,
+                    "address": this.body.address,
+                    "province": {
+                        "id": this.body.provinceId
+                    }
                 }
+                CustomerService.createAddress(body).then((response) => {
+                    this.isCreating = false
+                    if (response.response && response.response.status == 200) {
+                        this.data.addresses.push(response.results)
+                        this.showCreateDialog = false
+                    }
+                }).catch(err => { console.log(err) })
+            }else{
+                this.$toast.error(msgValidation)
             }
-            CustomerService.createAddress(body).then((response) => {
-                this.isCreating = false
-                if (response.response && response.response.status == 200) {
-                    this.data.addresses.push(response.results)
-                    this.showCreateDialog = false
-                }
-            }).catch(err => { console.log(err) })
         },
 
         removeAddress() {
@@ -118,6 +125,15 @@ export default {
                 }
             }).catch(err => { console.log(err) })
         },
+
+        validateBody() {
+            if (!this.body.firstname) { return "First name is required." }
+            if (!this.body.lastname) { return "Last name is required." }
+            if (!this.body.phone) { return "Phone is required." }
+            if (!this.body.email) { return "Email is required." }
+            if (!this.body.address) { return "Address is required." }
+			return "OK"
+		},
 
     },
 }

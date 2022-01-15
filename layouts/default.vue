@@ -222,6 +222,7 @@ export default {
   border: 1px solid #ddd;
   outline: none;
   font-size: 16px;
+  border-radius: 0 !important;
 }
 
 .hooper {

@@ -23,3 +23,6 @@ table tr td {
     position: relative;
     cursor: pointer;
 }
+.tab-menu-active img{
+    filter: brightness(0) invert(1);
+}

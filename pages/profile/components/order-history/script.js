@@ -47,5 +47,10 @@ export default {
         formatPrice(price){
             return Helper.formatPrice(parseFloat(price))
         },
+
+        formatVariant(str){
+            let arrStr = str.split('-')
+            return arrStr.join(', ')
+        }
     },
 }

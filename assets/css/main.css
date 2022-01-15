@@ -422,3 +422,6 @@ button, input, select, option, textarea{
 .btn-default:hover{
     background: var(--primary);
 }
+.capitalize{
+    text-transform: capitalize;
+}

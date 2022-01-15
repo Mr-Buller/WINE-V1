@@ -53,17 +53,20 @@
 								<td width="30%">Subtotal</td>
 								<td>$700.00</td>
 							</tr>
-							<tr v-if="MainStore.token">
-								<td>Shipping </td>
+							<tr v-if="MainStore.token && data.products && data.products.length > 0">
+								<td style="vertical-align: top;">Shipping</td>
 								<td>
-									<p class="txt-dark-light">Shipping to</p>
-									<select v-if="data.addresses.length > 0" v-model="body.customerAddressId" class="input">
+									<p class="txt-dark-light">Shipping to : <span @click="displayCreateDialog" class="font14 txt-danger go-right pointer">Create address</span></p>
+									<select v-if="data.addresses.length > 0" v-model="body.customerAddressId" class="w-input">
 										<option v-for="(address,addressIndex) in data.addresses" 
 											:key="(address,addressIndex)"
 											:value="address.id">
 											{{address.address}}
 										</option>
 									</select>
+									<!-- <p v-if="data.addresses.length > 0" class="txt-dark-light">Shipping to : <span class="txt-dark">{{data.addresses[body.addressIndex].address}}</span></p>
+									<p class="txt-danger txt-right pointer mv6">Change address <i class="fa fa-angle-down"></i></p>
+									<div class="btn-default go-right pv6 ph24 mt12">UPDATE</div> -->
 								</td>
 							</tr>
 							<tr v-if="data.products && data.products.length > 0">
@@ -73,10 +76,12 @@
 						</tbody>
 					</table>
 		
-					<div v-if="!isCreateing" class="row p16" style="background: #f2f2f2;border-top: 1px solid #ddd;">
+					<div v-if="!isCreating" class="row p16" style="background: #f2f2f2;border-top: 1px solid #ddd;">
 						<div v-if="MainStore.token" class="row">
 							<div v-if="data.products && data.products.length > 0" @click="createOrder" class="btn-checkout">PROCEED TO CHECKOUT</div>
-							<div v-else class="btn-checkout btn-disabled">PROCEED TO CHECKOUT</div>
+							<nuxt-link to="/search" v-else>
+								<div class="btn-checkout">SHOPPING NOW</div>
+							</nuxt-link>
 						</div>
 						<div v-else class="row">
 							<div v-if="data.products && data.products.length > 0" @click="isUserInfo = true"class="btn-checkout">PROCEED TO CHECKOUT</div>
@@ -85,12 +90,13 @@
 							</nuxt-link>
 						</div>
 					</div>
-					<div v-if="isCreateing" class="row p16" style="background: #f2f2f2;border-top: 1px solid #ddd;">
+					<div v-if="isCreating" class="row p16" style="background: #f2f2f2;border-top: 1px solid #ddd;">
 						<div class="btn-checkout">LOADING...</div>
 					</div>
 				</div>
 			</div>
 
+			<!-- User logged in -->
 			<div v-if="isUserInfo" class="col-12">
 				<div class="col-7">
 					<div class="row bg-secondary p24">
@@ -98,7 +104,7 @@
 						<p class="txt-dark-light mt12">Address <span class="txt-danger">*</span></p>
 						<input v-model="userAddress.address" type="text" class="w-input" />
 						<p class="txt-dark-light mt24">City/Province</p>
-						<select v-if="data.provinces.length > 0" v-model="userAddress.provinceId" class="input">
+						<select v-if="data.provinces.length > 0" v-model="userAddress.provinceId" class="w-input">
 							<option v-for="(province,provinceIndex) in data.provinces" 
 								:key="(province,provinceIndex)"
 								:value="province.id">
@@ -161,12 +167,65 @@
 						<span class="font16 txt-right go-right">{{getGrandTotal()}}</span>
 					</div>
 		
-					<div v-if="!isCreateing" class="row mt12">
+					<div v-if="!isCreating" class="row mt12">
 						<div @click="createOrderWithLogin" class="btn-checkout">PROCEED TO CHECKOUT</div>
 					</div>
-					<div v-if="isCreateing" class="row p16" style="background: #f2f2f2;border-top: 1px solid #ddd;">
+					<div v-if="isCreating" class="row p16">
 						<div class="btn-checkout">LOADING...</div>
 					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div v-if="showCreateDialog" class="auth-container">
+		<div @click="showCreateDialog = false" class="auth-bg"></div>
+		<div class="block-auth">
+			<div class="row ph12">
+				<span class="font24">Create Address</span>
+			</div>
+			<div class="row mv24">
+				<div class="row mb6">
+					<div class="col-6 ph12">
+						<p class="mb6">First name <span class="txt-danger">*</span></p>
+						<input v-model="address.firstname" type="text" class="w-input" />
+					</div>
+					<div class="col-6 ph12">
+						<p class="mb6">Last name <span class="txt-danger">*</span></p>
+						<input v-model="address.lastname" type="text" class="w-input" />
+					</div>
+				</div>
+				<div class="row mb6">
+					<div class="col-12 ph12">
+						<p class="mb6">Phone <span class="txt-danger">*</span></p>
+						<input v-model="address.phone" type="text" class="w-input" />
+					</div>
+				</div>
+				<div class="row mb6">
+					<div class="col-12 ph12">
+						<p class="mb6">Email <span class="txt-danger">*</span></p>
+						<input v-model="address.email" type="text" class="w-input" />
+					</div>
+				</div>
+				<div class="row mb6">
+					<div class="col-12 ph12">
+						<p class="mb6">Address <span class="txt-danger">*</span></p>
+						<input v-model="address.address" type="text" class="w-input" />
+					</div>
+				</div>
+				<div class="row mb6">
+					<div class="col-12 ph12">
+						<p class="mb6">City/Province <span class="txt-danger">*</span></p>
+						<select v-model="address.provinceId" class="w-input">
+							<option v-for="(province, provinceIndex) in data.provinces" 
+								:key="(province, provinceIndex)"
+								:value="province.id">{{province.province}}</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-12 ph12">
+					<div v-if="!isCreating" @click="createAddress" class="btn-default mt24">SUBMIT</div>
+					<div v-else class="btn-default mt24">LOADING...</div>
 				</div>
 			</div>
 		</div>

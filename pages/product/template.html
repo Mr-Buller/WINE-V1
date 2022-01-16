@@ -47,6 +47,9 @@
 						<i @click="adjustQuantity(-1)" class="fa fa-minus ic-minus pointer"></i>
 						<input v-model="body.qty" disabled="true" type="text" value="1" class="input-text" />
 					</div>
+					<div @click="addToWishlist(data.product)" class="btn-wishlist">
+						<img :src="require('~/assets/images/icons/heart.png')" />
+					</div>
 					<div @click="addToCart" class="btn-add-to-cart">ADD TO CART</div>
 				</div>
 				<div class="row mt12">

@@ -14,7 +14,25 @@ export default {
                 products: [],
                 categories: [],
                 countries: [],
-                brands: []
+                brands: [],
+                priceRange: [
+                    {
+                        val: 1,
+                        price: "0-25"
+                    },
+                    {
+                        val: 2,
+                        price: "25-50"
+                    },
+                    {
+                        val: 3,
+                        price: "50-100"
+                    },
+                    {
+                        val: 4,
+                        price: "100-10000"
+                    },
+                ]
             },
             pagination: {
                 page: 0,
@@ -25,8 +43,7 @@ export default {
                 categoryId: "",
                 brandId: "",
                 countryId: "",
-                minPrice: 0,
-                maxPrice: 0,
+                priceRange: "",
                 orderBy: "DEFAULT"
             }
         }
@@ -53,8 +70,7 @@ export default {
         getProduct() {
             let queryPage = this.$route.query.page
             let querySize = this.$route.query.size
-            let queryMinPrice = this.$route.query.minPrice
-            let queryMaxPrice = this.$route.query.maxPrice
+            let priceRange = this.$route.query.priceRange
             let keySearch = this.$route.query.search
             let categoryId = this.$route.query.categoryId
             let brandId = this.$route.query.brandId
@@ -63,8 +79,7 @@ export default {
 
             if (queryPage != undefined) this.pagination.page = queryPage
             if (querySize != undefined) this.pagination.size = querySize
-            if (queryMinPrice != undefined) this.search.minPrice = queryMinPrice
-            if (queryMaxPrice != undefined) this.search.maxPrice = queryMaxPrice
+            if (priceRange != undefined) this.search.priceRange = priceRange
             if (keySearch != undefined) this.search.key = keySearch
             if (categoryId != undefined) this.search.categoryId = categoryId
             if (brandId != undefined) this.search.brandId = brandId
@@ -77,7 +92,7 @@ export default {
             if (this.search.categoryId) params = params + "&categoryId=" + this.search.categoryId
             if (this.search.brandId) params = params + "&brandId=" + this.search.brandId
             if (this.search.countryId) params = params + "&countryId=" + this.search.countryId
-            if (this.search.minPrice && this.search.maxPrice) params = params+"&priceBetween="+this.search.minPrice+"-"+this.search.maxPrice
+            if (this.search.priceRange) params = params+"&priceBetween="+ this.search.priceRange
 
             ProductService.searchProduct(params).then((response) => {
                 this.isFetching = false
@@ -141,10 +156,11 @@ export default {
             await this.$router.push({ query })
         },
 
-        async searchByPriceRange() {
+        async searchByPriceRange(index) {
+            let priceRange = this.search.priceRange != this.data.priceRange[index].price ? this.data.priceRange[index].price : ""
+            this.search.priceRange = priceRange
             const query = Object.assign({}, this.$route.query);
-            query.minPrice = this.search.minPrice;
-            query.maxPrice = this.search.maxPrice;
+            query.priceRange = this.search.priceRange;
             await this.$router.push({ query })
         },
 

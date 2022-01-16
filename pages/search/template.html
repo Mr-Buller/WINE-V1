@@ -13,56 +13,82 @@
 		</div>
 		<div class="row">
 			<div class="col-3 p12">
-				<div class="row">
-					<p class="font18"><b>CATEGORIES</b></p>
-					<div class="row">
-						<div v-for="(category,categoryIndex) in data.categories" :key="(category,categoryIndex)"
+				<div class="row border p16">
+					<div class="row border-bottom pb12">
+						<p class="font18"><b>PRICE RANGES</b></p>
+						<div v-for="(price,priceIndex) in data.priceRange" 
+							key="(price,priceIndex)"
+							class="item-filter txt-dark-light"
+							@click="searchByPriceRange(priceIndex)">
+							<div :class="search.priceRange == price.price ? 'item-radio-active' : 'item-radio'">
+								<i class="fa fa-check item-ic"></i>
+							</div>
+							<span style="line-height: 20px;">$ {{price.price}}</span>
+						</div>
+					</div>
+					<div class="row border-bottom pb12 mt24">
+						<p class="font18"><b>CATEGORIES</b></p>
+						<div v-for="(category,categoryIndex) in data.categories" 
+							key="(category,categoryIndex)"
 							@click="searchByCategory(categoryIndex)"
-							:class="search.categoryId == category.id ? 'item-tag-active' : 'item-tag'">{{category.name}}
-						</div>
+							class="item-filter txt-dark-light">
+							<div :class="search.categoryId == category.id ? 'item-radio-active' : 'item-radio'">
+								<i class="fa fa-check item-ic"></i>
+							</div>
+							{{category.name}}</div>
 					</div>
-				</div>
-				<div class="row mt40">
-					<p class="font18"><b>BRANDS</b></p>
-					<div class="row">
+					<div class="row border-bottom pb12 mt24">
+						<p class="font18"><b>BRANDS</b></p>
 						<div v-for="(brand,brandIndex) in data.brands" :key="(brand,brandIndex)"
-							@click="searchByBrand(brandIndex)"
-							:class="search.brandId == brand.id ? 'item-tag-active' : 'item-tag'">{{brand.name}}</div>
+							class="item-filter txt-dark-light"
+							@click="searchByBrand(brandIndex)">
+							<div :class="search.brandId == brand.id ? 'item-radio-active' : 'item-radio'">
+								<i class="fa fa-check item-ic"></i>
+							</div>
+							{{brand.name}}</div>
 					</div>
-				</div>
-				<div class="row mt40">
-					<p class="font18"><b>COUNTRIES</b></p>
-					<div class="row">
+					<div class="row mt24">
+						<p class="font18"><b>COUNTRIES</b></p>
 						<div v-for="(country,countryIndex) in data.countries" :key="(country,countryIndex)"
-							@click="searchByCountry(countryIndex)"
-							:class="search.countryId == country.id ? 'item-tag-active' : 'item-tag'">{{country.name}}</div>
+							class="item-filter txt-dark-light"
+							@click="searchByCountry(countryIndex)">
+							<div :class="search.countryId == country.id ? 'item-radio-active' : 'item-radio'">
+								<i class="fa fa-check item-ic"></i>
+							</div>
+							{{country.name}}</div>
 					</div>
-				</div>
-
-				<div class="row mt36">
-					<div class="row">
-						<div class="col-6 pr6">
-							<p class="font18"><b>Min</b></p>
-							<input v-model="search.minPrice" @keyup.enter="searchByPriceRange" type="number"
-								class="w-input" />
-						</div>
-						<div class="col-6 ph6">
-							<p class="font18"><b>Max</b></p>
-							<input v-model="search.maxPrice" @keyup.enter="searchByPriceRange" type="number"
-								class="w-input" />
+					<div hidden class="row mt40">
+						<p class="font18"><b>COUNTRIES</b></p>
+						<div class="row">
+							<div v-for="(country,countryIndex) in data.countries" :key="(country,countryIndex)"
+								@click="searchByCountry(countryIndex)"
+								:class="search.countryId == country.id ? 'item-tag-active' : 'item-tag'">{{country.name}}</div>
 						</div>
 					</div>
-					<div hidden class="row ph16">
-						<!-- <price-range-slider :trackHeight="0.5" /> -->
+					<div hidden class="row mt36">
+						<div class="row">
+							<div class="col-6 pr6">
+								<p class="font18"><b>Min</b></p>
+								<input v-model="search.minPrice" @keyup.enter="searchByPriceRange" type="number"
+									class="w-input" />
+							</div>
+							<div class="col-6 ph6">
+								<p class="font18"><b>Max</b></p>
+								<input v-model="search.maxPrice" @keyup.enter="searchByPriceRange" type="number"
+									class="w-input" />
+							</div>
+						</div>
+						<div hidden class="row ph16">
+							<!-- <price-range-slider :trackHeight="0.5" /> -->
+						</div>
 					</div>
-				</div>
-
-				<div hidden class="row mt40">
-					<p class="font18"><b>BRANDS</b></p>
-					<div class="row">
-						<div v-for="(brand,brandIndex) in data.brands" :key="(brand,brandIndex)" class="col-4 p3">
-							<div class="row border">
-								<img :src="getFullPath(brand.logo)" class="img-cover" />
+					<div hidden class="row mt40">
+						<p class="font18"><b>BRANDS</b></p>
+						<div class="row">
+							<div v-for="(brand,brandIndex) in data.brands" :key="(brand,brandIndex)" class="col-4 p3">
+								<div class="row border">
+									<img :src="getFullPath(brand.logo)" class="img-cover" />
+								</div>
 							</div>
 						</div>
 					</div>

@@ -27,19 +27,30 @@
 			:hoverPause="true">
 			<slide v-for="(product, productIndex) in products" :key="(product, productIndex)">
 				<div class="row ph12">
-					<nuxt-link :to="'/product/'+product.id">
-						<div class="box-square border">
-							<img :src="getFullPath(product.thumbnail)" 
-								class="item-img" />
-							<div class="tag-discount">-{{product.discount}}%</div>
-							<div class="tag-type">{{product.brand.name}}</div>
+					
+						<div class="p-item-hover box-square border">
+							<nuxt-link :to="'/product/'+product.id">
+								<img :src="getFullPath(product.thumbnail)" 
+									class="item-img" />
+								<div class="tag-discount">-{{product.discount}}%</div>
+								<div class="tag-type">{{product.brand.name}}</div>
+							</nuxt-link>
+							<div class="hover-btn-cart">
+								<div class="btn-cart-item mr3">
+									<img :src="require('~/assets/images/icons/detail.png')"/>
+								</div>
+								<div @click="addToWishlist(product)" class="btn-cart-item">
+									<img :src="require('~/assets/images/icons/heart.png')"/>
+								</div>
+							</div>
 						</div>
 						<div class="row txt-center mt12">
-							<p class="txt-dark mb6 ph24">{{product.name}}</p>
-							<p v-if="product.discount == 0" class="txt-primary font16">{{formatPrice(product.price)}}</p>
-							<p v-else class="font16"><del class="txt-dark-light mr6">{{formatPrice(product.price)}}</del> <span class="txt-primary">${{getDiscount(product.price,product.discount)}}</span></p>
+							<nuxt-link :to="'/product/'+product.id">
+								<p class="txt-dark mb6 ph24 txt-ellipsis">{{product.name}}</p>
+								<p v-if="product.discount == 0" class="txt-primary font16">{{formatPrice(product.price)}}</p>
+								<p v-else class="font16"><del class="txt-dark-light mr6">{{formatPrice(product.price)}}</del> <span class="txt-primary">${{getDiscount(product.price,product.discount)}}</span></p>
+							</nuxt-link>
 						</div>
-					</nuxt-link>
 				</div>
 			</slide>
 			<hooper-navigation slot="hooper-addons"></hooper-navigation>

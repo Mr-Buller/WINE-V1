@@ -242,8 +242,8 @@ export default {
         },
 
         validateAddressBody() {
-            if (!this.address.firstName) { return "First name is required." }
-            if (!this.address.lastName) { return "Last name is required." }
+            if (!this.address.firstname) { return "First name is required." }
+            if (!this.address.lastname) { return "Last name is required." }
             if (!this.address.phone) { return "Phone is required." }
             if (!this.address.email) { return "Email is required." }
             if (!this.address.address) { return "Address is required." }

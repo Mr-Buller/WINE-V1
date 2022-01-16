@@ -1,18 +1,28 @@
 <div class="row">
 	<div v-for="(product, productIndex) in products" :key="(product, productIndex)" class="col-3 p12">
-		<nuxt-link :to="'/product/'+product.id">
-			<div class="box-square border">
-				<img :src="getFullPath(product.thumbnail)" 
-				class="item-img" />
+		<div class="p-item-hover box-square border">
+			<nuxt-link :to="'/product/'+product.id">
+				<img :src="getFullPath(product.thumbnail)" class="item-img" />
 				<div v-if="product.discount > 0" class="tag-discount">-{{product.discount}}%</div>
 				<div v-if="product.brand" class="tag-type">{{product.brand.name}}</div>
+			</nuxt-link>
+			<div class="hover-btn-cart">
+				<div class="btn-cart-item mr3">
+					<img :src="require('~/assets/images/icons/detail.png')" />
+				</div>
+				<div @click="addToWishlist(product)" class="btn-cart-item">
+					<img :src="require('~/assets/images/icons/heart.png')" />
+				</div>
 			</div>
-			<div class="row txt-center mt12">
-				<p class="txt-dark mb6">{{product.name}}</p>
+		</div>
+		<div class="row txt-center mt12">
+			<nuxt-link :to="'/product/'+product.id">
+				<p class="txt-dark mb6 txt-ellipsis">{{product.name}}</p>
 				<p v-if="product.discount == 0" class="txt-primary font16">${{product.price}}</p>
-				<p v-else class="font16"><del class="txt-dark-light mr6">${{product.price}}</del> <span class="txt-primary">${{getDiscount(product.price,product.discount)}}</span></p>
-			</div>
-		</nuxt-link>
+				<p v-else class="font16"><del class="txt-dark-light mr6">${{product.price}}</del> <span
+						class="txt-primary">${{getDiscount(product.price,product.discount)}}</span></p>
+			</nuxt-link>
+		</div>
 	</div>
 	<div v-if="products && products.length == 0" class="row pv50 txt-center">
 		No Data

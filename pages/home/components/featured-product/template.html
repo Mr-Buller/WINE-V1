@@ -3,31 +3,38 @@
 		<p class="font24 txt-center">FEATURED <span class="txt-primary">PRODUCTS</span></p>
 		<div class="row mt12">
 			<hooper 
-				:itemsToShow="3" 
-				:itemsToSlide="3" 
+				:itemsToShow="4" 
+				:itemsToSlide="4" 
 				:mouseDrag="false" 
 				:touchDrag="false"
 				:wheelControl="false"
 				:keysControl="false"
 				:hoverPause="true">
 				<slide v-for="(product, productIndex) in products" :key="(product, productIndex)">
-					<div class="row ph12">
-						<nuxt-link :to="'/product/'+product.id">
+					<div class="p-item-hover row ph12">
 							<div class="box-square">
-								<img :src="getFullPath(product.thumbnail)" class="item-img" />
-								<div v-if="product.discount > 0" class="tag-discount">-{{product.discount}}%</div>
-								<div v-if="product.brand" class="tag-type">{{product.brand.name}}</div>
+								<nuxt-link :to="'/product/'+product.id">
+									<img :src="getFullPath(product.thumbnail)" class="item-img" />
+									<div v-if="product.discount > 0" class="tag-discount">-{{product.discount}}%</div>
+									<div v-if="product.brand" class="tag-type">{{product.brand.name}}</div>
+								</nuxt-link>
+								<div class="hover-btn-cart">
+									<nuxt-link :to="'/product/'+product.id" class="btn-cart-item mr3">
+										<img :src="require('~/assets/images/icons/detail.png')"/>
+									</nuxt-link>
+									<div @click="addToWishlist(product)" class="btn-cart-item">
+										<img :src="require('~/assets/images/icons/heart.png')"/>
+									</div>
+								</div>
 							</div>
 							<div class="row txt-center mt12">
-								<p class="txt-dark mb6 txt-ellipsis">{{product.name}}</p>
-								<p v-if="product.discount == 0" class="txt-primary font16">{{formatPrice(product.price)}}</p>
-								<p v-else class="font16"><del class="txt-dark-light mr6">{{formatPrice(product.price)}}</del>
-									<span class="txt-primary">{{getDiscount(product.price,product.discount)}}</span></p>
+								<nuxt-link :to="'/product/'+product.id">
+									<p class="txt-dark mb6 txt-ellipsis">{{product.name}}</p>
+									<p v-if="product.discount == 0" class="txt-primary font16">{{formatPrice(product.price)}}</p>
+									<p v-else class="font16"><del class="txt-dark-light mr6">{{formatPrice(product.price)}}</del>
+										<span class="txt-primary">{{getDiscount(product.price,product.discount)}}</span></p>
+								</nuxt-link>
 							</div>
-						</nuxt-link>
-						<!-- <div @click="addToCart(product)" class="hover-btn-cart">
-							<img :src="require('~/assets/images/icons/shopping-cart.png')"/>
-						</div> -->
 					</div>
 				</slide>
 				<hooper-navigation slot="hooper-addons"></hooper-navigation>

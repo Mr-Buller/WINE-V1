@@ -33,7 +33,7 @@
 				<ul class="inner-menu mt6 mb0">
 					<li><nuxt-link to="/" class="active menu-title">Home</nuxt-link></li>
 					<li class="menu-dropdown" style="position: relative;">
-						<a class="menu-title">Products</a>
+						<nuxt-link to="/search" class="menu-title">Products</nuxt-link>
 						<div class="p-brand">
 							<div v-for="(brand, brandIndex) in MainStore.productEachBrand" :key="(brand, brandIndex)" class="col-4 p12">
 								<p style="font-weight: bold;font-size: 18px;">{{brand.brand.brand}}</p>

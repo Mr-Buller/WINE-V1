@@ -84,3 +84,16 @@
     color: var(--white);
     border: none;
 }
+.btn-wishlist{
+    min-width: 50px;height:50px;border: 1px solid var(--dark);position: relative;cursor: pointer;
+}
+.btn-wishlist:hover{
+    background: var(--primary);
+    border: 1px solid var(--primary);
+}
+.btn-wishlist:hover img{
+    filter: brightness(0) invert(1);
+}
+.btn-wishlist img{
+    width: 20px;height:20px;position: absolute;top:50%;left:50%;transform: translate(-50%,-50%);
+}

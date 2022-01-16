@@ -108,7 +108,9 @@ export default {
   box-sizing: border-box;
   margin: 0;
 }
-
+a{
+  text-decoration: none;
+}
 .m-container {
   max-width: 1410px;
   margin: 0 auto;
@@ -219,6 +221,39 @@ export default {
 
 .hooper {
   height: auto !important;
+}
+
+.hover-btn-cart{
+  position: absolute;
+  bottom:24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  cursor: pointer;
+  display: none;
+}
+.btn-cart-item{
+  width: 42px;
+  height: 42px;
+  border:1px solid #ddd;
+  float: left;
+  position: relative;
+}
+.btn-cart-item:hover{
+  background: var(--primary);
+}
+.btn-cart-item:hover img{
+  filter: brightness(0) invert(1);
+}
+.hover-btn-cart img{
+  height: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+.p-item-hover:hover .hover-btn-cart{
+    display: block;
 }
 
 @media screen and (max-width: 991px) {

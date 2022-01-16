@@ -1,0 +1,34 @@
+<div class="row">
+	<p class="font20">
+		<b>Wishlist</b>
+	</p>
+	<table style="width: 100%;border: 1px solid #ddd;margin-bottom: 24px;">
+		<thead class="bg-secondary">
+			<th class="w50">Thumbnail</th>
+			<th>Name</th>
+			<th class="txt-right">Discount(%)</th>
+			<th class="txt-right">Price($)</th>
+			<th class="w50"></th>
+			<!-- <th class="txt-right txt-dark-light">Ordered at : {{order.created | moment("MM-DD-YYYY")}}</th> -->
+		</thead>
+		<tbody>
+			<tr v-for="(product,productIndex) in data.products" :key="(product,productIndex)" class="border">
+				<td>
+					<img :src="getFullPath(product.thumbnail)"
+						style="width: 50px;height:50px;object-fit: cover;float: left;margin-right: 12px;" />
+				</td>
+				<td class="txt-left">
+					<span>{{product.name}}</span>
+				</td>
+				<td class="txt-right">
+					<span>{{product.discount}}%</span>
+				</td>
+				<td class="txt-right">
+					<span>{{formatPrice(product.price)}}</span>
+				</td>
+				<td @click="removeProductFromWishlist(productIndex)"><i class="fa fa-times-circle pointer"></i></td>
+			</tr>
+		</tbody>
+	</table>
+	<div v-if="data.products.length == 0" class="row pv50 txt-center">No Data</div>
+</div>

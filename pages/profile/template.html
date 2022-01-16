@@ -15,6 +15,12 @@
 							<span class="go-left">MY ORDER</span>
 						</td>
 					</tr>
+					<tr @click="tabActive = 'wishlist'" :class="tabActive == 'wishlist' ? 'tab-menu-active' : 'tab-menu'">
+						<td>
+							<img :src="require('~/assets/images/icons/heart.png')" class="h20 go-left mr12" />
+							<span class="go-left">MY WISHLIST</span>
+						</td>
+					</tr>
 					<tr @click="tabActive = 'address'" :class="tabActive == 'address' ? 'tab-menu-active' : 'tab-menu'">
 						<td>
 							<img :src="require('~/assets/images/icons/location.png')" class="h20 go-left mr12" />
@@ -37,6 +43,10 @@
 
 					<div v-if="tabActive == 'order'" class="row">
 						<OrderHistory></OrderHistory>
+					</div>
+
+					<div v-if="tabActive == 'wishlist'" class="row">
+						<Wishlist></Wishlist>
 					</div>
 
 					<div v-if="tabActive == 'address'" class="row">

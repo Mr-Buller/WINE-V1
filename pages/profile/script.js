@@ -1,6 +1,7 @@
 import MainService from './../../utils/services/MainService'
 import ProfileInfo from './components/profile-info'
 import OrderHistory from './components/order-history'
+import Wishlist from './components/wishlist'
 import Address from './components/address'
 import Unauthorize from './../../components/unauthorized'
 import { mapState } from 'vuex'
@@ -18,6 +19,7 @@ export default {
         OrderHistory,
         ProfileInfo,
         Address,
+        Wishlist,
         Unauthorize,
     },
     created() {

@@ -100,6 +100,29 @@ export default {
             }
         },
 
+        addToWishlist(product){
+            let products = []
+            let productInCart = this.$auth.$storage.getLocalStorage('productInWishlist')
+            let obj = {
+                id: product.id,
+                thumbnail: product.thumbnail,
+                name: product.name,
+                qty: product.qty,
+                price: product.price,
+                discount: product.discount ? parseInt(product.discount) : 0 ,
+            }
+            if(productInCart){
+                products = productInCart
+                products.push(obj);
+                products = this.getUniqueArray(products)
+                this.$auth.$storage.setLocalStorage('productInWishlist', products)
+            }else{
+                products.push(obj)
+                this.$auth.$storage.setLocalStorage('productInWishlist', products)
+            }
+            this.$toast.info("Product was added to wishlist.")
+        },
+
         addToCart(){
             let options = this.getVariantCombination()
             if(options){

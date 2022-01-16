@@ -37,33 +37,27 @@ export default {
             return this.formatPrice(totalValue)
         },
 
-        addToCart(product){
-            let options = this.getVariantCombination(product)
-            if(options){
-                let products = []
-                let productInCart = this.$auth.$storage.getLocalStorage('productInCart')
-                let obj = {
-                    id: product.id,
-                    thumbnail: product.thumbnail,
-                    name: product.name,
-                    qty: product.qty,
-                    price: product.price,
-                    discount: product.discount ? parseInt(product.discount) : 0 ,
-                    variant: options.join(", ")
-                }
-                if(productInCart){
-                    products = productInCart
-                    products.push(obj);
-                    products = this.getUniqueArray(products)
-                    this.$auth.$storage.setLocalStorage('productInCart', products)
-                }else{
-                    products.push(obj)
-                    this.$auth.$storage.setLocalStorage('productInCart', products)
-                }
-                this.$toast.info("Product was added to cart.")
-            }else{
-                this.$toast.error("All options are required.")
+        addToWishlist(product){
+            let products = []
+            let productInCart = this.$auth.$storage.getLocalStorage('productInWishlist')
+            let obj = {
+                id: product.id,
+                thumbnail: product.thumbnail,
+                name: product.name,
+                qty: product.qty,
+                price: product.price,
+                discount: product.discount ? parseInt(product.discount) : 0 ,
             }
+            if(productInCart){
+                products = productInCart
+                products.push(obj);
+                products = this.getUniqueArray(products)
+                this.$auth.$storage.setLocalStorage('productInWishlist', products)
+            }else{
+                products.push(obj)
+                this.$auth.$storage.setLocalStorage('productInWishlist', products)
+            }
+            this.$toast.info("Product was added to wishlist.")
         },
 
         getUniqueArray(array){
@@ -71,25 +65,6 @@ export default {
                 return array.indexOf(c) === index;
             });
             return uniqueArray
-        },
-
-        getVariantCombination(product){
-            if(product.productOption){
-                let combination = []
-                for(let i=0; i<product.productOption.length; i++){
-                    let option = product.productOption[i]
-                    for(let v=0; v<option.productOptionValue.length>0; v++){
-                        let optionValue = option.productOptionValue[v]
-                        if(optionValue.isSelected){
-                            combination.push(optionValue.optionValue)
-                        }
-                    }
-                }
-                if(combination.length == product.productOption.length){
-                    return combination
-                }
-            }
-            return []
         },
 
         formatPrice(price){

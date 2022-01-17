@@ -15,7 +15,7 @@
 							<span class="go-left">MY ORDER</span>
 						</td>
 					</tr>
-					<tr @click="tabActive = 'wishlist'" :class="tabActive == 'wishlist' ? 'tab-menu-active' : 'tab-menu'">
+					<tr hidden @click="tabActive = 'wishlist'" :class="tabActive == 'wishlist' ? 'tab-menu-active' : 'tab-menu'">
 						<td>
 							<img :src="require('~/assets/images/icons/heart.png')" class="h20 go-left mr12" />
 							<span class="go-left">MY WISHLIST</span>
@@ -45,7 +45,7 @@
 						<OrderHistory></OrderHistory>
 					</div>
 
-					<div v-if="tabActive == 'wishlist'" class="row">
+					<div hidden v-if="tabActive == 'wishlist'" class="row">
 						<Wishlist></Wishlist>
 					</div>
 

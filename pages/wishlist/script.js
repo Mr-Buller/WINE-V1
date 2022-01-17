@@ -1,37 +1,29 @@
-import Helper from './../../../../utils/Helper'
-import Loading from './../../../../components/loading'
+import FeaturedProduct from './components/featured-product'
 
 export default {
     name: "wishlist",
     data() {
         return {
-            isFetching: true,
-            data: {
-                orders: [],
+            data:{
                 products: []
             }
         }
     },
     components: {
-        Loading
+        FeaturedProduct
     },
     created() {
-        if(process.client)
-        this.checkAuthorization()
+        this.getProductInWishlist()
+    },
+    watch: {
+        "$route.fullPath": function () {
+           
+        }
     },
     mounted() {
 
     },
     methods: {
-        checkAuthorization() {
-            let token = this.$cookies.get("token");
-            if (!token) {
-                this.$store.commit("SHOW_LOGIN_DIALOG", "login");
-            } else {
-                this.getProductInWishlist()
-            }
-        },
-
         getProductInWishlist() {
             let products = this.$auth.$storage.getLocalStorage('productInWishlist')
             if (products) {
@@ -43,10 +35,6 @@ export default {
             this.data.products.splice(index, 1)
             this.$auth.$storage.setLocalStorage('productInWishlist', this.data.products)
             this.$toast.success("Product was removed from wishlist.")
-        },
-
-        getFullPath(path) {
-            return process.env.BASE_URL + path
         },
 
         formatPrice(price){

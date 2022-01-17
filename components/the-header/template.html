@@ -36,10 +36,12 @@
 						<nuxt-link to="/search" class="menu-title">Products</nuxt-link>
 						<div class="p-brand">
 							<div v-for="(brand, brandIndex) in MainStore.productEachBrand" :key="(brand, brandIndex)" class="col-4 p12">
-								<p style="font-weight: bold;font-size: 18px;">{{brand.brand.brand}}</p>
-								<nuxt-link :to="'/product/'+product.id" v-for="(product, productIndex) in brand.product" 
-									:key="(product, productIndex)"
+								<p class="txt-ellipsis" style="font-weight: bold;font-size: 16px;" :title="brand.brand.brand">{{brand.brand.brand}}</p>
+								<div v-for="(product, productIndex) in brand.product" 
+								:key="(product, productIndex)" v-if="productIndex < 5" class="row">
+									<nuxt-link :to="'/product/'+product.id" 
 									class="p-item txt-dark-light txt-ellipsis">{{product.name}}</nuxt-link>
+								</div>
 							</div>
 						</div>
 					</li>

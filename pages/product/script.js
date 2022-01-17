@@ -153,6 +153,16 @@ export default {
             }
         },
 
+        buyNow(){
+            let options = this.getVariantCombination()
+            if(options){
+                this.addToCart()
+                this.$router.push({path: "/cart"})
+            }else{
+                this.$toast.error("All options are required.")
+            }
+        },
+
         getVariantCombination(){
             let combination = []
             for(let i=0; i<this.data.product.productOption.length; i++){

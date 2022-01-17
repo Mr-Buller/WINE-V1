@@ -75,8 +75,37 @@
 							</tr>
 						</tbody>
 					</table>
+					<div class="row pv12">
+						<p class="font18">Payment Method</p>
+						<div class="row">
+							<div class="item-filter border p12" style="margin-bottom: 0;">
+								<div class="item-radio">
+									<i class="fa fa-check item-ic"></i>
+								</div>
+								<span>Pay by Cash on Delivery</span>
+							</div>
+							<div class="item-filter border p12" style="margin-bottom: 0;margin-top: -1px;">
+								<div class="item-radio">
+									<i class="fa fa-check item-ic"></i>
+								</div>
+								<span>Pay by Credit/Debid card</span>
+							</div>
+							<div class="item-filter border p12" style="margin-bottom: 0;margin-top: -1px;">
+								<div class="item-radio">
+									<i class="fa fa-check item-ic"></i>
+								</div>
+								<span>Pay by ABA on Delivery</span>
+							</div>
+						</div>
+						<div class="row pv12">
+							<p class="font14 txt-dark-light">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <span class="txt-danger pointer">privacy policy</span>.</p>
+							<div class="row">
+								<p class="font14 txt-dark-light mb0"><input type="checkbox"> I have read and agree to the website <span class="txt-danger">terms and conditions *</span></p>
+							</div>
+						</div>
+					</div>
 		
-					<div v-if="!isCreating" class="row p16" style="background: #f2f2f2;border-top: 1px solid #ddd;">
+					<div v-if="!isCreating" class="row">
 						<div v-if="MainStore.token" class="row">
 							<div v-if="data.products && data.products.length > 0" @click="createOrder" class="btn-checkout">PROCEED TO CHECKOUT</div>
 							<nuxt-link to="/search" v-else>
@@ -90,7 +119,7 @@
 							</nuxt-link>
 						</div>
 					</div>
-					<div v-if="isCreating" class="row p16" style="background: #f2f2f2;border-top: 1px solid #ddd;">
+					<div v-if="isCreating" class="row">
 						<div class="btn-checkout">LOADING...</div>
 					</div>
 				</div>

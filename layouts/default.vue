@@ -228,7 +228,6 @@ a{
   bottom:24px;
   left: 50%;
   transform: translateX(-50%);
-  background: #fff;
   cursor: pointer;
   display: none;
 }
@@ -238,6 +237,7 @@ a{
   border:1px solid #ddd;
   float: left;
   position: relative;
+  background: var(--white);
 }
 .btn-cart-item:hover{
   background: var(--primary);
@@ -254,6 +254,46 @@ a{
 }
 .p-item-hover:hover .hover-btn-cart{
     display: block;
+}
+
+.tag-discount{
+    background:#b12a2a;
+    color:#fff;
+    position:absolute;
+    top:12px;
+    left:12px;
+    padding:2px 6px;
+    font-size:14px;
+}
+
+.tag-type{
+    background:#c0a483;
+    color:#fff;
+    position:absolute;
+    top:12px;
+    right:12px;
+    padding:2px 6px;
+    font-size:14px;
+}
+
+.item-filter{
+    width:100%;display: inline-flex;margin-bottom: 10px;cursor: pointer;
+}
+.item-radio{
+    width: 16px;height: 16px;border: 1px solid #000;border-radius: 50%;margin-top: 4px;margin-right: 12px;cursor: pointer;
+    position: relative;
+}
+.item-radio .item-ic{
+    font-size: 12px;position: absolute;top:1px;left:50%;transform: translateX(-50%);display: none;
+}
+.item-radio-active{
+    width: 16px;height: 16px;border: 1px solid var(--primary);border-radius: 50%;margin-top: 4px;margin-right: 12px;cursor: pointer;
+    position: relative;
+    background: var(--primary);
+}
+.item-radio-active .item-ic{
+    font-size: 12px;position: absolute;top:1px;left:50%;transform: translateX(-50%);
+    color: var(--white);
 }
 
 @media screen and (max-width: 991px) {

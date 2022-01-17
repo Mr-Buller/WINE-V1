@@ -7,9 +7,9 @@
 				<div v-if="product.brand" class="tag-type">{{product.brand.name}}</div>
 			</nuxt-link>
 			<div class="hover-btn-cart">
-				<div class="btn-cart-item mr3">
-					<img :src="require('~/assets/images/icons/detail.png')" />
-				</div>
+				<nuxt-link :to="'/product/'+product.id" class="btn-cart-item mr3">
+					<img :src="require('~/assets/images/icons/detail.png')"/>
+				</nuxt-link>
 				<div @click="addToWishlist(product)" class="btn-cart-item">
 					<img :src="require('~/assets/images/icons/heart.png')" />
 				</div>

@@ -61,6 +61,9 @@
 						<input @keyup.enter="onSearch" v-model="keySearch" type="text" placeholder="Search something ..." />
 					</div>
 				</div>
+				<nuxt-link to="/wishlist" class="inner-item">
+					<img :src="require('~/assets/images/icons/heart.png')" class="h20" />
+				</nuxt-link>
 				<nuxt-link to="/cart" class="inner-item">
 					<img :src="require('~/assets/images/icons/shopping-cart.png')" class="h20" />
 				</nuxt-link>

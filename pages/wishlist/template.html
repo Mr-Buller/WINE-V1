@@ -1,0 +1,12 @@
+<section>
+	<div class="m-container">
+		<p class="font24 pt24 ph16">WISHLIST</p>
+		<FeaturedProduct :products="data.products"></FeaturedProduct>
+		<div v-if="data.products.length == 0" class="row txt-center pv50 mb50">
+			<div class="row txt-center mb12">
+				<p>No Data</p>
+			</div>
+			<nuxt-link to="/search" class="btn-default">FIND SOME PRODUCT NOW</nuxt-link>
+		</div>
+	</div>
+</section>

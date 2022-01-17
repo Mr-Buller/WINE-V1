@@ -69,7 +69,7 @@ a{
 }
 .p-brand{
     width: 720px;background: #fff;position: absolute;top:42px;left: 0;border: 1px solid #ddd;padding: 16px;
-    display: none;
+    display: block;
 }
 .menu-dropdown:hover .p-brand{
     display: block;

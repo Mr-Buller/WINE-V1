@@ -36,7 +36,8 @@ export default {
             },
             pagination: {
                 page: 0,
-                size: 100
+                size: 12,
+                isEnded: false
             },
             search: {
                 key: "",
@@ -66,8 +67,15 @@ export default {
     mounted() {
 
     },
+    beforeMount() {
+        window.addEventListener('scroll', this.handleScroll);
+    },
+    beforeDestroy() {
+        window.removeEventListener('scroll', this.handleScroll);
+    },
     methods: {
         getProduct() {
+            this.isFetching = true
             let queryPage = this.$route.query.page
             let querySize = this.$route.query.size
             let priceRange = this.$route.query.priceRange
@@ -97,7 +105,14 @@ export default {
             ProductService.searchProduct(params).then((response) => {
                 this.isFetching = false
                 if (response.response && response.response.status == 200) {
-                    this.data.products = response.results
+                    if(response.results.length > 0){
+                        this.data.products = this.data.products.concat(response.results)
+                    }
+                    if(response.results.length == 0){
+                        this.pagination.isEnded = true
+                        return
+                    }
+                    
                 }
             }).catch(err => { console.log(err) })
         },
@@ -127,12 +142,14 @@ export default {
         },
 
         async searchProduct() {
+            this.resetPagination()
             const query = Object.assign({}, this.$route.query);
             query.search = this.search.key;
             await this.$router.push({ query })
         },
 
         async searchByCategory(index) {
+            this.resetPagination()
             let categoryId = this.search.categoryId != this.data.categories[index].id ? this.data.categories[index].id : ""
             this.search.categoryId = categoryId
             const query = Object.assign({}, this.$route.query);
@@ -141,6 +158,7 @@ export default {
         },
 
         async searchByBrand(index) {
+            this.resetPagination()
             let brandId = this.search.brandId != this.data.brands[index].id ? this.data.brands[index].id : ""
             this.search.brandId = brandId
             const query = Object.assign({}, this.$route.query);
@@ -149,6 +167,7 @@ export default {
         },
 
         async searchByCountry(index) {
+            this.resetPagination()
             let countryId = this.search.countryId != this.data.countries[index].id ? this.data.countries[index].id : ""
             this.search.countryId = countryId
             const query = Object.assign({}, this.$route.query);
@@ -157,6 +176,7 @@ export default {
         },
 
         async searchByPriceRange(index) {
+            this.resetPagination()
             let priceRange = this.search.priceRange != this.data.priceRange[index].price ? this.data.priceRange[index].price : ""
             this.search.priceRange = priceRange
             const query = Object.assign({}, this.$route.query);
@@ -165,13 +185,33 @@ export default {
         },
 
         async searchByOrdering() {
+            this.resetPagination()
             const query = Object.assign({}, this.$route.query);
             query.orderBy = this.search.orderBy;
             await this.$router.push({ query })
         },
 
+        resetPagination(){
+            this.pagination.page = 0
+            this.data.products = []
+            this.pagination.isEnded = false
+        },
+
         getFullPath(path){
             return process.env.BASE_URL+path
+        },
+
+        handleScroll() {
+            let body = document.getElementsByTagName("body")[0];
+            let scrollTop = window.scrollY;
+            let screenHeight = window.screen.height
+            let scrollHeight = body.scrollHeight;
+            if (this.data.products.length > 0 && !this.pagination.isEnded && !this.isFetching) {
+                if (scrollTop + screenHeight >= (scrollHeight - (scrollTop * .3))) {
+                    this.pagination.page += 1
+                    this.getProduct()
+                }
+            }
         },
     },
 }

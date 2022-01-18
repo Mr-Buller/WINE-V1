@@ -22,6 +22,12 @@ export default {
     mounted() {
 
     },
+    // beforeMount() {
+    //     window.addEventListener('scroll', this.handleScroll);
+    // },
+    // beforeDestroy() {
+    //     window.removeEventListener('scroll', this.handleScroll);
+    // },
     methods: {
         checkAuthorization() {
             let token = this.$cookies.get("token");
@@ -51,6 +57,19 @@ export default {
         formatVariant(str){
             let arrStr = str.split('-')
             return arrStr.join(', ')
-        }
+        },
+
+        // handleScroll() {
+        //     let body = document.getElementsByTagName("body")[0];
+        //     let scrollTop = window.scrollY;
+        //     let screenHeight = window.screen.height
+        //     let scrollHeight = body.scrollHeight;
+        //     if (this.data.products.length > 0 && !this.pagination.isEnded && !this.isFetching) {
+        //         if (scrollTop + screenHeight >= (scrollHeight - (scrollTop * .3))) {
+        //             this.pagination.page += 1
+        //             this.getOrderHistory()
+        //         }
+        //     }
+        // },
     },
 }

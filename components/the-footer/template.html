@@ -9,13 +9,13 @@
 				</p>
 				<p v-if="MainStore.contact.phone">
 					<span style="font-weight: bold;">Tel :</span>
-					<span class="ml6 txt-dark-light font14" style="line-height: 20px;">
-						{{MainStore.contact.phone}}</span>
+					<a :href="'tel:'+MainStore.contact.phone" class="f-txt-info">
+						{{MainStore.contact.phone}}</a>
 				</p>
 				<p v-if="MainStore.contact.email">
 					<span style="font-weight: bold;">Email :</span>
-					<span class="ml6 txt-dark-light font14" style="line-height: 20px;">
-						{{MainStore.contact.email}}</span>
+					<a :href="'mailto:'+MainStore.contact.email" class="f-txt-info">
+						{{MainStore.contact.email}}</a>
 				</p>
 				<p>
 					<a v-if="MainStore.contact.telegram" :href="MainStore.contact.telegram" target="_blank"

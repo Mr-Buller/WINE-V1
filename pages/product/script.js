@@ -1,6 +1,7 @@
 import ProductService from './../../utils/services/ProductService'
 import RelatedProduct from './components/related-product'
 import Loading from './../../components/loading'
+import { mapState } from "vuex";
 
 export default {
     name: "product-detail",
@@ -35,8 +36,8 @@ export default {
         Loading
     },
     created() {
-        if(process.client)
-        this.getProductDetail()
+        if (process.client)
+            this.getProductDetail()
     },
     mounted() {
 
@@ -45,6 +46,9 @@ export default {
         "$route.fullPath": function () {
             this.getProductDetail()
         }
+    },
+    computed: {
+        ...mapState(["MainStore"])
     },
     methods: {
         getProductDetail() {
@@ -59,9 +63,9 @@ export default {
             }).catch(err => { console.log(err) })
         },
 
-        getProductByCategory(categoryId){
+        getProductByCategory(categoryId) {
             this.isFetchingProductRelated = true
-            let params = "?page=0&size=8&orderBy=DEFAULT&categoryId="+categoryId
+            let params = "?page=0&size=8&orderBy=DEFAULT&categoryId=" + categoryId
             ProductService.searchProduct(params).then((response) => {
                 this.isFetchingProductRelated = false
                 if (response.response && response.response.status == 200) {
@@ -70,13 +74,13 @@ export default {
             }).catch(err => { console.log(err) })
         },
 
-        selectProductOption(optionIndex,optionValueIndex){
-            let resultMessage = this.removeOptionSelect(optionIndex,optionValueIndex)
-            if(resultMessage == "OK"){
+        selectProductOption(optionIndex, optionValueIndex) {
+            let resultMessage = this.removeOptionSelect(optionIndex, optionValueIndex)
+            if (resultMessage == "OK") {
                 let option = this.data.product.productOption[optionIndex]
 
                 // Reset Option was selected to false
-                for(let i=0; i<option.productOptionValue.length; i++){
+                for (let i = 0; i < option.productOptionValue.length; i++) {
                     let optionValue = option.productOptionValue[i]
                     optionValue.isSelected = false
                 }
@@ -86,21 +90,21 @@ export default {
 
                 // Update Option Value state
                 this.$set(option.productOptionValue, optionValueIndex, option.productOptionValue[optionValueIndex])
-            }else{
+            } else {
                 this.$toast.info(resultMessage)
             }
         },
 
-        removeOptionSelect(optionIndex,optionValueIndex){
+        removeOptionSelect(optionIndex, optionValueIndex) {
             let option = this.data.product.productOption[optionIndex]
-            if(option.productOptionValue[optionValueIndex].isSelected){
+            if (option.productOptionValue[optionValueIndex].isSelected) {
                 return "This option value already selected."
-            }else{
+            } else {
                 return "OK"
             }
         },
 
-        addToWishlist(product){
+        addToWishlist(product) {
             let products = []
             let productInCart = this.$auth.$storage.getLocalStorage('productInWishlist')
             let obj = {
@@ -109,83 +113,104 @@ export default {
                 name: product.name,
                 qty: product.qty,
                 price: product.price,
-                discount: product.discount ? parseInt(product.discount) : 0 ,
+                brand: product.brand.name,
+                discount: product.discount ? parseInt(product.discount) : 0,
             }
-            if(productInCart){
+            if (productInCart) {
                 products = productInCart
                 products.push(obj);
                 products = this.getUniqueArray(products)
                 this.$auth.$storage.setLocalStorage('productInWishlist', products)
-            }else{
+                this.$store.commit("STORE_PRODUCT_IN_WISHLIST", products);
+            } else {
                 products.push(obj)
                 this.$auth.$storage.setLocalStorage('productInWishlist', products)
+                this.$store.commit("STORE_PRODUCT_IN_WISHLIST", products);
             }
             this.$toast.info("Product was added to wishlist.")
         },
 
-        addToCart(){
+        addToCart() {
             let options = this.getVariantCombination()
-            if(options){
+            if (options) {
                 let products = []
                 let productInCart = this.$auth.$storage.getLocalStorage('productInCart')
+                let productInWishlist = this.$auth.$storage.getLocalStorage('productInWishlist')
+
+                let productId = this.data.product.id
+                let index = productInWishlist.findIndex(function (product) {
+                    console.log(product.id+"/"+productId)
+                    return product.id == productId
+                });
+
+                console.log("wishlist index ", index)
+
+                if (index > -1) {
+                    productInWishlist.splice(index, 1)
+                    console.log(productInWishlist)
+                    this.$auth.$storage.setLocalStorage('productInWishlist', productInWishlist)
+                    this.$store.commit("STORE_PRODUCT_IN_WISHLIST", productInWishlist);
+                }
+
                 let obj = {
                     id: this.data.product.id,
                     thumbnail: this.data.product.thumbnail,
                     name: this.data.product.name,
                     qty: this.body.qty,
                     price: this.data.product.price,
-                    discount: this.data.product.discount ? parseInt(this.data.product.discount) : 0 ,
+                    discount: this.data.product.discount ? parseInt(this.data.product.discount) : 0,
                     variant: options.join(", ")
                 }
-                if(productInCart){
+                if (productInCart) {
                     products = productInCart
                     products.push(obj);
                     products = this.getUniqueArray(products)
-                    console.log("products ", products)
                     this.$auth.$storage.setLocalStorage('productInCart', products)
-                }else{
+                    this.$store.commit("STORE_PRODUCT_IN_CART", products);
+                } else {
                     products.push(obj)
+                    this.$store.commit("STORE_PRODUCT_IN_CART", products);
                     this.$auth.$storage.setLocalStorage('productInCart', products)
                 }
                 this.$toast.info("Product was added to cart.")
-            }else{
+            } else {
                 this.$toast.error("All options are required.")
             }
         },
 
-        buyNow(){
+        buyNow() {
             let options = this.getVariantCombination()
-            if(options){
+            if (options) {
                 this.addToCart()
-                this.$router.push({path: "/cart"})
-            }else{
+                this.$router.push({ path: "/cart" })
+            } else {
                 this.$toast.error("All options are required.")
             }
         },
 
-        getVariantCombination(){
+        getVariantCombination() {
             let combination = []
-            for(let i=0; i<this.data.product.productOption.length; i++){
+            for (let i = 0; i < this.data.product.productOption.length; i++) {
                 let option = this.data.product.productOption[i]
-                for(let v=0; v<option.productOptionValue.length>0; v++){
+                for (let v = 0; v < option.productOptionValue.length > 0; v++) {
                     let optionValue = option.productOptionValue[v]
-                    if(optionValue.isSelected){
+                    if (optionValue.isSelected) {
                         combination.push(optionValue.optionValue)
                     }
                 }
             }
-            if(combination.length == this.data.product.productOption.length){
+            if (combination.length == this.data.product.productOption.length) {
                 return combination
             }
             return
         },
 
-        adjustQuantity(value){
-            let qty = parseInt(this.body.qty)+value
+        adjustQuantity(value) {
+            let qty = parseInt(this.body.qty) + value
             this.body.qty = (qty > 0) ? qty : 1
         },
 
-        getUniqueArray(array){
+        getUniqueArray(array) {
             let uniqueArray = array.filter((c, index) => {
                 return array.indexOf(c) === index;
             });

@@ -34,10 +34,10 @@ export default {
     Register
   },
   created() {
-    if (process.client) 
-    this.getToken();
+    if (process.client) this.getToken();
     this.getContact();
     this.getProductEachBrand();
+    this.getProductFromCartAndWishlist()
   },
   computed: {
     ...mapState(["MainStore"])
@@ -45,10 +45,17 @@ export default {
   methods: {
     getToken() {
       let token = this.$cookies.get("token");
-      if(token){
+      if (token) {
         this.$store.commit("STORE_TOKEN", token);
-        this.getCustomerDetail()
+        this.getCustomerDetail();
       }
+    },
+
+    getProductFromCartAndWishlist() {
+      let productInCart = this.$auth.$storage.getLocalStorage("productInCart");
+      let productInWishlist = this.$auth.$storage.getLocalStorage("productInWishlist");
+      this.$store.commit("STORE_PRODUCT_IN_CART", productInCart);
+      this.$store.commit("STORE_PRODUCT_IN_WISHLIST", productInWishlist);
     },
 
     getCustomerDetail() {
@@ -108,7 +115,7 @@ export default {
   box-sizing: border-box;
   margin: 0;
 }
-a{
+a {
   text-decoration: none;
 }
 .m-container {
@@ -223,77 +230,101 @@ a{
   height: auto !important;
 }
 
-.hover-btn-cart{
+.hover-btn-cart {
   position: absolute;
-  bottom:24px;
+  bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
   cursor: pointer;
   display: none;
 }
-.btn-cart-item{
+.btn-cart-item {
   width: 42px;
   height: 42px;
-  border:1px solid #ddd;
+  border: 1px solid #ddd;
   float: left;
   position: relative;
   background: var(--white);
 }
-.btn-cart-item:hover{
+.btn-cart-item:hover {
   background: var(--primary);
 }
-.btn-cart-item:hover img{
+.btn-cart-item:hover img {
   filter: brightness(0) invert(1);
 }
-.hover-btn-cart img{
+.hover-btn-cart img {
   height: 20px;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
 }
-.p-item-hover:hover .hover-btn-cart{
-    display: block;
-}
-
-.tag-discount{
-    background:#b12a2a;
-    color:#fff;
-    position:absolute;
-    top:12px;
-    left:12px;
-    padding:2px 6px;
-    font-size:14px;
+.p-item-hover:hover .hover-btn-cart {
+  display: block;
 }
 
-.tag-type{
-    background:#c0a483;
-    color:#fff;
-    position:absolute;
-    top:12px;
-    right:12px;
-    padding:2px 6px;
-    font-size:14px;
+.tag-discount {
+  background: #b12a2a;
+  color: #fff;
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 2px 6px;
+  font-size: 14px;
 }
 
-.item-filter{
-    width:100%;display: inline-flex;margin-bottom: 10px;cursor: pointer;
+.tag-type {
+  background: #c0a483;
+  color: #fff;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 2px 6px;
+  font-size: 14px;
 }
-.item-radio{
-    width: 16px;height: 16px;border: 1px solid #000;border-radius: 50%;margin-top: 4px;margin-right: 12px;cursor: pointer;
-    position: relative;
+
+.item-filter {
+  width: 100%;
+  display: inline-flex;
+  margin-bottom: 10px;
+  cursor: pointer;
 }
-.item-radio .item-ic{
-    font-size: 12px;position: absolute;top:1px;left:50%;transform: translateX(-50%);display: none;
+.item-radio {
+  width: 16px;
+  height: 16px;
+  border: 1px solid #000;
+  border-radius: 50%;
+  margin-top: 4px;
+  margin-right: 12px;
+  cursor: pointer;
+  position: relative;
 }
-.item-radio-active{
-    width: 16px;height: 16px;border: 1px solid var(--primary);border-radius: 50%;margin-top: 4px;margin-right: 12px;cursor: pointer;
-    position: relative;
-    background: var(--primary);
+.item-radio .item-ic {
+  font-size: 12px;
+  position: absolute;
+  top: 1px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
 }
-.item-radio-active .item-ic{
-    font-size: 12px;position: absolute;top:1px;left:50%;transform: translateX(-50%);
-    color: var(--white);
+.item-radio-active {
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--primary);
+  border-radius: 50%;
+  margin-top: 4px;
+  margin-right: 12px;
+  cursor: pointer;
+  position: relative;
+  background: var(--primary);
+}
+.item-radio-active .item-ic {
+  font-size: 12px;
+  position: absolute;
+  top: 1px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--white);
 }
 
 @media screen and (max-width: 991px) {

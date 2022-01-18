@@ -270,6 +270,7 @@ export default {
             qty = parseInt(qty)
             this.data.products[index].qty = qty + 1
             this.$auth.$storage.setLocalStorage('productInCart', this.data.products)
+            this.$store.commit("STORE_PRODUCT_IN_CART", this.data.products);
         },
 
         decreaseQty(index) {
@@ -278,6 +279,7 @@ export default {
             if (qty > 1) {
                 this.data.products[index].qty = qty - 1
                 this.$auth.$storage.setLocalStorage('productInCart', this.data.products)
+                this.$store.commit("STORE_PRODUCT_IN_CART", this.data.products);
             } else {
                 this.$toast.error("Product quantity is required at least 1.")
             }
@@ -286,6 +288,7 @@ export default {
         removeProductFromCart(index) {
             this.data.products.splice(index, 1)
             this.$auth.$storage.setLocalStorage('productInCart', this.data.products)
+            this.$store.commit("STORE_PRODUCT_IN_CART", this.data.products);
             this.$toast.success("Product was removed from cart.")
         },
 

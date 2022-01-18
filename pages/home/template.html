@@ -1,5 +1,18 @@
 <div>
 	<Loading v-if="isFetching"></Loading>
+	<!-- <div class="row">
+		<carousel :perPage="1" :autoplay="true" :navigationEnabled="true" :paginationEnabled="false">
+			<slide>
+			  <img src="https://image.shutterstock.com/image-photo/photo-top-view-phnom-penh-260nw-1294346341.jpg" style="width: 100%;" />
+			</slide>
+			<slide>
+				<img src="https://www.drinksonwheels.asia/wp-content/uploads/2020/06/PP-by-night.jpg" style="width: 100%;" />
+			</slide>
+			<slide>
+				<img src="https://image.shutterstock.com/image-photo/photo-top-view-phnom-penh-260nw-1294346341.jpg" style="width: 100%;" />
+			</slide>
+		</carousel>
+	</div> -->
 	<div v-if="!isFetching" class="row">
 		<div class="m-container">
 			<Slider v-if="slide.vfImages.length > 0" :vfOptions="slide.vfOptions" :vfImages="slide.vfImages"
@@ -20,6 +33,7 @@
 				</div>
 			</div>
 		</section>
+		
 		<div class="m-container">
 			<TopSeller :products="data.home.topSell"></TopSeller>
 		</div>

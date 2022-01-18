@@ -10,7 +10,8 @@ export default {
             body: {
                 email: "",
                 password: ""
-            }
+            },
+            errorMessage: ""
         }
     },
     created() {
@@ -47,11 +48,12 @@ export default {
                         location.reload()
                     }
                     if (response.response && response.response.status >= 400) {
-                        this.$toast.error(response.response.message)
+                        this.errorMessage = response.response.message
+                        // this.$toast.error(response.response.message)
                     }
                 }).catch(err => { console.log(err) })
             }else{
-                this.$toast.error(msgValidation)
+                // this.$toast.error(msgValidation)
             }
         },
 

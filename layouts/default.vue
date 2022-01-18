@@ -327,6 +327,21 @@ a {
   color: var(--white);
 }
 
+/* carousel */
+.VueCarousel-navigation-prev{
+  position: absolute;
+  top:50%;
+  left: 50px !important;
+  z-index: 99;
+}
+
+.VueCarousel-navigation-next{
+  position: absolute;
+  top:50%;
+  right: 50px !important;
+  z-index: 99;
+}
+
 @media screen and (max-width: 991px) {
   .logo img {
     max-width: 100%;

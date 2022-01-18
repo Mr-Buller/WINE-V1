@@ -4,6 +4,7 @@ import VueSocialSharing from 'vue-social-sharing'
 import VueGtag from "vue-gtag";
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
+import VueCarousel from 'vue-carousel';
 // import VueFbCustomerChat from 'vue-fb-customer-chat'
 
 Vue.use(VueGtag, {
@@ -15,6 +16,7 @@ Vue.use(require('vue-moment'))
 Vue.use(Toast, {
   // registration props here
 });
+Vue.use(VueCarousel);
 // Vue.use(VueFbCustomerChat, {
 //   page_id: "2082978481942860", //  change 'null' to your Facebook Page ID,
 //   theme_color: '#333333', // theme color in HEX

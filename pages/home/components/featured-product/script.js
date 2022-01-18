@@ -10,6 +10,7 @@ export default {
     },
     data() {
         return {
+            imageError: false,
             slickOptions: {
                 slidesToShow: 3,
                 // Any other options that can be got from plugin documentation

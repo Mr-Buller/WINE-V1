@@ -65,12 +65,12 @@
 				</div>
 				<nuxt-link to="/wishlist" class="inner-item">
 					<img :src="require('~/assets/images/icons/heart.png')" class="h20" />
-					<span v-if="MainStore.productInWishlist.length > 0" class="bg-danger" style="position: absolute;top:-5px;left:20px;font-size: 12px;color: #fff;border-radius: 8px;padding: 1px 4px;">
+					<span v-if="MainStore.productInWishlist && MainStore.productInWishlist.length > 0" class="bg-danger" style="position: absolute;top:-5px;left:20px;font-size: 12px;color: #fff;border-radius: 8px;padding: 1px 4px;">
 					{{MainStore.productInWishlist.length}}</span>
 				</nuxt-link>
 				<nuxt-link to="/cart" class="inner-item">
 					<img :src="require('~/assets/images/icons/shopping-cart.png')" class="h20" />
-					<span v-if="MainStore.productInCart.length > 0" class="bg-danger" style="position: absolute;top:-5px;left:20px;font-size: 12px;color: #fff;border-radius: 8px;padding: 1px 4px;">
+					<span v-if="MainStore.productInCart && MainStore.productInCart.length > 0" class="bg-danger" style="position: absolute;top:-5px;left:20px;font-size: 12px;color: #fff;border-radius: 8px;padding: 1px 4px;">
 					{{MainStore.productInCart.length}}</span>
 				</nuxt-link>
 			</div>

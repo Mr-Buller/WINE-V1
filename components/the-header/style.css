@@ -68,8 +68,8 @@ a{
     border: 1px solid #ddd;
 }
 .p-brand{
-    width: 720px;background: #fff;position: absolute;top:42px;left: 0;border: 1px solid #ddd;padding: 16px;
-    display: block;
+    width: 320px;background: #fff;position: absolute;top:42px;left: 0;border: 1px solid #ddd;padding: 16px;
+    display: none;
 }
 .menu-dropdown:hover .p-brand{
     display: block;
@@ -81,5 +81,8 @@ a{
     font-size: 14px;margin-bottom:10px;display: block;
 }
 .p-item:hover{
+    color: var(--primary);
+}
+.brand-item:hover p{
     color: var(--primary);
 }

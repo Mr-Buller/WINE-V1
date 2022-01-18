@@ -17,3 +17,10 @@
 .footer-item:hover{
     color: var(--primary);
 }
+.f-txt-info{
+    font-size: 14px;margin-left: 6px;line-height: 20px;
+    color: var(--dark-light);
+}
+.f-txt-info:hover{
+    color: var(--primary);
+}

@@ -17,7 +17,7 @@
 					<div class="row border-bottom pb12">
 						<p class="font18"><b>PRICE RANGES</b></p>
 						<div v-for="(price,priceIndex) in data.priceRange" 
-							key="(price,priceIndex)"
+							:key="(price,priceIndex)"
 							class="item-filter txt-dark-light"
 							@click="searchByPriceRange(priceIndex)">
 							<div :class="search.priceRange == price.price ? 'item-radio-active' : 'item-radio'">
@@ -29,7 +29,7 @@
 					<div class="row border-bottom pb12 mt24">
 						<p class="font18"><b>CATEGORIES</b></p>
 						<div v-for="(category,categoryIndex) in data.categories" 
-							key="(category,categoryIndex)"
+							:key="(category,categoryIndex)"
 							@click="searchByCategory(categoryIndex)"
 							class="item-filter txt-dark-light">
 							<div :class="search.categoryId == category.id ? 'item-radio-active' : 'item-radio'">
@@ -108,7 +108,7 @@
 						</select>
 					</div>
 				</div>
-				<FeaturedProduct v-if="!isFetching" :products="data.products"></FeaturedProduct>
+				<FeaturedProduct :products="data.products"></FeaturedProduct>
 				<Loading v-if="isFetching"></Loading>
 				<div v-if="data.products && data.products.length == 0" class="row pv50 txt-center">
 					No Data

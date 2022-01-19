@@ -6,7 +6,7 @@
 					<img :src="getFullPath(product.thumbnail)"  
 					class="item-img" />
 					<div v-if="product.discount > 0" class="tag-discount">-{{product.discount}}%</div>
-					<div v-if="product.brand" class="tag-type">{{product.brand.name}}</div>
+					<div v-if="product.brand" class="tag-type">{{product.brand}}</div>
 				</nuxt-link>
 				<div class="hover-btn-cart">
 					<nuxt-link :to="'/product/'+product.id" class="btn-cart-item mr3">

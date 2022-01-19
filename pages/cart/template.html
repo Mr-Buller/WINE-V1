@@ -25,7 +25,7 @@
 										<span>Variant :</span> <span class="txt-dark-light">{{product.variant}}</span>
 									</td>
 									<td>{{formatPrice(product.price)}}</td>
-									<td class="txt-center">{{product.discount}}</td>
+									<td class="txt-center">{{product.discount}}%</td>
 									<td>
 										<div style="width: 120px;padding: 0 32px;border:1px solid #ddd;position: relative;">
 											<i @click="increaseQty(productIndex)" class="fa fa-plus" style="position: absolute;top:50%;left:10px;transform: translateY(-50%);cursor: pointer;"></i>
@@ -69,12 +69,20 @@
 									<div class="btn-default go-right pv6 ph24 mt12">UPDATE</div> -->
 								</td>
 							</tr>
-							<tr v-if="data.products && data.products.length > 0">
-								<td>Total</td>
-								<td class="font24">{{formatPrice(getTotalPrice())}}</td>
-							</tr>
 						</tbody>
 					</table>
+					<div class="row pv6 mt12 border-bottom" v-if="data.products && data.products.length > 0">
+						<span class="font16 go-left">Total</span>
+						<span class="font16 txt-right go-right">{{sumSubtotal()}}</span>
+					</div>
+					<div class="row pv6 border-bottom" v-if="data.products && data.products.length > 0">
+						<span class="font16 go-left">Total Discount</span>
+						<span class="font16 txt-right go-right">- {{sumDiscount()}}</span>
+					</div>
+					<div class="row pv6 mb12 border-bottom" v-if="data.products && data.products.length > 0">
+						<span class="font16 go-left">Grand Total</span>
+						<span class="font16 txt-right go-right">{{getGrandTotal()}}</span>
+					</div>
 					<div v-if="MainStore.token && data.products && data.products.length > 0" class="row pv12">
 						<p class="font18">Payment Method</p>
 						<div class="row">

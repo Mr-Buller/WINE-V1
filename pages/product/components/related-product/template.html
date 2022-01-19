@@ -2,7 +2,7 @@
 	<div v-for="(product, productIndex) in products" :key="(product, productIndex)" class="col-3 p12">
 		<div class="p-item-hover box-square border">
 			<nuxt-link :to="'/product/'+product.id">
-				<img :src="getFullPath(product.thumbnail)" class="item-img" />
+				<img :src="imageError ? require('~/assets/images/image-default.jpeg') : getFullPath(product.thumbnail)" @error="imageError = true" class="item-img" />
 				<div v-if="product.discount > 0" class="tag-discount">-{{product.discount}}%</div>
 				<div v-if="product.brand" class="tag-type">{{product.brand.name}}</div>
 			</nuxt-link>

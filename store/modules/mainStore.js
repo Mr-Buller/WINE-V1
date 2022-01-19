@@ -3,7 +3,9 @@ const state = () => ({
     user: "",
     contact: "",
     productEachBrand: [],
-    showLoginDialog : "" // enum: "", "login", "register", "forgot_password", "change_password"
+    showLoginDialog : "", // enum: "", "login", "register", "forgot_password", "change_password"
+    productInCart: [],
+    productInWishlist: []
 });
 
 const getters = {
@@ -26,6 +28,12 @@ const mutations = {
     STORE_PRODUCT_EACH_BRAND: (state, payload) => {
         state.productEachBrand = payload;
     },
+    STORE_PRODUCT_IN_CART: (state, payload) => {
+        state.productInCart = payload;
+    },
+    STORE_PRODUCT_IN_WISHLIST: (state, payload) => {
+        state.productInWishlist = payload;
+    }
 };
 
 const actions = {

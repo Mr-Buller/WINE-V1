@@ -1,6 +1,7 @@
 import Helper from './../../../../utils/Helper'
 import { Hooper, Slide, Navigation as HooperNavigation, Pagination as HooperPagination } from 'hooper';
 import 'hooper/dist/hooper.css';
+import { mapState } from "vuex";
 
 export default {
     name: "home-top-seller",
@@ -9,7 +10,7 @@ export default {
     },
     data() {
         return {
-            
+            imageError: false,
         }
     },
     components: {
@@ -24,6 +25,9 @@ export default {
     mounted() {
 
     },
+    computed: {
+        ...mapState(["MainStore"])
+    },
     methods: {
         addToWishlist(product){
             let products = []
@@ -34,6 +38,7 @@ export default {
                 name: product.name,
                 qty: product.qty,
                 price: product.price,
+                brand: product.brand.name,
                 discount: product.discount ? parseInt(product.discount) : 0 ,
             }
             if(productInCart){
@@ -41,9 +46,11 @@ export default {
                 products.push(obj);
                 products = this.getUniqueArray(products)
                 this.$auth.$storage.setLocalStorage('productInWishlist', products)
+                this.$store.commit("STORE_PRODUCT_IN_WISHLIST", products);
             }else{
                 products.push(obj)
                 this.$auth.$storage.setLocalStorage('productInWishlist', products)
+                this.$store.commit("STORE_PRODUCT_IN_WISHLIST", products);
             }
             this.$toast.info("Product was added to wishlist.")
         },

@@ -13,7 +13,7 @@
 				<div class="row ph12">
 					<nuxt-link :to="'/search?brandId='+brand.id">
 						<div class="row border pv32 ph24 txt-center">
-							<img :src="getFullPath(brand.logo)" class="h100" style="max-width: 100%;object-fit: contain;"/>
+							<img :src="imageError ? require('~/assets/images/image-default.jpeg') : getFullPath(brand.logo)" @error="imageError = true" class="h100" style="max-width: 100%;object-fit: contain;"/>
 						</div>
 					</nuxt-link>
 				</div>

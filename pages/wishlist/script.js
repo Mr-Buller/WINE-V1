@@ -1,4 +1,5 @@
 import FeaturedProduct from './components/featured-product'
+import { mapState } from "vuex";
 
 export default {
     name: "wishlist",
@@ -23,6 +24,9 @@ export default {
     mounted() {
 
     },
+    computed: {
+        ...mapState(["MainStore"])
+    },
     methods: {
         getProductInWishlist() {
             let products = this.$auth.$storage.getLocalStorage('productInWishlist')
@@ -34,6 +38,7 @@ export default {
         removeProductFromWishlist(index) {
             this.data.products.splice(index, 1)
             this.$auth.$storage.setLocalStorage('productInWishlist', this.data.products)
+            this.$store.commit("STORE_PRODUCT_IN_WISHLIST", this.data.products);
             this.$toast.success("Product was removed from wishlist.")
         },
 

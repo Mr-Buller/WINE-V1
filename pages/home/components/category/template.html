@@ -1,14 +1,21 @@
 <div class="row mt40">
 	<p class="font24 txt-center">SHOP BY <span class="txt-primary">CATEGORY</span></p>
 	<div class="row ph9 mt12">
-		<div v-for="(category,categoryIndex) in categories" :key="(category,categoryIndex)" class="col-3 p12">
-			<nuxt-link :to="'/search?categoryId='+category.id">
-				<div class="box-square">
-					<img :src="getFullPath(category.image)" 
-					class="item-img" style="box-shadow: 0 0 8px rgb(0 0 0 / 30%);border-bottom: 1px solid rgb(221, 221, 221);" />
+		<hooper :itemsToShow="4" :itemsToSlide="4" :mouseDrag="false" :touchDrag="false" :wheelControl="false"
+			:keysControl="false" :hoverPause="true">
+			<slide v-for="(category,categoryIndex) in categories" :key="(category,categoryIndex)">
+				<div class="p-item-hover row ph12">
+					<nuxt-link :to="'/search?categoryId='+category.id">
+						<div class="box-square">
+							<img :src="imageError ? require('~/assets/images/image-default.jpeg') : getFullPath(category.image)"
+								@error="imageError = true" class="item-img"
+								style="box-shadow: 0 0 8px rgb(0 0 0 / 30%);border-bottom: 1px solid rgb(221, 221, 221);" />
+						</div>
+						<div class="btn-category txt-dark">{{category.name}}</div>
+					</nuxt-link>
 				</div>
-				<div class="btn-category txt-dark">{{category.name}}</div>
-			</nuxt-link>
-		</div>
+			</slide>
+			<hooper-navigation slot="hooper-addons"></hooper-navigation>
+		</hooper>
 	</div>
 </div>

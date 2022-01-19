@@ -7,14 +7,17 @@ export default {
         return {
             isCartSidebar: false,
             isBoxSearch: false,
-            keySearch: ""
+            keySearch: "",
+            data:{
+                productInCart: [],
+                productInWishlist: []
+            }
         }
     },
     components: {
         CartSidebar
     },
     created() {
-
     },
     mounted() {
 

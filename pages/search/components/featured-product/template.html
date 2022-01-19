@@ -3,7 +3,8 @@
 		<div class="row border">
 			<div class="p-item-hover box-square">
 				<nuxt-link :to="'/product/'+product.id">
-					<img :src="getFullPath(product.thumbnail)"  
+					<img :src="imageError ? require('~/assets/images/image-default.jpeg') : getFullPath(product.thumbnail)"  
+					@error="imageError = true"
 					class="item-img" />
 					<div v-if="product.discount > 0" class="tag-discount">-{{product.discount}}%</div>
 					<div v-if="product.brand" class="tag-type">{{product.brand.name}}</div>

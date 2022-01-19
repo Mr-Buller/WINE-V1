@@ -65,14 +65,66 @@
 				</div>
 				<nuxt-link to="/wishlist" class="inner-item">
 					<img :src="require('~/assets/images/icons/heart.png')" class="h20" />
-					<span v-if="MainStore.productInWishlist && MainStore.productInWishlist.length > 0" class="bg-danger" style="position: absolute;top:-5px;left:20px;font-size: 12px;color: #fff;border-radius: 8px;padding: 1px 4px;">
+					<span v-if="MainStore.productInWishlist && MainStore.productInWishlist.length > 0" class="tag-num bg-danger">
 					{{MainStore.productInWishlist.length}}</span>
 				</nuxt-link>
 				<nuxt-link to="/cart" class="inner-item">
 					<img :src="require('~/assets/images/icons/shopping-cart.png')" class="h20" />
-					<span v-if="MainStore.productInCart && MainStore.productInCart.length > 0" class="bg-danger" style="position: absolute;top:-5px;left:20px;font-size: 12px;color: #fff;border-radius: 8px;padding: 1px 4px;">
+					<span v-if="MainStore.productInCart && MainStore.productInCart.length > 0" class="tag-num bg-danger">
 					{{MainStore.productInCart.length}}</span>
 				</nuxt-link>
+			</div>
+		</div>
+		<div class="m-topbar-inner">
+			<div class="mb0 go-left">
+				<img @click="isMenu = !isMenu" :src="require('~/assets/images/icons/menu.png')" class="h20 go-left mt14 mr12 ml6" />
+				<nuxt-link to="/" class="go-left">
+					<img :src="require('@/assets/images/logos/logo.svg')"
+					class="h40 go-left mv4" />
+				</nuxt-link>
+			</div>
+			<div class="txt-right pt6 mt6 go-right">
+				<div @click="navigateTo('/profile')" v-if="MainStore.token" class="inner-item">
+					<img :src="require('~/assets/images/icons/user.png')" class="h20" />
+				</div>
+				<div class="inner-item">
+					<img @click="isBoxSearch = !isBoxSearch" :src="require('~/assets/images/icons/search.png')" class="h20" />
+					<div v-if="isBoxSearch" class="box-search">
+						<input @keyup.enter="onSearch" v-model="keySearch" type="text" placeholder="Search something ..." />
+					</div>
+				</div>
+				<nuxt-link to="/wishlist" class="inner-item">
+					<img :src="require('~/assets/images/icons/heart.png')" class="h20" />
+					<span v-if="MainStore.productInWishlist && MainStore.productInWishlist.length > 0" class="tag-num bg-danger">
+					{{MainStore.productInWishlist.length}}</span>
+				</nuxt-link>
+				<nuxt-link to="/cart" class="inner-item">
+					<img :src="require('~/assets/images/icons/shopping-cart.png')" class="h20" />
+					<span v-if="MainStore.productInCart && MainStore.productInCart.length > 0" class="tag-num bg-danger">
+					{{MainStore.productInCart.length}}</span>
+				</nuxt-link>
+			</div>
+		</div>
+		<div v-if="isMenu" style="width: 100%;max-height: 80%;background: #fff;border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;position: fixed;top:50px;left:0;padding:12px 0;z-index:9999;overflow-y: auto;">
+			<div @click="navigateTo('/')" class="row pv6 ph12 txt-dark">
+				<span>Home</span>
+			</div>
+			<div class="row pv6 pl12 pr6">
+				<span @click="navigateTo('/search')">Product</span>
+				<i @click="isMenuProduct = !isMenuProduct" class="fa fa-angle-down go-right pv3 ph12"></i>
+				<div v-if="isMenuProduct" class="row">
+					<div @click="navigateTo('/search?brandId='+brand.brand.id)" v-for="(brand, brandIndex) in MainStore.productEachBrand" :key="(brand, brandIndex)" class="row ph12 pv3">
+						<span class="font14 txt-dark-light">{{brand.brand.brand}}</span>
+					</div>
+				</div>
+			</div>
+			<div @click="navigateTo('contact-us')" class="row pv6 ph12 txt-dark">
+				<span>Contact Us</span>
+			</div>
+			<div v-if="!MainStore.token" class="row pv6 ph12 txt-dark">
+				<span @click="switchAuthDialog('login')" class="font14 txt-hover">LOGIN</span>
+				<span>/</span>
+				<span @click="switchAuthDialog('register')" class="font14 txt-hover">REGISTER</span>
 			</div>
 		</div>
 	</div>

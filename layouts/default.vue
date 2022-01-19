@@ -342,6 +342,19 @@ a {
   z-index: 99;
 }
 
+.p-name{
+  color: var(--dark-light);
+  margin-bottom:6px
+}
+.p-discount{
+  color: var(--primary);
+  font-size:16px;
+}
+.p-price{
+  color: var(--dark-light);
+  margin-right:6px;
+}
+
 @media screen and (max-width: 991px) {
   .logo img {
     max-width: 100%;
@@ -354,6 +367,21 @@ a {
 @media screen and (max-width: 767px) {
   .post-content-area iframe {
     height: 240px;
+  }
+  .tag-type{
+    font-size: 10px;
+  }
+  .tag-discount{
+    font-size: 10px;
+  }
+  .p-name{
+    font-size: 13px;
+  }
+  .p-discount{
+    font-size: 14px;
+  }
+  .p-price{
+    font-size: 14px;
   }
 }
 </style>

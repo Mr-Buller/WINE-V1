@@ -11,6 +11,7 @@ export default {
     data() {
         return {
             imageError: false,
+            itemsToShow: 0,
             slickOptions: {
                 slidesToShow: 3,
                 // Any other options that can be got from plugin documentation
@@ -24,7 +25,9 @@ export default {
         HooperPagination
     },
     created() {
-
+        if(process.client){
+            this.getInnerWidth()
+        }
     },
     mounted() {
 
@@ -33,6 +36,17 @@ export default {
         ...mapState(["MainStore"])
     },
     methods: {
+        getInnerWidth(){
+            let width = window.innerWidth
+            if(width > 767){
+                this.itemsToShow = 4
+            }else if(width > 600 && width <= 767){
+                this.itemsToShow = 3
+            }else if(width <= 600){
+                this.itemsToShow = 2
+            }
+        },
+
         getFullPath(path) {
             return process.env.BASE_URL + path
         },

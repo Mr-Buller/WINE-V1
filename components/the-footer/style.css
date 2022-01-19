@@ -24,3 +24,43 @@
 .f-txt-info:hover{
     color: var(--primary);
 }
+.f-item{
+    width: 25%;
+    float: left;
+    margin-top: 24px;
+}
+.f-title{
+    font-size: 20px;
+    margin-bottom:24px;
+}
+.f-copyright{
+    color: var(--dark-light);font-size:14px;float:left;
+}
+.f-img-payment{
+    float: right;
+}
+@media screen and (max-width: 767px) {
+    .f-item{
+        width: 50%;
+    }
+    .f-title{
+        margin-bottom: 12px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .f-item{
+        width: 100%;
+    }
+    .f-title{
+        margin-bottom: 6px;
+    }
+    .f-copyright{
+        width: 100%;
+        text-align: center;
+    }
+    .f-img-payment{
+        width: 100%;
+        text-align: center;
+        margin-top: 6px;
+    }
+}

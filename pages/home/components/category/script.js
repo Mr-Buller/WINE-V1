@@ -1,3 +1,5 @@
+import { Hooper, Slide, Navigation as HooperNavigation, Pagination as HooperPagination } from 'hooper';
+
 export default {
     name: "home-category",
     props:{
@@ -9,7 +11,10 @@ export default {
         }
     },
     components: {
-
+        Hooper, 
+        Slide,
+        HooperNavigation,
+        HooperPagination
     },
     created() {
 

@@ -1,7 +1,7 @@
 <div class="row mt40">
 	<p class="font24 txt-center">SHOP BY <span class="txt-primary">CATEGORY</span></p>
 	<div class="row ph9 mt12">
-		<hooper :itemsToShow="4" :itemsToSlide="4" :mouseDrag="false" :touchDrag="false" :wheelControl="false"
+		<hooper :itemsToShow="itemsToShow" :itemsToSlide="itemsToShow" :mouseDrag="false" :touchDrag="false" :wheelControl="false"
 			:keysControl="false" :hoverPause="true">
 			<slide v-for="(category,categoryIndex) in categories" :key="(category,categoryIndex)">
 				<div class="p-item-hover row ph12">

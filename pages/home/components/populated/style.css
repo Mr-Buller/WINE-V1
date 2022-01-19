@@ -1,0 +1,14 @@
+.pl-item{
+    width: 25%;text-align: center;padding: 25px;float: left;display: block;
+
+}
+@media screen and (max-width: 767px) {
+    .pl-item{
+        width: 33.33%;
+    }
+}
+@media screen and (max-width: 600px) {
+    .pl-item{
+        width: 50%;
+    }
+}

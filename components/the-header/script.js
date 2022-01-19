@@ -7,6 +7,8 @@ export default {
         return {
             isCartSidebar: false,
             isBoxSearch: false,
+            isMenu: false,
+            isMenuProduct: false,
             keySearch: "",
             data:{
                 productInCart: [],
@@ -34,6 +36,10 @@ export default {
         onSearch() {
             this.isBoxSearch = false
             $nuxt.$router.push({ path: '/search?search='+this.keySearch })
+        },
+        navigateTo(path){
+            this.$router.push({path: path})
+            this.isMenu = false
         },
         switchAuthDialog(type) {
             this.$store.commit("SHOW_LOGIN_DIALOG", type);

@@ -10,6 +10,7 @@ export default {
     data() {
         return {
             isFetching: true,
+            isFilter: true,
             data: {
                 products: [],
                 categories: [],
@@ -54,6 +55,8 @@ export default {
         Loading
     },
     created() {
+        if(process.client)
+        this.getInnerWidth()
         this.getProduct()
         this.getCategory()
         this.getBrand()
@@ -74,6 +77,12 @@ export default {
         window.removeEventListener('scroll', this.handleScroll);
     },
     methods: {
+        getInnerWidth(){
+            let width = window.innerWidth
+            if(width <= 767){
+                this.isFilter = false
+            }
+        },
         getProduct() {
             this.isFetching = true
             let queryPage = this.$route.query.page

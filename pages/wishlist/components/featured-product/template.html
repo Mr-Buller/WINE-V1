@@ -1,5 +1,5 @@
 <div class="row">
-	<div v-for="(product,productIndex) in products" :key="(product,productIndex)" class="col-3 p12">
+	<div v-for="(product,productIndex) in products" :key="(product,productIndex)" class="col-3 col-sm-6 p12">
 		<div class="row border">
 			<div class="p-item-hover box-square">
 				<nuxt-link :to="'/product/'+product.id">
@@ -19,11 +19,11 @@
 			</div>
 			<div class="row txt-center mt12">
 				<nuxt-link :to="'/product/'+product.id">
-					<p class="txt-ellipsis txt-dark mb6 ph12" :title="product.name">{{product.name}}</p>
-					<p v-if="product.discount == 0" class="txt-primary font16">${{product.price.toFixed(2)}}</p>
+					<p class="txt-ellipsis p-name ph6" :title="product.name">{{product.name}}</p>
+					<p v-if="product.discount == 0" class="p-price font16">${{product.price.toFixed(2)}}</p>
 					<p v-else class="font16">
-						<del v-if="product.price" class="txt-dark-light mr6">${{product.price.toFixed(2)}}</del>
-						<span class="txt-primary">${{getDiscount(product.price,product.discount)}}</span>
+						<del v-if="product.price" class="p-price mr6">${{product.price.toFixed(2)}}</del>
+						<span class="p-discount">${{getDiscount(product.price,product.discount)}}</span>
 					</p>
 				</nuxt-link>
 			</div>

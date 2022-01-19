@@ -62,4 +62,41 @@
 .border{
     border: 1px solid var(--secondary)
 }
+.sm-show{
+    display: none;
+}
 
+@media screen and (max-width: 767px) {
+    .search-title{
+        font-size: 32px;
+    }
+    .search-input{
+        max-width: 80%;
+        padding: 10px;
+    }
+    .img-bg-search{
+        height: 200px;
+    }
+    .sm-show{
+        display: block;
+    }
+    .m-filter-sidebar{
+        width: 100%;
+        height: 100vh;
+        background: rgba(0,0,0,.5);
+        position: fixed;
+        top:0;
+        left:0;;
+        display: block;
+        z-index: 99;
+    }
+    .m-block-filter{
+        width: 300px;
+        height: 100vh;
+        background: #fff;
+        position: fixed;
+        top:0;
+        left: 0;
+        overflow-y: auto;
+    }
+}

@@ -1,8 +1,8 @@
 <footer>
-	<div class="row pt36 bg-secondary">
+	<div class="row bg-secondary">
 		<div class="m-container ph12">
-			<div class="col-3 pr50">
-				<p class="font20 mb24">CONTACT US</p>
+			<div class="f-item pr25">
+				<p class="f-title">CONTACT US</p>
 				<p v-if="MainStore.contact.address">
 					<span style="font-weight: bold;">Head Office :</span>
 					<span class="ml6 txt-dark-light font14" style="line-height: 20px;"> {{MainStore.contact.address}}</span>
@@ -36,22 +36,22 @@
 					</a>
 				</p>
 			</div>
-			<div class="col-3">
-				<p class="font20 mb24">CATEGORIES</p>
+			<div class="f-item">
+				<p class="f-title">CATEGORIES</p>
 				<nuxt-link :to="'/search?categoryId='+category.id" v-for="(category,categoryIndex) in data.categories" :key="(category,categoryIndex)"
 					v-if="categoryIndex < 5" class="footer-item">
 					{{category.name}}
 				</nuxt-link>
 			</div>
-			<div class="col-3">
-				<p class="font20 mb24">BRANDS</p>
+			<div class="f-item">
+				<p class="f-title">BRANDS</p>
 				<nuxt-link :to="'/search?brandId='+brand.id" v-for="(brand,brandIndex) in data.brands" :key="(brand,brandIndex)" v-if="brandIndex < 5"
 					class="footer-item">
 					{{brand.name}}
 				</nuxt-link>
 			</div>
-			<div class="col-3">
-				<p class="font20 mb24">COUNTRIES</p>
+			<div class="f-item">
+				<p class="f-title">COUNTRIES</p>
 				<nuxt-link :to="'/search?countryId='+country.id" v-for="(country,countryIndex) in data.countries" :key="(country,countryIndex)"
 					v-if="countryIndex < 5" class="footer-item">
 					{{country.name}}
@@ -61,9 +61,11 @@
 
 		<div class="row p12 border-top mt24">
 			<div class="m-container ph12">
-				<span class="go-left txt-dark-light font14">Copyright © 2022 Albino Mosaic</span>
-				<img :src="require('~/assets/images/icons/payment-method.png')"
-					class="h26 go-right" />
+				<span class="f-copyright">Copyright © 2022 Albino Mosaic</span>
+				<div class="f-img-payment">
+					<img :src="require('~/assets/images/icons/payment-method.png')"
+					class="h26" />
+				</div>
 			</div>
 		</div>
 	</div>

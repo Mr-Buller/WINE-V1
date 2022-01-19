@@ -18,8 +18,8 @@
 		</div> -->
 
 		<hooper 
-			:itemsToShow="4" 
-			:itemsToSlide="4" 
+			:itemsToShow="itemsToShow" 
+			:itemsToSlide="itemsToShow" 
 			:mouseDrag="false" 
 			:touchDrag="false"
 			:wheelControl="false"
@@ -47,9 +47,9 @@
 						</div>
 						<div class="row txt-center mt12">
 							<nuxt-link :to="'/product/'+product.id">
-								<p class="txt-dark mb6 ph24 txt-ellipsis">{{product.name}}</p>
-								<p v-if="product.discount == 0" class="txt-primary font16">{{formatPrice(product.price)}}</p>
-								<p v-else class="font16"><del class="txt-dark-light mr6">{{formatPrice(product.price)}}</del> <span class="txt-primary">${{getDiscount(product.price,product.discount)}}</span></p>
+								<p class="p-name txt-ellipsis">{{product.name}}</p>
+								<p v-if="product.discount == 0" class="p-price">{{formatPrice(product.price)}}</p>
+								<p v-else><del class="p-discount">{{formatPrice(product.price)}}</del> <span class="p-discount">${{getDiscount(product.price,product.discount)}}</span></p>
 							</nuxt-link>
 						</div>
 				</div>

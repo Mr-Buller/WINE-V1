@@ -11,6 +11,7 @@ export default {
     data() {
         return {
             imageError: false,
+            itemsToShow: 0,
         }
     },
     components: {
@@ -20,7 +21,9 @@ export default {
         HooperPagination
     },
     created() {
-
+        if(process.client){
+            this.getInnerWidth()
+        }
     },
     mounted() {
 
@@ -29,6 +32,16 @@ export default {
         ...mapState(["MainStore"])
     },
     methods: {
+        getInnerWidth(){
+            let width = window.innerWidth
+            if(width > 767){
+                this.itemsToShow = 4
+            }else if(width > 600 && width <= 767){
+                this.itemsToShow = 3
+            }else if(width <= 600){
+                this.itemsToShow = 2
+            }
+        },
         addToWishlist(product){
             let products = []
             let productInCart = this.$auth.$storage.getLocalStorage('productInWishlist')

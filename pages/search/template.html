@@ -1,6 +1,6 @@
 <section>
 	<div class="m-container">
-		<div class="row mb36 txt-center">
+		<div class="row mb24 txt-center">
 			<img src="https://wpbingosite.com/wordpress/kowine/wp-content/uploads/2021/06/Slide5.jpg"
 				class="img-bg-search" />
 			<div class="search-bg-overlay"></div>
@@ -12,8 +12,9 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-3 p12">
-				<div class="row border p16">
+			<div v-if="isFilter" @click="isFilter = !isFilter" class="col-3 sm-hidden p12 m-filter-sidebar">
+				<div class="row border p16 m-block-filter">
+					<p class="font20 p10 txt-center bg-secondary sm-show">PRODUCT FILTER</p>
 					<div class="row border-bottom pb12">
 						<p class="font18"><b>PRICE RANGES</b></p>
 						<div v-for="(price,priceIndex) in data.priceRange" 
@@ -94,9 +95,13 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-9 p12">
-				<div class="row ph12 mb12">
-					<span>Showing 1–12 of 29 item(s)</span>
+			<div class="col-9 col-sm-12 p10">
+				<div class="row pt8 ph10 mb10">
+					<span class="sm-hidden">Showing 1–12 of 29 item(s)</span>
+					<div @click="isFilter = !isFilter" class="sm-show go-left">
+						<img :src="require('~/assets/images/icons/setting.png')" class="h26 go-left" style="margin-left: -12px;"/>
+						<div class="font20 go-left ml6" style="margin-top: -1px;">Filter</div>
+					</div>
 					<div style="border: 1px solid #000;padding: 5px 12px;float: right;cursor: pointer;">
 						<select @change="searchByOrdering" v-model="search.orderBy"
 							style="max-width: 146px;border:none;background:#fff;outline: none;font-size: 16px;padding-right: 6px;cursor: pointer;">
@@ -108,6 +113,7 @@
 						</select>
 					</div>
 				</div>
+				<div class="sm-show ph4 border-top pt6">Showing 1–12 of 29 item(s)</div>
 				<FeaturedProduct :products="data.products"></FeaturedProduct>
 				<Loading v-if="isFetching"></Loading>
 				<div v-if="data.products && data.products.length == 0" class="row pv50 txt-center">

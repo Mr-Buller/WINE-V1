@@ -13,7 +13,7 @@
     top:50%;
     left:36px;
     transform: translateY(-50%);
-    z-index: 999;
+    z-index: 9;
     cursor: pointer;
 }
 .flux-arrow-left img{
@@ -32,7 +32,7 @@
     top:50%;
     right:36px;
     transform: translateY(-50%);
-    z-index: 999;
+    z-index: 9;
     cursor: pointer;
 }
 .flux-arrow-right img{

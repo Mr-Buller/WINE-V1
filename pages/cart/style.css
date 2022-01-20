@@ -24,3 +24,33 @@ table tr td {
 a{
     text-decoration: none;
 }
+.cart-title{
+    font-size: 32px;
+}
+.table-order{
+    width: 100%;border: 1px solid #ddd;margin-bottom: 24px;
+}
+.m-list-order{
+    width: 100%;
+    display: none;
+}
+.sm-show{
+    display: none
+}
+@media screen and (max-width: 767px) {
+    .table-order{
+        display: none;
+    }
+    .m-list-order{
+        display: inline-block
+    }
+    .cart-title{
+        font-size: 24px;
+    }
+    .sm-hidden{
+        display: none
+    }
+    .sm-show{
+        display: inline-block;
+    }
+}

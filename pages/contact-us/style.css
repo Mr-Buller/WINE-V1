@@ -1,3 +1,13 @@
 a{
     text-decoration: none;
 }
+.m-yt{
+    width: 100%;height:600px;
+    padding: 0 100px;
+}
+@media screen and (max-width: 767px) {
+    .m-yt{
+        height: 300px;
+        padding: 12px;
+    }
+}

@@ -40,14 +40,19 @@
 								<nuxt-link :to="'/product/'+product.id" class="btn-cart-item mr3">
 									<img :src="require('~/assets/images/icons/detail.png')"/>
 								</nuxt-link>
-								<div @click="addToWishlist(product)" class="btn-cart-item">
-									<img :src="require('~/assets/images/icons/heart.png')"/>
+								<div v-show="isWishlist(product.id)" @click="removeProductFromWishlist(productIndex)"
+									class="btn-cart-item">
+									<img :src="require('~/assets/images/icons/heart-active.png')" />
+								</div>
+								<div v-show="!isWishlist(product.id)" @click="addToWishlist(productIndex)"
+									class="btn-cart-item">
+									<img :src="require('~/assets/images/icons/heart.png')" />
 								</div>
 							</div>
 						</div>
 						<div class="row txt-center mt12">
 							<nuxt-link :to="'/product/'+product.id">
-								<p class="p-name txt-ellipsis">{{product.name}}</p>
+								<p class="p-name txt-ellipsis"><span hidden>{{product.isWishlist}}</span>{{product.name}}</p>
 								<p v-if="product.discount == 0" class="p-price">{{formatPrice(product.price)}}</p>
 								<p v-else><del class="p-discount">{{formatPrice(product.price)}}</del> <span class="p-discount">${{getDiscount(product.price,product.discount)}}</span></p>
 							</nuxt-link>

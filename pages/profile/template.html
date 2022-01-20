@@ -1,7 +1,21 @@
 <section>
 	<div class="m-container">
-		<div class="row p50">
-			<div class="col-3">
+		<div class="row mv12">
+			<div class="m-tab">
+				<div @click="tabActive = 'profile'" :class="tabActive == 'profile' ? 'm-tab-menu-active' : 'm-tab-menu'">
+					<span class="font13">PROFILE</span>
+				</div>
+				<div @click="tabActive = 'order'" :class="tabActive == 'order' ? 'm-tab-menu-active' : 'm-tab-menu'">
+					<span class="font13">MY ORDER</span>
+				</div>
+				<div @click="tabActive = 'address'" :class="tabActive == 'address' ? 'm-tab-menu-active' : 'm-tab-menu'">
+					<span class="font13">ADDRESS</span>
+				</div>
+				<div @click="showLogoutDialog = true" class="col-3 border txt-center p6">
+					<span class="font13">LOGOUT</span>
+				</div>
+			</div>
+			<div class="col-3 sm-hidden ph12">
 				<table class="row border">
 					<tr @click="tabActive = 'profile'" :class="tabActive == 'profile' ? 'tab-menu-active' : 'tab-menu'">
 						<td>
@@ -35,7 +49,7 @@
 					</tr>
 				</table>
 			</div>
-			<div class="col-9 pl50">
+			<div class="col-9 col-sm-12 ph24">
 				<div v-if="isAuthenticated" class="row">
 					<div v-if="tabActive == 'profile'" class="row">
 						<ProfileInfo></ProfileInfo>

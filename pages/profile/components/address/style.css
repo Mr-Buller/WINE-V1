@@ -11,3 +11,18 @@ table th {
 table tr td {
     padding: 12px;
 }
+.table-address{
+    width: 100%;border: 1px solid #ddd;margin-bottom: 24px;
+}
+.m-table-address{
+    width: 100%;
+    display: none;
+}
+@media screen and (max-width: 767px) {
+    .table-address{
+        display: none;
+    }
+    .m-table-address{
+        display: inline-block
+    }
+}

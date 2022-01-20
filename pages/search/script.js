@@ -210,6 +210,13 @@ export default {
             return process.env.BASE_URL+path
         },
 
+        hiddenFilter(){
+            let width = window.innerWidth
+            if(width <= 767){
+                this.isFilter = !this.isFilter
+            }
+        },
+
         handleScroll() {
             let body = document.getElementsByTagName("body")[0];
             let scrollTop = window.scrollY;

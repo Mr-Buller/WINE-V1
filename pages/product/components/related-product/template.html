@@ -1,5 +1,5 @@
 <div class="row">
-	<div v-for="(product, productIndex) in products" :key="(product, productIndex)" class="col-3 p12">
+	<div v-for="(product, productIndex) in products" :key="(product, productIndex)" class="col-3 col-sm-6 p12">
 		<div class="p-item-hover box-square border">
 			<nuxt-link :to="'/product/'+product.id">
 				<img :src="imageError ? require('~/assets/images/image-default.jpeg') : getFullPath(product.thumbnail)" @error="imageError = true" class="item-img" />
@@ -10,17 +10,22 @@
 				<nuxt-link :to="'/product/'+product.id" class="btn-cart-item mr3">
 					<img :src="require('~/assets/images/icons/detail.png')"/>
 				</nuxt-link>
-				<div @click="addToWishlist(product)" class="btn-cart-item">
+				<div v-show="isWishlist(product.id)" @click="removeProductFromWishlist(productIndex)"
+					class="btn-cart-item">
+					<img :src="require('~/assets/images/icons/heart-active.png')" />
+				</div>
+				<div v-show="!isWishlist(product.id)" @click="addToWishlist(productIndex)"
+					class="btn-cart-item">
 					<img :src="require('~/assets/images/icons/heart.png')" />
 				</div>
 			</div>
 		</div>
 		<div class="row txt-center mt12">
 			<nuxt-link :to="'/product/'+product.id">
-				<p class="txt-dark mb6 txt-ellipsis">{{product.name}}</p>
-				<p v-if="product.discount == 0" class="txt-primary font16">${{product.price}}</p>
-				<p v-else class="font16"><del class="txt-dark-light mr6">${{product.price}}</del> <span
-						class="txt-primary">${{getDiscount(product.price,product.discount)}}</span></p>
+				<p class="p-name txt-ellipsis"><span>{{product.isWishlist}}</span> {{product.name}}</p>
+				<p v-if="product.discount == 0" class="p-price">${{product.price}}</p>
+				<p v-else class="font16"><del class="p-price">${{product.price}}</del> <span
+						class="p-discount">${{getDiscount(product.price,product.discount)}}</span></p>
 			</nuxt-link>
 		</div>
 	</div>

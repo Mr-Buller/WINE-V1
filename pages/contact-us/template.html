@@ -1,9 +1,9 @@
 <section>
 	<div class="m-container">
-		<div class="row mt24 ph50">
-			<div class="col-6 pr24">
+		<div class="row mt24 ph12">
+			<div class="col-6 col-sm-12 mb12 ph12">
 				<h2>Contact Us</h2>
-				<div class="row bg-secondary p30">
+				<div class="row bg-secondary p24">
 					<p class="font18 mb16" style="font-weight: bold;">Call our hotline to place an order or talk to our customer service team:</p>
 					<div v-if="MainStore.contact.phone" class="row mb6">
 						<a :href="'tel:'+MainStore.contact.phone">
@@ -37,32 +37,32 @@
 					</a>
 				</div>
 			</div>
-			<div class="col-6 pl24">
-				<h2>Have Question?</h2>
-				<p>Prefer to send us a message? We’ll get right back to you</p>
-				<div class="col-12 mv16">
-					<div class="col-6 pr12">
+			<div class="col-6 col-sm-12 ph12">
+				<h2 class="ph12">Have Question?</h2>
+				<p class="ph12">Prefer to send us a message? We’ll get right back to you</p>
+				<div class="col-12 mt16">
+					<div class="col-6 col-sm-12 mb16 ph12">
 						<input v-model="body.name" type="text" placeholder="Your name" class="w-input" />
 					</div>
-					<div class="col-6 pl12">
+					<div class="col-6 col-sm-12 mb16 ph12">
 						<input v-model="body.email" type="text" placeholder="Your email" class="w-input" />
 					</div>
 				</div>
-				<div class="row mb16">
+				<div class="row mb16 ph12">
 					<input v-model="body.phone" type="text" placeholder="Your phone" class="w-input" />
 				</div>
-				<div class="row mb16">
+				<div class="row mb16 ph12">
 					<textarea v-model="body.message" class="w-input" rows="5" placeholder="Write your message"></textarea>
 				</div>
 	
-				<div class="row mb16">
-					<button v-if="!isCreating" @click="askQuestion" class="btn btn-default ph100">Submit</button>
+				<div class="row mb16 ph12">
+					<button v-if="!isCreating" @click="askQuestion" class="row btn btn-default ph100">Submit</button>
 					<button v-else class="btn btn-default ph100">Loading...</button>
 				</div>
 			</div>
 		</div>
-		<div class="row ph100 txt-center mv24">
-			<iframe style="width: 80%;height:500px" src="https://www.youtube.com/embed/L4pqKCBQdoQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		<div class="row ph24 txt-center mv24">
+			<iframe class="m-yt" src="https://www.youtube.com/embed/L4pqKCBQdoQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 		</div>
 	</div>
 </section>

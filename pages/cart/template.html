@@ -1,10 +1,10 @@
 <section>
 	<div class="m-container">
-		<div class="row p50">
-			<p class="font30">SHOPPING CART</p>
+		<div class="row p12">
+			<p class="cart-title ph12">SHOPPING CART</p>
 			<div v-if="!isUserInfo" class="col-12">
-				<div class="col-8">
-					<div class="row">
+				<div class="col-8 col-sm-12 mb12">
+					<div class="row sm-hidden ph12">
 						<table style="width: 100%;border: 1px solid #ddd;">
 							<thead>
 								<th>Thumbnail</th>
@@ -42,8 +42,30 @@
 							No Data
 						</div>
 					</div>
+					<div class="row sm-show ph12">
+						<div v-for="(product,productIndex) in data.products" :key="(product,productIndex)" class="row p6 border mt-1" style="padding-left: 72px;padding-right: 50px;">
+							<img :src="getFullPath(product.thumbnail)"style="width: 60px;height:60px;object-fit: cover;position:absolute;top:8px;left:6px;" />
+							<p class="txt-primary font14 mb3">{{product.name}}</p>
+							<p class="font13 mb3"><span>Variant</span> : <span class="capitalize txt-dark-light">{{product.variant}}</span></p>
+							<p class="font13 mb3">
+								<span>Price</span> : <span class="capitalize txt-dark-light">{{formatPrice(product.price)}}</span>
+								<span class="ml12">Discount</span> : <span class="capitalize txt-dark-light">{{product.discount}}%</span>
+							</p>
+							<div class="font13 mb3">
+								<span class="go-left mt3 mr12">Quantity</span>
+								<div style="width: 110px;padding: 0 32px;border:1px solid #ddd;position: relative;float: left;">
+									<i @click="increaseQty(productIndex)" class="fa fa-plus" style="position: absolute;top:50%;left:10px;transform: translateY(-50%);cursor: pointer;"></i>
+									<i @click="decreaseQty(productIndex)" class="fa fa-minus" style="position: absolute;top:50%;right:10px;transform: translateY(-50%);cursor: pointer;"></i>
+									<input v-model="product.qty" type="text" value="1" disabled="true" style="width: 100%;height: 24px;font-size: 16px;border: none;text-align: center;outline: none;" />
+								</div>
+							</div>
+							<div @click="removeProductFromCart(productIndex)" style="width: 50px;height: 100%;position: absolute;top:0;right:0">
+								<i class="fa fa-times-circle pointer" style="position: absolute;top:50%;left: 50%;transform: translate(-50%,-50%);"></i>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="col-4 pl50">
+				<div class="col-4 col-sm-12 ph12">
 					<div class="row" style="background: #ddd;padding: 14px;">
 						<span>CART TOTALS</span>
 					</div>
@@ -135,7 +157,7 @@
 
 			<!-- User logged in -->
 			<div v-if="isUserInfo" class="col-12">
-				<div class="col-7">
+				<div class="col-7 col-sm-12 mb12 ph12">
 					<div class="row bg-secondary p24">
 						<p class="font20" style="font-weight: bold;">Address Info</p>
 						<div class="row">
@@ -184,7 +206,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-5 pl50">
+				<div class="col-5 col-sm-12 ph12">
 					<div class="row mb12">
 						<span class="font20">YOUR ORDER</span>
 					</div>
@@ -201,8 +223,10 @@
 								<td>
 									<p class="mb3 font14">{{product.name}}</p>
 									<span class="font12">Variant :</span> <span class="font12 txt-dark-light">{{product.variant}}</span>
-									<small class="font12 txt-dark-light">| Quantity : {{product.qty}}</small>
+									<div class="row">
+										<small class="font12 txt-dark-light">Quantity : {{product.qty}}</small>
 									<small class="font12 txt-dark-light">| Discount : {{product.discount}}%</small>
+									</div>
 								</td>
 								<td class="txt-right"><span class="font14">{{getSubtotal(product.price, product.discount, product.qty)}}</span></td>
 							</tr>

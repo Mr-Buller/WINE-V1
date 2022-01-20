@@ -26,3 +26,29 @@ table tr td {
 .tab-menu-active img{
     filter: brightness(0) invert(1);
 }
+.m-tab{
+    width: 100%;
+    padding: 0 24px 12px 24px;
+    display: none;
+}
+.m-tab-menu{
+    width: 25%;
+    border: 1px solid var(--secondary);
+    text-align: center;
+    padding: 6px;
+    float: left;
+}
+.m-tab-menu-active{
+    width: 25%;
+    border: 1px solid var(--secondary);
+    text-align: center;
+    padding: 6px;
+    background: var(--primary);
+    color: var(--white);
+    float: left;
+}
+@media screen and (max-width: 767px) {
+    .m-tab{
+        display: inline-block;
+    }
+}

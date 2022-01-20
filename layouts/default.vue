@@ -208,11 +208,17 @@ a {
   position: fixed;
   top: 0;
   left: 0;
+  bottom: 0;
   z-index: 9999;
+  overflow-y: auto;
 }
 .auth-bg {
   width: 100%;
   height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
   background: rgba(0, 0, 0, 0.5);
 }
 .block-auth {
@@ -382,6 +388,12 @@ a {
   }
   .p-price{
     font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .block-auth{
+    width: 90%;
   }
 }
 </style>

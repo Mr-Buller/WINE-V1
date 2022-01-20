@@ -127,6 +127,7 @@ export default {
                 this.$auth.$storage.setLocalStorage('productInWishlist', products)
                 this.$store.commit("STORE_PRODUCT_IN_WISHLIST", products);
             }
+            this.$set(this.data.product, 'isWishlist', true)
             this.$toast.info("Product was added to wishlist.")
         },
 
@@ -139,42 +140,74 @@ export default {
 
                 let productId = this.data.product.id
                 let index = productInWishlist.findIndex(function (product) {
-                    console.log(product.id+"/"+productId)
                     return product.id == productId
                 });
 
-                console.log("wishlist index ", index)
+                let indexOfProductInCart = productInWishlist.findIndex(function (product) {
+                    return product.id == productId
+                });
 
                 if (index > -1) {
                     productInWishlist.splice(index, 1)
-                    console.log(productInWishlist)
                     this.$auth.$storage.setLocalStorage('productInWishlist', productInWishlist)
                     this.$store.commit("STORE_PRODUCT_IN_WISHLIST", productInWishlist);
                 }
 
-                let obj = {
-                    id: this.data.product.id,
-                    thumbnail: this.data.product.thumbnail,
-                    name: this.data.product.name,
-                    qty: this.body.qty,
-                    price: this.data.product.price,
-                    discount: this.data.product.discount ? parseInt(this.data.product.discount) : 0,
-                    variant: options.join(", ")
+                if(indexOfProductInCart < 0){
+                    let obj = {
+                        id: this.data.product.id,
+                        thumbnail: this.data.product.thumbnail,
+                        name: this.data.product.name,
+                        qty: this.body.qty,
+                        price: this.data.product.price,
+                        discount: this.data.product.discount ? parseInt(this.data.product.discount) : 0,
+                        variant: options.join(", ")
+                    }
+                    if (productInCart) {
+                        products = productInCart
+                        products.push(obj);
+                        products = this.getUniqueArray(products)
+                        this.$auth.$storage.setLocalStorage('productInCart', products)
+                        this.$store.commit("STORE_PRODUCT_IN_CART", products);
+                    } else {
+                        products.push(obj)
+                        this.$store.commit("STORE_PRODUCT_IN_CART", products);
+                        this.$auth.$storage.setLocalStorage('productInCart', products)
+                    }
+                    this.$toast.info("Product was added to cart.")
+                }else{
+                    this.$toast.info("Already exist.")
                 }
-                if (productInCart) {
-                    products = productInCart
-                    products.push(obj);
-                    products = this.getUniqueArray(products)
-                    this.$auth.$storage.setLocalStorage('productInCart', products)
-                    this.$store.commit("STORE_PRODUCT_IN_CART", products);
-                } else {
-                    products.push(obj)
-                    this.$store.commit("STORE_PRODUCT_IN_CART", products);
-                    this.$auth.$storage.setLocalStorage('productInCart', products)
-                }
-                this.$toast.info("Product was added to cart.")
+
+                
             } else {
                 this.$toast.error("All options are required.")
+            }
+        },
+
+        removeProductFromWishlist(product) {
+            let productId = product.id
+            let products = this.$auth.$storage.getLocalStorage('productInWishlist')
+            
+            if(products && products.length > 0){
+                let index = products.findIndex(p => p.id == productId);
+                if(index > -1){
+                    products.splice(index, 1)
+                    this.$auth.$storage.setLocalStorage('productInWishlist', products)
+                    this.$store.commit("STORE_PRODUCT_IN_WISHLIST", products);
+                    this.$toast.error("Product was removed from wishlist.")
+                    this.$set(this.data.product, 'isWishlist', false)
+                }
+            }
+        },
+
+        isWishlist(productId){
+            let products = this.$auth.$storage.getLocalStorage('productInWishlist')
+            if(products){
+                let index = products.findIndex(product => product.id == productId);
+                return index > -1 ? true : false
+            }else{
+                return false
             }
         },
 

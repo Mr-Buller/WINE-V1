@@ -3,7 +3,7 @@
 		<b>Order History</b>
 	</p>
 	<table v-if="!isFetching" v-for="(order,orderIndex) in data.orders" :key="(order,orderIndex)"
-		style="width: 100%;border: 1px solid #ddd;margin-bottom: 24px;">
+		class="table-order">
 		<thead class="bg-secondary">
 			<th>Order Ref : {{order.ref}}</th>
 			<th class="txt-right">Discount(%)</th>
@@ -36,8 +36,8 @@
 				<td>
 					<p class="font14 mb6">Date : <span
 							class="txt-dark-light">{{order.created | moment("MMM-DD-YYYY")}}</span></p>
-					<p class="font14 mb6">Status : <span v-if="order.orderState == 'PENDING'"
-							class="txt-warning">{{order.orderState}}</span></p>
+					<p class="font14 mb6">Status : <span 
+							:class="order.orderState == 'PENDING' ? 'txt-warning' : ''">{{order.orderState}}</span></p>
 					<p class="font14 mb6">Address : <span
 							class="txt-dark-light">{{order.customerAddress.address}}</span></p>
 				</td>
@@ -58,5 +58,50 @@
 			</tr>
 		</thead>
 	</table>
+
+	<div v-if="!isFetching" class="m-list-order">
+		<div v-for="(order,orderIndex) in data.orders" :key="(order,orderIndex)" class="row mb12">
+			<p class="mb0 p6 bg-secondary border">Order Ref: {{order.ref}}</p>
+			<div v-for="(product,productIndex) in order.orderDetail" :key="(product,productIndex)" class="row p6 border mt-1" style="padding-left: 72px;">
+				<img :src="getFullPath(product.product.thumbnail)"style="width: 60px;height:60px;object-fit: cover;position:absolute;top:8px;left:6px;border:1px solid #ddd" />
+				<p class="txt-primary font14 mb3">{{product.product.name}}</p>
+				<p class="font12 mb3"><span>Variant</span> : <span class="capitalize txt-dark-light">{{formatVariant(product.variant)}}</span></p>
+				<p class="font12 mb3">
+					<span>Price</span> : <span class="capitalize txt-dark-light">{{formatPrice(product.product.price)}}</span>
+					<span class="ml12">Discount</span> : <span class="capitalize txt-dark-light">{{product.product.discount}}%</span>
+				</p>
+				<p class="font12 mb3"><span>Quantity</span> : <span class="capitalize txt-dark-light">{{product.quantity}}</span></p>
+			</div>
+			<div class="row border p6 mt-1">
+				<div class="row font13">
+					<span class="go-left">Date:</span>
+					<span class="go-right">{{order.created | moment("MMM-DD-YYYY")}}</span>
+				</div>
+				<div class="row font13">
+					<span class="go-left">Status:</span>
+					<span :class="order.orderState == 'PENDING' ? 'txt-warning go-right' : 'go-right'">{{order.orderState}}</span>
+				</div>
+				<div class="row font13">
+					<span class="go-left">Address:</span>
+					<span class="go-right">{{order.customerAddress.address}}</span>
+				</div>
+				<div class="row font13">
+					<span class="go-left">Total:</span>
+					<span v-if="order.total" class="go-right">{{formatPrice(order.total)}}</span>
+					<span v-else class="go-right">N/A</span>
+				</div>
+				<div class="row font13">
+					<span class="go-left">Total Discount:</span>
+					<span v-if="order.totalPriceDiscount != null" class="go-right">- {{formatPrice(order.totalPriceDiscount)}}</span>
+					<span v-else class="go-right">N/A</span>
+				</div>
+				<div class="row font13">
+					<span class="go-left">Grand Total:</span>
+					<span v-if="order.grandTotal" class="go-right">{{formatPrice(order.grandTotal)}}</span>
+					<span v-else class="go-right">N/A</span>
+				</div>
+			</div>
+		</div>
+	</div>
 	<Loading v-if="isFetching"></Loading>
 </div>

@@ -1,11 +1,10 @@
 <div class="row">
-	<p class="font20 ph12">
+	<p class="font20">
 		<b>Address</b>
 		<span @click="showCreateDialog = true" class="go-right txt-primary font16 pointer">Create Address</span>
 	</p>
-
-	<div class="row ph12">
-		<table style="width: 100%;border: 1px solid #ddd;margin-bottom: 24px;">
+	<div class="row">
+		<table class="table-address">
 			<thead class="bg-secondary">
 				<th>Name</th>
 				<th>Phone</th>
@@ -23,6 +22,17 @@
 				</tr>
 			</tbody>
 		</table>
+		<div class="m-table-address">
+			<div v-for="(address,addressIndex) in data.addresses" :key="(address,addressIndex)" class="row p6 border mt-1" style="padding-right: 50px;">
+				<p class="font14 mb3">{{address.fullName}}</p>
+				<p class="font12 mb3"><span>Tel</span> : <span class="txt-dark-light">{{address.phone}}</span></p>
+				<p class="font12 mb3"><span>City/Province</span> : <span class="txt-dark-light">{{address.province.province}}</span></p>
+				<p class="font12 mb3"><span>Address</span> : <span class="txt-dark-light">{{address.address}}</span></p>
+				<div @click="showConfirmRemoveDialog(addressIndex)" style="width: 50px;height: 100%;position: absolute;top:0;right:0">
+					<i class="fa fa-times-circle pointer" style="position: absolute;top:50%;left: 50%;transform: translate(-50%,-50%);"></i>
+				</div>
+			</div>
+		</div>
 		<div v-if="!isFetching && data.addresses.length == 0" class="row pv50 txt-center">
 			No Data
 		</div>

@@ -316,9 +316,9 @@ export default {
 
         sumDiscount() {
             let result = this.data.products.reduce((a, b) => {
-                console.log(b)
                 let totalValue = b.price * (b.discount / 100)
-                return a + parseFloat(totalValue)
+                console.log("sumDiscount ",totalValue)
+                return a + parseFloat(totalValue*b.qty)
             }, 0);
             return this.formatPrice(result)
         },

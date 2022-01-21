@@ -237,6 +237,7 @@ a {
 }
 
 .hover-btn-cart {
+  width: fit-content;
   position: absolute;
   bottom: 24px;
   left: 50%;

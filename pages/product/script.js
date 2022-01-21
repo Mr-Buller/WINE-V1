@@ -143,7 +143,7 @@ export default {
                     return product.id == productId
                 });
 
-                let indexOfProductInCart = productInWishlist.findIndex(function (product) {
+                let indexOfProductInCart = productInCart.findIndex(function (product) {
                     return product.id == productId
                 });
 
@@ -176,10 +176,37 @@ export default {
                     }
                     this.$toast.info("Product was added to cart.")
                 }else{
-                    this.$toast.info("Already exist.")
+                    productInCart[indexOfProductInCart].qty = parseInt(productInCart[indexOfProductInCart].qty) + 1
+                    this.$store.commit("STORE_PRODUCT_IN_CART", productInCart);
+                    this.$auth.$storage.setLocalStorage('productInCart', productInCart)
+                    this.$toast.info("Product was added to cart.")
                 }
 
-                
+                // if(indexOfProductInCart < 0){
+                //     let obj = {
+                //         id: this.data.product.id,
+                //         thumbnail: this.data.product.thumbnail,
+                //         name: this.data.product.name,
+                //         qty: this.body.qty,
+                //         price: this.data.product.price,
+                //         discount: this.data.product.discount ? parseInt(this.data.product.discount) : 0,
+                //         variant: options.join(", ")
+                //     }
+                //     if (productInCart) {
+                //         products = productInCart
+                //         products.push(obj);
+                //         products = this.getUniqueArray(products)
+                //         this.$auth.$storage.setLocalStorage('productInCart', products)
+                //         this.$store.commit("STORE_PRODUCT_IN_CART", products);
+                //     } else {
+                //         products.push(obj)
+                //         this.$store.commit("STORE_PRODUCT_IN_CART", products);
+                //         this.$auth.$storage.setLocalStorage('productInCart', products)
+                //     }
+                //     this.$toast.info("Product was added to cart.")
+                // }else{
+                //     this.$toast.info("Already exist.")
+                // }
             } else {
                 this.$toast.error("All options are required.")
             }

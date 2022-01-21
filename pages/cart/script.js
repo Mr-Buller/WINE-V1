@@ -21,7 +21,8 @@ export default {
             body: {
                 addressIndex: 0,
                 provinceId: "",
-                customerAddressId: ""
+                customerAddressId: "",
+                paymentMethod: "CASH_ON_DELIVERY", //Enum : CASH_ON_DELIVERY, ABA_PAY
             },
             userInfo: {
                 phone: "",
@@ -102,42 +103,48 @@ export default {
         },
 
         createOrder() {
-            this.isCreating = true
-            let products = []
-            for (let i = 0; i < this.data.products.length; i++) {
-                let product = this.data.products[i]
-                let variant = product.variant.toLowerCase()
-                variant = variant.split(', ')
-                let obj = {
-                    unitPrice: product.price,
-                    quantity: product.qty,
-                    variant: variant.join("-"),
-                    discount: product.discount,
-                    product: {
-                        id: product.id
+            if(this.body.customerAddressId){
+                this.isCreating = true
+                let products = []
+                for (let i = 0; i < this.data.products.length; i++) {
+                    let product = this.data.products[i]
+                    let variant = product.variant.toLowerCase()
+                    variant = variant.split(', ')
+                    let obj = {
+                        unitPrice: product.price,
+                        quantity: product.qty,
+                        variant: variant.join("-"),
+                        discount: product.discount,
+                        product: {
+                            id: product.id
+                        }
                     }
+                    products.push(obj)
                 }
-                products.push(obj)
-            }
-            let body = {
-                customerAddress: {
-                    id: this.body.customerAddressId
-                },
-                customer: {
-                    id: this.$cookies.get('userId'),
-                },
-                orderDetail: products
-            }
-            CustomerService.createOrder(body).then((response) => {
-                this.isCreating = false
-                if (response.response && response.response.status == 200) {
-                    this.$auth.$storage.removeLocalStorage('productInCart')
-                    this.$toast.success("Checkout is successfully.")
-                    this.$router.push({ path: '/profile?tab=order' })
-                } else {
-                    this.$toast.error("Something went wrong.")
+                let body = {
+                    customerAddress: {
+                        id: this.body.customerAddressId
+                    },
+                    customer: {
+                        id: this.$cookies.get('userId'),
+                    },
+                    paymentMethod: this.body.paymentMethod,
+                    orderDetail: products
                 }
-            }).catch(err => { console.log(err) })
+                CustomerService.createOrder(body).then((response) => {
+                    this.isCreating = false
+                    if (response.response && response.response.status == 200) {
+                        this.$auth.$storage.removeLocalStorage('productInCart')
+                        this.$store.commit("STORE_PRODUCT_IN_WISHLIST", []);
+                        this.$toast.success("Checkout is successfully.")
+                        this.$router.push({ path: '/profile?tab=order' })
+                    } else {
+                        this.$toast.error("Something went wrong.")
+                    }
+                }).catch(err => { console.log(err) })
+            }else{
+                this.$toast.error("Address is required.")
+            }
         },
 
         createOrderWithLogin() {
@@ -177,6 +184,7 @@ export default {
                         },
                         orderDetail: products,
                     },
+                    paymentMethod: this.body.paymentMethod,
                     registerRequest: {
                         phone: this.userInfo.phone,
                         email: this.userInfo.email,
@@ -316,9 +324,9 @@ export default {
 
         sumDiscount() {
             let result = this.data.products.reduce((a, b) => {
-                console.log(b)
                 let totalValue = b.price * (b.discount / 100)
-                return a + parseFloat(totalValue)
+                console.log("sumDiscount ",totalValue)
+                return a + parseFloat(totalValue*b.qty)
             }, 0);
             return this.formatPrice(result)
         },

@@ -105,23 +105,17 @@
 						<span class="font16 go-left">Grand Total</span>
 						<span class="font16 txt-right go-right">{{getGrandTotal()}}</span>
 					</div>
-					<div v-if="MainStore.token && data.products && data.products.length > 0" class="row pv12">
+					<div class="row pv12">
 						<p class="font18">Payment Method</p>
 						<div class="row">
-							<div class="item-filter border p12" style="margin-bottom: 0;">
-								<div class="item-radio">
+							<div @click="body.paymentMethod = 'CASH_ON_DELIVERY'" class="item-filter border p12" style="margin-bottom: 0;">
+								<div :class="body.paymentMethod == 'CASH_ON_DELIVERY' ? 'item-radio-active' : 'item-radio'">
 									<i class="fa fa-check item-ic"></i>
 								</div>
 								<span>Pay by Cash on Delivery</span>
 							</div>
-							<div class="item-filter border p12" style="margin-bottom: 0;margin-top: -1px;">
-								<div class="item-radio">
-									<i class="fa fa-check item-ic"></i>
-								</div>
-								<span>Pay by Credit/Debid card</span>
-							</div>
-							<div class="item-filter border p12" style="margin-bottom: 0;margin-top: -1px;">
-								<div class="item-radio">
+							<div @click="body.paymentMethod = 'ABA_PAY'" class="item-filter border p12" style="margin-bottom: 0;margin-top: -1px;">
+								<div :class="body.paymentMethod == 'ABA_PAY' ? 'item-radio-active' : 'item-radio'">
 									<i class="fa fa-check item-ic"></i>
 								</div>
 								<span>Pay by ABA on Delivery</span>
@@ -245,6 +239,30 @@
 						<span class="font16 txt-right go-right">{{getGrandTotal()}}</span>
 					</div>
 		
+					<div class="row pv12 border-top">
+						<p class="font18">Payment Method</p>
+						<div class="row">
+							<div @click="body.paymentMethod = 'CASH_ON_DELIVERY'" class="item-filter border p12" style="margin-bottom: 0;">
+								<div :class="body.paymentMethod == 'CASH_ON_DELIVERY' ? 'item-radio-active' : 'item-radio'">
+									<i class="fa fa-check item-ic"></i>
+								</div>
+								<span>Pay by Cash on Delivery</span>
+							</div>
+							<div @click="body.paymentMethod = 'ABA_PAY'" class="item-filter border p12" style="margin-bottom: 0;margin-top: -1px;">
+								<div :class="body.paymentMethod == 'ABA_PAY' ? 'item-radio-active' : 'item-radio'">
+									<i class="fa fa-check item-ic"></i>
+								</div>
+								<span>Pay by ABA on Delivery</span>
+							</div>
+						</div>
+						<div class="row pv12">
+							<p class="font14 txt-dark-light">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <span class="txt-danger pointer">privacy policy</span>.</p>
+							<div class="row">
+								<p class="font14 txt-dark-light mb0"><input type="checkbox"> I have read and agree to the website <span class="txt-danger">terms and conditions *</span></p>
+							</div>
+						</div>
+					</div>
+
 					<div v-if="!isCreating" class="row mt12">
 						<div @click="createOrderWithLogin" class="btn-checkout">PROCEED TO CHECKOUT</div>
 					</div>

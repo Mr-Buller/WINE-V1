@@ -139,13 +139,20 @@ export default {
                 let productInWishlist = this.$auth.$storage.getLocalStorage('productInWishlist')
 
                 let productId = this.data.product.id
-                let index = productInWishlist.findIndex(function (product) {
-                    return product.id == productId
-                });
+                let index = -1
+                if(productInWishlist){
+                    index = productInWishlist.findIndex(function (product) {
+                        return product.id == productId
+                    });
+                }
+                
 
-                let indexOfProductInCart = productInCart.findIndex(function (product) {
-                    return product.id == productId
-                });
+                let indexOfProductInCart = -1
+                if(productInCart){
+                    indexOfProductInCart = productInCart.findIndex(function (product) {
+                        return product.id == productId
+                    });
+                }
 
                 if (index > -1) {
                     productInWishlist.splice(index, 1)

@@ -339,9 +339,9 @@ export default {
             }, 0);
             let discount = this.data.products.reduce((a, b) => {
                 let totalValue = b.price * (b.discount / 100)
-                return a + parseFloat(totalValue)
+                return a + parseFloat(totalValue*b.qty)
             }, 0);
-            return this.formatPrice(subtotal - discount)
+            return this.formatPrice(subtotal - (discount))
         },
 
         displayCreateDialog(){

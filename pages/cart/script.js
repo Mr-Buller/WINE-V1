@@ -182,9 +182,9 @@ export default {
                                 id: this.userAddress.provinceId
                             }
                         },
+                        paymentMethod: this.body.paymentMethod,
                         orderDetail: products,
                     },
-                    paymentMethod: this.body.paymentMethod,
                     registerRequest: {
                         phone: this.userInfo.phone,
                         email: this.userInfo.email,

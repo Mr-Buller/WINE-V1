@@ -111,8 +111,8 @@ CustomerService.createOrderWithoutLogin = async function (body){
     })
 };
 
-CustomerService.getOrderHistory = async function (){
-    return await axios.get(ApiContant.order,
+CustomerService.getOrderHistory = async function (params){
+    return await axios.get(ApiContant.order+params,
         MainService.headers())
     .then((response) => {
         return MainService.validateError(response);

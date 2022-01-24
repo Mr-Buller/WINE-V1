@@ -2,6 +2,7 @@ import CustomerService from "../../utils/services/CustomerService"
 import AddressService from "./../../utils/services/AddressService"
 import Helper from './../../utils/Helper'
 import { mapState } from 'vuex'
+import CountryService from "../../utils/services/CountryService"
 
 export default {
     name: "cart",
@@ -16,11 +17,13 @@ export default {
             data: {
                 products: [],
                 addresses: [],
-                provinces: []
+                provinces: [],
+                countries: []
             },
             body: {
                 addressIndex: 0,
                 provinceId: "",
+                countryId: "",
                 customerAddressId: "",
                 paymentMethod: "CASH_ON_DELIVERY", //Enum : CASH_ON_DELIVERY, ABA_PAY
             },
@@ -33,7 +36,8 @@ export default {
             },
             userAddress: {
                 address: "",
-                provinceId: ""
+                provinceId: "",
+                countryId: ""
             },
             address:{
                 firstname: "",
@@ -41,7 +45,8 @@ export default {
                 phone: "",
                 email: "",
                 address: "",
-                provinceId: ""
+                provinceId: "",
+                countryId: ""
             }
         }
     },
@@ -52,6 +57,7 @@ export default {
         if (process.client)
         this.getProductInCart()
         this.getProvince()
+        this.getCountry()
     },
     mounted() {
 
@@ -97,6 +103,19 @@ export default {
                         this.body.provinceId = this.data.provinces[0].id
                         this.userAddress.provinceId = this.data.provinces[0].id
                         this.address.provinceId = this.data.provinces[0].id
+                    }
+                }
+            }).catch(err => { console.log(err) })
+        },
+
+        getCountry() {
+            CountryService.getListCountry().then((response) => {
+                if (response.response && response.response.status == 200) {
+                    this.data.countries = response.results
+                    if (this.data.countries.length > 0) {
+                        this.body.countryId = this.data.countries[0].id
+                        this.userAddress.countryId = this.data.countries[0].id
+                        this.address.countryId = this.data.countries[0].id
                     }
                 }
             }).catch(err => { console.log(err) })
@@ -180,6 +199,9 @@ export default {
                             address: this.userAddress.address,
                             province: {
                                 id: this.userAddress.provinceId
+                            },
+                            countryAddress: {
+                                id: this.userAddress.countryId
                             }
                         },
                         paymentMethod: this.body.paymentMethod,
@@ -207,7 +229,7 @@ export default {
                     }
                 }).catch(err => { console.log(err) })
             }else{
-                this.$toast.error(msgValidation)
+                // this.$toast.error(msgValidation)
             }
         },
 
@@ -224,6 +246,9 @@ export default {
                     "address": this.address.address,
                     "province": {
                         "id": this.address.provinceId
+                    },
+                    "countryAddress": {
+                        "id": this.address.countryId
                     }
                 }
                 CustomerService.createAddress(body).then((response) => {

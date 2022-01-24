@@ -8,6 +8,7 @@
 			<thead class="bg-secondary">
 				<th>Name</th>
 				<th>Phone</th>
+				<th>Country</th>
 				<th>Province</th>
 				<th>Address</th>
 				<th class="txt-center">Action</th>
@@ -16,6 +17,7 @@
 				<tr v-for="(address,addressIndex) in data.addresses" :key="(address,addressIndex)">
 					<td>{{address.fullName}}</td>
 					<td>{{address.phone}}</td>
+					<td>{{address.countryAddress ? address.countryAddress.name : 'N/A'}}</td>
 					<td>{{address.province.province}}</td>
 					<td>{{address.address}}</td>
 					<td @click="showConfirmRemoveDialog(addressIndex)" class="txt-center"><i class="fa fa-times-circle pointer"></i></td>
@@ -26,7 +28,7 @@
 			<div v-for="(address,addressIndex) in data.addresses" :key="(address,addressIndex)" class="row p6 border mt-1" style="padding-right: 50px;">
 				<p class="font14 mb3">{{address.fullName}}</p>
 				<p class="font12 mb3"><span>Tel</span> : <span class="txt-dark-light">{{address.phone}}</span></p>
-				<p class="font12 mb3"><span>City/Province</span> : <span class="txt-dark-light">{{address.province.province}}</span></p>
+				<p class="font12 mb3"><span v-if="address.countryAddress" class="txt-dark-light">{{address.countryAddress.name}}, </span><span class="txt-dark-light">{{address.province.province}}</span></p>
 				<p class="font12 mb3"><span>Address</span> : <span class="txt-dark-light">{{address.address}}</span></p>
 				<div @click="showConfirmRemoveDialog(addressIndex)" style="width: 50px;height: 100%;position: absolute;top:0;right:0">
 					<i class="fa fa-times-circle pointer" style="position: absolute;top:50%;left: 50%;transform: translate(-50%,-50%);"></i>
@@ -74,9 +76,12 @@
 				</div>
 				<div class="row mb6">
 					<div class="col-12 ph12">
-						<p class="mb6">Address <span class="txt-danger">*</span></p>
-						<input v-model="body.address" type="text" :class="isSubmitted && !body.address ? 'w-input-error' : 'w-input'" />
-						<p v-if="isSubmitted && !body.address" class="msg-error">Address is required.</p>
+						<p class="mb6">Country <span class="txt-danger">*</span></p>
+						<select v-model="body.countryId" class="w-input">
+							<option v-for="(country, countryIndex) in data.countries" 
+								:key="(country, countryIndex)"
+								:value="country.id">{{country.name}}</option>
+						</select>
 					</div>
 				</div>
 				<div class="row mb6">
@@ -87,6 +92,13 @@
 								:key="(province, provinceIndex)"
 								:value="province.id">{{province.province}}</option>
 						</select>
+					</div>
+				</div>
+				<div class="row mb6">
+					<div class="col-12 ph12">
+						<p class="mb6">Address <span class="txt-danger">*</span></p>
+						<input v-model="body.address" type="text" :class="isSubmitted && !body.address ? 'w-input-error' : 'w-input'" />
+						<p v-if="isSubmitted && !body.address" class="msg-error">Address is required.</p>
 					</div>
 				</div>
 				<div class="col-12 ph12">

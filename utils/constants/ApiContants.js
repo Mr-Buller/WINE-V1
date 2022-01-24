@@ -29,6 +29,9 @@ const ApiContant = {
     // Address
     province : baseUrl + v1 + '/province/all',
 
+    // Country
+    listCountry : baseUrl + v1 + '/country/all',
+
     // Contact
     contact : baseUrl + v1 + '/contact-us',
     askQuestion : baseUrl + v1 + '/ask-question'

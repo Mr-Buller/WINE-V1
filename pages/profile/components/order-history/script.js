@@ -9,7 +9,12 @@ export default {
             isFetching: true,
             data: {
                 orders: []
-            }
+            },
+            pagination: {
+                page: 0,
+                size: 10,
+                isEnded: false
+            },
         }
     },
     components: {
@@ -22,12 +27,12 @@ export default {
     mounted() {
 
     },
-    // beforeMount() {
-    //     window.addEventListener('scroll', this.handleScroll);
-    // },
-    // beforeDestroy() {
-    //     window.removeEventListener('scroll', this.handleScroll);
-    // },
+    beforeMount() {
+        window.addEventListener('scroll', this.handleScroll);
+    },
+    beforeDestroy() {
+        window.removeEventListener('scroll', this.handleScroll);
+    },
     methods: {
         checkAuthorization() {
             let token = this.$cookies.get("token");
@@ -38,10 +43,16 @@ export default {
             }
         },
         getOrderHistory() {
-            CustomerService.getOrderHistory().then((response) => {
+            this.isFetching = true
+            let params = "?page=" + this.pagination.page + "&size=" + this.pagination.size
+            CustomerService.getOrderHistory(params).then((response) => {
                 this.isFetching = false
-                if (response.response && response.response.status == 200) {
-                    this.data.orders = response.results
+                if(response.results.length > 0){
+                    this.data.orders = this.data.orders.concat(response.results)
+                }
+                if(response.results.length == 0){
+                    this.pagination.isEnded = true
+                    return
                 }
             }).catch(err => { console.log(err) })
         },
@@ -59,17 +70,17 @@ export default {
             return arrStr.join(', ')
         },
 
-        // handleScroll() {
-        //     let body = document.getElementsByTagName("body")[0];
-        //     let scrollTop = window.scrollY;
-        //     let screenHeight = window.screen.height
-        //     let scrollHeight = body.scrollHeight;
-        //     if (this.data.products.length > 0 && !this.pagination.isEnded && !this.isFetching) {
-        //         if (scrollTop + screenHeight >= (scrollHeight - (scrollTop * .3))) {
-        //             this.pagination.page += 1
-        //             this.getOrderHistory()
-        //         }
-        //     }
-        // },
+        handleScroll() {
+            let body = document.getElementsByTagName("body")[0];
+            let scrollTop = window.scrollY;
+            let screenHeight = window.screen.height
+            let scrollHeight = body.scrollHeight;
+            if (this.data.orders.length > 0 && !this.pagination.isEnded && !this.isFetching) {
+                if (scrollTop + screenHeight >= (scrollHeight - (scrollTop * .3))) {
+                    this.pagination.page += 1
+                    this.getOrderHistory()
+                }
+            }
+        },
     },
 }

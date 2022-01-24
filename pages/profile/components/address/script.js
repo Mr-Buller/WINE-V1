@@ -2,6 +2,7 @@ import CustomerService from './../../../../utils/services/CustomerService'
 import AddressService from './../../../../utils/services/AddressService'
 import Loading from './../../../../components/loading'
 import { mapState } from 'vuex'
+import CountryService from '../../../../utils/services/CountryService'
 
 export default {
     name: "address",
@@ -16,7 +17,8 @@ export default {
             updateIndex: -1,
             data: {
                 addresses: [],
-                provinces: []
+                provinces: [],
+                countries: []
             },
             body: {
                 firstname: "",
@@ -24,7 +26,8 @@ export default {
                 phone: "",
                 email: "",
                 address: "",
-                provinceId: ""
+                provinceId: "",
+                countryId: ""
             }
         }
     },
@@ -51,6 +54,7 @@ export default {
             } else {
                 this.getAddress()
                 this.getProvince()
+                this.getCountry()
                 if (this.MainStore.user) {
                     this.body.firstname = this.MainStore.user.firstName
                     this.body.lastname = this.MainStore.user.lastName
@@ -82,6 +86,9 @@ export default {
                     "address": this.body.address,
                     "province": {
                         "id": this.body.provinceId
+                    },
+                    "countryAddress": {
+                        "id": this.body.countryId
                     }
                 }
                 CustomerService.createAddress(body).then((response) => {
@@ -113,6 +120,17 @@ export default {
         showConfirmRemoveDialog(addressIndex) {
             this.updateIndex = addressIndex
             this.showRemoveDialog = true
+        },
+
+        getCountry() {
+            CountryService.getListCountry().then((response) => {
+                if (response.response && response.response.status == 200) {
+                    this.data.countries = response.results
+                    if (this.data.countries.length > 0) {
+                        this.body.countryId = this.data.countries[0].id
+                    }
+                }
+            }).catch(err => { console.log(err) })
         },
 
         getProvince() {

@@ -121,7 +121,6 @@ export default {
                         this.pagination.isEnded = true
                         return
                     }
-                    
                 }
             }).catch(err => { console.log(err) })
         },

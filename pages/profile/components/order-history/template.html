@@ -2,7 +2,7 @@
 	<p class="font20">
 		<b>Order History</b>
 	</p>
-	<table v-if="!isFetching" v-for="(order,orderIndex) in data.orders" :key="(order,orderIndex)"
+	<table v-for="(order,orderIndex) in data.orders" :key="(order,orderIndex)"
 		class="table-order">
 		<thead class="bg-secondary">
 			<th>Order Ref : {{order.ref}}</th>
@@ -36,8 +36,12 @@
 				<td>
 					<p class="font14 mb6">Date : <span
 							class="txt-dark-light">{{order.created | moment("MMM-DD-YYYY")}}</span></p>
-					<p class="font14 mb6">Status : <span 
-							:class="order.orderState == 'PENDING' ? 'txt-warning' : ''">{{order.orderState}}</span></p>
+					<p class="font14 mb6">Status : 
+						<span v-if="order.orderState == 'PENDING'" class="txt-warning">Pending</span>
+						<span v-if="order.orderState == 'CONFIRM'" class="txt-info">Confirm</span>
+						<span v-if="order.orderState == 'CANCEL'" class="txt-danger">Cancelled</span>
+						<span v-if="order.orderState == 'COMPLETED'" class="txt-success">Completed</span>
+					</p>
 					<p class="font14 mb6">Address : <span
 							class="txt-dark-light">{{order.customerAddress.address}}</span></p>
 				</td>
@@ -59,7 +63,7 @@
 		</thead>
 	</table>
 
-	<div v-if="!isFetching" class="m-list-order">
+	<div class="m-list-order">
 		<div v-for="(order,orderIndex) in data.orders" :key="(order,orderIndex)" class="row mb12">
 			<p class="mb0 p6 bg-secondary border">Order Ref: {{order.ref}}</p>
 			<div v-for="(product,productIndex) in order.orderDetail" :key="(product,productIndex)" class="row p6 border mt-1" style="padding-left: 72px;">

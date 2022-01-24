@@ -155,9 +155,15 @@
 					<div class="row bg-secondary p24">
 						<p class="font20" style="font-weight: bold;">Address Info</p>
 						<div class="row">
-							<p class="txt-dark-light mt12">Address <span class="txt-danger">*</span></p>
-							<input v-model="userAddress.address" type="text" :class="isSubmitted && !userAddress.address ? 'w-input-error' : 'w-input'" />
-							<p v-if="isSubmitted && !userAddress.address" class="msg-error">Address is required.</p>
+							<p class="txt-dark-light mt6">Country <span class="txt-danger">*</span></p>
+							<select v-if="data.countries.length > 0" v-model="userAddress.provinceId" :class="isSubmitted && !userAddress.countryId ? 'w-input-error' : 'w-input'">
+								<option v-for="(country,countryIndex) in data.countries" 
+									:key="(country,countryIndex)"
+									:value="country.id">
+									{{country.name}}
+								</option>
+							</select>
+							<p v-if="isSubmitted && !userAddress.countryId" class="msg-error">Country is required.</p>
 						</div>
 						<div class="row">
 							<p class="txt-dark-light mt24">City/Province <span class="txt-danger">*</span></p>
@@ -169,6 +175,11 @@
 								</option>
 							</select>
 							<p v-if="isSubmitted && !userAddress.provinceId" class="msg-error">Province is required.</p>
+						</div>
+						<div class="row">
+							<p class="txt-dark-light mt12">Address <span class="txt-danger">*</span></p>
+							<input v-model="userAddress.address" type="text" :class="isSubmitted && !userAddress.address ? 'w-input-error' : 'w-input'" />
+							<p v-if="isSubmitted && !userAddress.address" class="msg-error">Address is required.</p>
 						</div>
 						<hr class="mv24"/>
 						<div class="row">
@@ -309,9 +320,12 @@
 				</div>
 				<div class="row mb6">
 					<div class="col-12 ph12">
-						<p class="mb6">Address <span class="txt-danger">*</span></p>
-						<input v-model="address.address" type="text" :class="isSubmittedAddress && !address.address ? 'w-input-error' : 'w-input'" />
-						<p v-if="isSubmittedAddress && !address.address" class="msg-error">Address is required.</p>
+						<p class="mb6">Country <span class="txt-danger">*</span></p>
+						<select v-model="address.countryId" class="w-input">
+							<option v-for="(country, countryIndex) in data.countries" 
+								:key="(country, countryIndex)"
+								:value="country.id">{{country.name}}</option>
+						</select>
 					</div>
 				</div>
 				<div class="row mb6">
@@ -322,6 +336,13 @@
 								:key="(province, provinceIndex)"
 								:value="province.id">{{province.province}}</option>
 						</select>
+					</div>
+				</div>
+				<div class="row mb6">
+					<div class="col-12 ph12">
+						<p class="mb6">Address <span class="txt-danger">*</span></p>
+						<input v-model="address.address" type="text" :class="isSubmittedAddress && !address.address ? 'w-input-error' : 'w-input'" />
+						<p v-if="isSubmittedAddress && !address.address" class="msg-error">Address is required.</p>
 					</div>
 				</div>
 				<div class="col-12 ph12">

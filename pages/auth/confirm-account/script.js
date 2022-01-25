@@ -28,10 +28,10 @@ export default {
                     token: token.split(" ").join("+")
                 }
                 CustomerService.verifyAccount(body).then(response => {
-                    this.isFetching = false
                     if (response && response.status == 200) {
                         this.isSuccess = true
                     }
+                    this.isFetching = false
                 })
             }
         }

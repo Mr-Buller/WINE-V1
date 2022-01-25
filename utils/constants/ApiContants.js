@@ -34,7 +34,11 @@ const ApiContant = {
 
     // Contact
     contact : baseUrl + v1 + '/contact-us',
-    askQuestion : baseUrl + v1 + '/ask-question'
+    askQuestion : baseUrl + v1 + '/ask-question',
+
+    // Verify
+    sendEmailVerify : baseUrl + '/v1/api/customer/send-email-verify',
+    verifyAccount : baseUrl + '/v1/api/customer/verify-account',
     
 }
 

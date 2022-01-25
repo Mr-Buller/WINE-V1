@@ -1,48 +1,61 @@
-<div class="row bg-secondary p16">
-	<p class="font20 ph12"><b>Account Info</b></p>
-	<div class="row">
-		<div class="col-6 col-sm-12 ph12 mb12">
-			<p class="mb6">First name <span class="txt-danger">*</span></p>
-			<input v-model="body.firstname" type="text" :class="isSubmitted && !body.firstname ? 'w-input-error' : 'w-input'" />
-			<p v-if="isSubmitted && !body.firstname" class="msg-error">First name is required.</p>
-		</div>
-		<div class="col-6 col-sm-12 ph12 mb12">
-			<p class="mb6">Last name <span class="txt-danger">*</span></p>
-			<input v-model="body.lastname" type="text" :class="isSubmitted && !body.lastname ? 'w-input-error' : 'w-input'" />
-			<p v-if="isSubmitted && !body.lastname" class="msg-error">Last name is required.</p>
-		</div>
+<div class="row">
+	<div v-if="!data.customer.confirmed && !verify.message" class="row mb12" style="border-top:3px solid #ee3535;padding:16px 12px;background:#fff1f1">
+		<p class="go-left">
+			<b class="txt-danger mb12">Your account has not been verified yet.</b>
+		</p>
+		<button @click="sendVerify" class="btn-default go-right">Verify now</button>
 	</div>
-	<div class="row">
-		<div class="col-6 col-sm-12 ph12 mb12">
-			<p class="mb6">Phone <span class="txt-danger">*</span></p>
-			<input v-model="body.phone" type="text" :class="isSubmitted && !body.phone ? 'w-input-error' : 'w-input'" />
-			<p v-if="isSubmitted && !body.phone" class="msg-error">Phone is required.</p>
-		</div>
-		<div class="col-6 col-sm-12 ph12 mb12">
-			<p class="mb6">Email address <span class="txt-danger">*</span></p>
-			<input v-model="body.email" type="email" :class="isSubmitted && !body.email ? 'w-input-error' : 'w-input'" />
-			<p v-if="isSubmitted && !body.email" class="msg-error">Email is required.</p>
-		</div>
+	<div v-if="verify.message" class="row mb12" style="border-top:3px solid #3498db;padding:16px 12px;background:#e9f6ff">
+		<p class="go-left">
+			<b class="txt-info mb12">{{verify.message}}</b>
+		</p>
 	</div>
-	<div class="row p12">
-		<div v-if="!isUpdating" @click="updateCustomerInfo" class="btn-checkout go-right">SAVE CHANGE</div>
-		<div v-else class="btn-checkout go-right">LOADING...</div>
-	</div>
-	<p class="font20 ph12 mt24"><b>Password Change</b></p>
-	<div class="row mb6">
-		<div class="col-6 col-sm-12 ph12 mb12">
-			<p class="mb6">Current password</p>
-			<input v-model="password.currentPassword" type="password" :class="isSubmittedPassword && !password.currentPassword ? 'w-input-error' : 'w-input'" />
-			<p v-if="isSubmittedPassword && !password.currentPassword" class="msg-error">Current password is required.</p>
+	<div class="row bg-secondary p16">
+		<p class="font20 ph12"><b>Account Info</b></p>
+		<div class="row">
+			<div class="col-6 col-sm-12 ph12 mb12">
+				<p class="mb6">First name <span class="txt-danger">*</span></p>
+				<input v-model="body.firstname" type="text" :class="isSubmitted && !body.firstname ? 'w-input-error' : 'w-input'" />
+				<p v-if="isSubmitted && !body.firstname" class="msg-error">First name is required.</p>
+			</div>
+			<div class="col-6 col-sm-12 ph12 mb12">
+				<p class="mb6">Last name <span class="txt-danger">*</span></p>
+				<input v-model="body.lastname" type="text" :class="isSubmitted && !body.lastname ? 'w-input-error' : 'w-input'" />
+				<p v-if="isSubmitted && !body.lastname" class="msg-error">Last name is required.</p>
+			</div>
 		</div>
-		<div class="col-6 col-sm-12 ph12 mb12">
-			<p class="mb6">New password</p>
-			<input v-model="password.newPassword" type="password" :class="isSubmittedPassword && !password.newPassword ? 'w-input-error' : 'w-input'" />
-			<p v-if="isSubmittedPassword && !password.newPassword" class="msg-error">New password is required.</p>
+		<div class="row">
+			<div class="col-6 col-sm-12 ph12 mb12">
+				<p class="mb6">Phone <span class="txt-danger">*</span></p>
+				<input v-model="body.phone" type="text" :class="isSubmitted && !body.phone ? 'w-input-error' : 'w-input'" />
+				<p v-if="isSubmitted && !body.phone" class="msg-error">Phone is required.</p>
+			</div>
+			<div class="col-6 col-sm-12 ph12 mb12">
+				<p class="mb6">Email address <span class="txt-danger">*</span></p>
+				<input v-model="body.email" type="email" :class="isSubmitted && !body.email ? 'w-input-error' : 'w-input'" />
+				<p v-if="isSubmitted && !body.email" class="msg-error">Email is required.</p>
+			</div>
 		</div>
-	</div>
-	<div class="row p12">
-		<div v-if="!isChangingPassword" @click="changePassword" class="btn-checkout go-right">SAVE CHANGE</div>
-		<div v-else class="btn-checkout go-right">LOADING...</div>
+		<div class="row p12">
+			<div v-if="!isUpdating" @click="updateCustomerInfo" class="btn-checkout go-right">SAVE CHANGE</div>
+			<div v-else class="btn-checkout go-right">LOADING...</div>
+		</div>
+		<p class="font20 ph12 mt24"><b>Password Change</b></p>
+		<div class="row mb6">
+			<div class="col-6 col-sm-12 ph12 mb12">
+				<p class="mb6">Current password</p>
+				<input v-model="password.currentPassword" type="password" :class="isSubmittedPassword && !password.currentPassword ? 'w-input-error' : 'w-input'" />
+				<p v-if="isSubmittedPassword && !password.currentPassword" class="msg-error">Current password is required.</p>
+			</div>
+			<div class="col-6 col-sm-12 ph12 mb12">
+				<p class="mb6">New password</p>
+				<input v-model="password.newPassword" type="password" :class="isSubmittedPassword && !password.newPassword ? 'w-input-error' : 'w-input'" />
+				<p v-if="isSubmittedPassword && !password.newPassword" class="msg-error">New password is required.</p>
+			</div>
+		</div>
+		<div class="row p12">
+			<div v-if="!isChangingPassword" @click="changePassword" class="btn-checkout go-right">SAVE CHANGE</div>
+			<div v-else class="btn-checkout go-right">LOADING...</div>
+		</div>
 	</div>
 </div>

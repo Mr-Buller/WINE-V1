@@ -121,4 +121,26 @@ CustomerService.getOrderHistory = async function (params){
     })
 };
 
+CustomerService.sendEmailVerify = async function (){
+    return await axios.post(ApiContant.sendEmailVerify,
+        "",
+        MainService.headers())
+    .then((response) => {
+        return MainService.validateError(response);
+    }).catch(function (error) {
+        return error.response.data;
+    })
+};
+
+CustomerService.verifyAccount = async function (body){
+    return await axios.post(ApiContant.verifyAccount,
+        body,
+        MainService.headers())
+    .then((response) => {
+        return MainService.validateError(response);
+    }).catch(function (error) {
+        return error.response.data;
+    })
+};
+
 export default CustomerService;

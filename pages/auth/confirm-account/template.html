@@ -1,0 +1,23 @@
+<section>
+	<div class="m-container">
+		<Loading v-if="isFetching"></Loading>
+		<div v-else class="row">
+			<div v-if="isSuccess" class="row mv50 ph12 txt-center">
+				<img :src="require('~/assets/images/icons/verify.png')" class="h100" />
+				<p class="font24 mt24">Thank you for verifying your account!</p>
+				<p class="txt-dark-light">Your account was verified.</p>
+				<nuxt-link to="/">
+					<button class="btn-default">BACK HOME</button>
+				</nuxt-link>
+			</div>
+			<div v-if="!isSuccess" class="row mv50 ph12 txt-center">
+				<img :src="require('~/assets/images/icons/failed.png')" class="h100" />
+				<p class="font24 mt24">Verification Failed</p>
+				<p class="txt-dark-light">This verification link is either invalid or has expired.</p>
+				<nuxt-link to="/">
+					<button class="btn-default">BACK HOME</button>
+				</nuxt-link>
+			</div>
+		</div>
+	</div>
+</section>

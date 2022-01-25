@@ -23,6 +23,10 @@ export default {
             password:{
                 currentPassword: "",
                 newPassword: ""
+            },
+            verify: {
+                email: "",
+                message: ""
             }
         }
     },
@@ -37,6 +41,14 @@ export default {
 
     },
     methods: {
+        sendVerify(){
+            CustomerService.sendEmailVerify().then((response) => {
+                if(response.response && response.response.status == 200){
+                    this.verify.message = response.response.message
+                }
+            }).catch(err => { console.log(err) })
+        },
+
         checkAuthorization() {
             let token = this.$cookies.get("token");
             if (!token) {

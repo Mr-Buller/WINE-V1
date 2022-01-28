@@ -38,21 +38,21 @@
 			</div>
 			<div class="f-item">
 				<p class="f-title">CATEGORIES</p>
-				<nuxt-link :to="'/search?categoryId='+category.id" v-for="(category,categoryIndex) in data.categories" :key="(category,categoryIndex)"
+				<nuxt-link :to="'/search?page=0&categoryId='+category.id" v-for="(category,categoryIndex) in data.categories" :key="(category,categoryIndex)"
 					v-if="categoryIndex < 5" class="footer-item">
 					{{category.name}}
 				</nuxt-link>
 			</div>
 			<div class="f-item">
 				<p class="f-title">BRANDS</p>
-				<nuxt-link :to="'/search?brandId='+brand.id" v-for="(brand,brandIndex) in data.brands" :key="(brand,brandIndex)" v-if="brandIndex < 5"
+				<nuxt-link :to="'/search?page=0&brandId='+brand.id" v-for="(brand,brandIndex) in data.brands" :key="(brand,brandIndex)" v-if="brandIndex < 5"
 					class="footer-item">
 					{{brand.name}}
 				</nuxt-link>
 			</div>
 			<div class="f-item">
 				<p class="f-title">COUNTRIES</p>
-				<nuxt-link :to="'/search?countryId='+country.id" v-for="(country,countryIndex) in data.countries" :key="(country,countryIndex)"
+				<nuxt-link :to="'/search?page=0&countryId='+country.id" v-for="(country,countryIndex) in data.countries" :key="(country,countryIndex)"
 					v-if="countryIndex < 5" class="footer-item">
 					{{country.name}}
 				</nuxt-link>

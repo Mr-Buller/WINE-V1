@@ -111,6 +111,7 @@ export default {
                 this.isChangingPassword = false
                 if (response.response && response.response.status == 200) {
                     this.$toast.success("Password was changed.")
+                    this.isSubmittedPassword = false
                     this.password = {
                         currentPassword: "",
                         newPassword: ""

@@ -90,6 +90,15 @@ export default {
 
                 // Update Option Value state
                 this.$set(option.productOptionValue, optionValueIndex, option.productOptionValue[optionValueIndex])
+
+                let variantArr = []
+                for (let v = 0; v < option.productOptionValue.length; v++) {
+                    let optionValue = option.productOptionValue[v]
+                    if(optionValue.isSelected){
+                        variantArr.push(optionValue.optionValue)
+                    }
+                }
+                console.log(variantArr)
             } else {
                 this.$toast.info(resultMessage)
             }
@@ -145,7 +154,6 @@ export default {
                         return product.id == productId
                     });
                 }
-                
 
                 let indexOfProductInCart = -1
                 if(productInCart){
@@ -188,32 +196,6 @@ export default {
                     this.$auth.$storage.setLocalStorage('productInCart', productInCart)
                     this.$toast.info("Product was added to cart.")
                 }
-
-                // if(indexOfProductInCart < 0){
-                //     let obj = {
-                //         id: this.data.product.id,
-                //         thumbnail: this.data.product.thumbnail,
-                //         name: this.data.product.name,
-                //         qty: this.body.qty,
-                //         price: this.data.product.price,
-                //         discount: this.data.product.discount ? parseInt(this.data.product.discount) : 0,
-                //         variant: options.join(", ")
-                //     }
-                //     if (productInCart) {
-                //         products = productInCart
-                //         products.push(obj);
-                //         products = this.getUniqueArray(products)
-                //         this.$auth.$storage.setLocalStorage('productInCart', products)
-                //         this.$store.commit("STORE_PRODUCT_IN_CART", products);
-                //     } else {
-                //         products.push(obj)
-                //         this.$store.commit("STORE_PRODUCT_IN_CART", products);
-                //         this.$auth.$storage.setLocalStorage('productInCart', products)
-                //     }
-                //     this.$toast.info("Product was added to cart.")
-                // }else{
-                //     this.$toast.info("Already exist.")
-                // }
             } else {
                 this.$toast.error("All options are required.")
             }

@@ -143,4 +143,26 @@ CustomerService.verifyAccount = async function (body){
     })
 };
 
+CustomerService.forgotPassword = async function (email){
+    return await axios.post(ApiContant.forgotPassword,
+        email,
+        MainService.headerWithoutToken())
+    .then((response) => {
+        return MainService.validateError(response);
+    }).catch(function (error) {
+        return error.response.data;
+    })
+};
+
+CustomerService.resetPassword = async function (body){
+    return await axios.post(ApiContant.resetPassword,
+        body,
+        MainService.headerWithoutToken())
+    .then((response) => {
+        return MainService.validateError(response);
+    }).catch(function (error) {
+        return error.response.data;
+    })
+};
+
 export default CustomerService;

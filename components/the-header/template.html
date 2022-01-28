@@ -31,9 +31,9 @@
 					class="h52 go-left mr26 mt4" />
 				</nuxt-link>
 				<ul class="inner-menu mt6 mb0">
-					<li><nuxt-link to="/" class="active menu-title">Home</nuxt-link></li>
+					<li><nuxt-link to="/" :class="routeName == '' || routeName == 'index' ? 'active menu-title' : 'menu-title'">Home</nuxt-link></li>
 					<li class="menu-dropdown" style="position: relative;">
-						<nuxt-link to="/search" class="menu-title">Products</nuxt-link>
+						<nuxt-link to="/search" :class="routeName == 'search' ? 'active menu-title' : 'menu-title'">Products</nuxt-link>
 						<div class="p-brand">
 							<nuxt-link :to="'/search?brandId='+brand.brand.id" v-for="(brand, brandIndex) in MainStore.productEachBrand" :key="(brand, brandIndex)" class="brand-item row">
 								<p class="font14 txt-ellipsis txt-dark-light mb6 pointer" :title="brand.brand.brand">{{brand.brand.brand}}</p>
@@ -45,7 +45,7 @@
 							</nuxt-link>
 						</div>
 					</li>
-					<li><nuxt-link to="/contact-us" class="menu-title">Contact Us</nuxt-link></li>
+					<li><nuxt-link to="/contact-us" :class="routeName == 'contact-us' ? 'active menu-title' : 'menu-title'">Contact Us</nuxt-link></li>
 				</ul>
 			</div>
 			<div class="col-5 txt-right pt6 mt10">

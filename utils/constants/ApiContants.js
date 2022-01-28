@@ -39,6 +39,8 @@ const ApiContant = {
     // Verify
     sendEmailVerify : baseUrl + '/v1/api/customer/send-email-verify',
     verifyAccount : baseUrl + '/v1/api/customer/verify-account',
+    forgotPassword: baseUrl + '/v1/api/customer/forget-password',
+    resetPassword: baseUrl + '/v1/api/customer/reset-password'
     
 }
 

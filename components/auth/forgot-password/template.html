@@ -9,18 +9,26 @@
 			<div v-if="isSubmitted && errorMessage" class="message-error">
 				<p class="mb0"><b>ERROR: </b><span class="txt-dark-light">{{errorMessage}}</span></p>
 			</div>
-			<div v-if="infoMessage" class="message-info">
-				<p class="go-left">
-					<b class="txt-info mb12">{{infoMessage}}</b>
-				</p>
+			<div v-if="infoMessage" class="row">
+				<div class="message-info">
+					<p class="go-left">
+						<b class="txt-info mb12">{{infoMessage}}</b>
+					</p>
+				</div>
+				<div class="row">
+					<div @click="switchAuthDialog('')" class="btn-default">DISMISS</div>
+				</div>
 			</div>
-			<div class="row">
-				<p class="txt-dark-light">Email <span class="txt-danger">*</span></p>
-				<input v-model="body.email" type="text" placeholder="Your email" :class="isSubmitted && !body.email ? 'w-input-error' : 'w-input'" />
-				<p v-if="isSubmitted && !body.email" class="msg-error">Email is required!</p>
+			
+			<div v-if="!infoMessage" class="row">
+				<div class="row">
+					<p class="txt-dark-light">Email <span class="txt-danger">*</span></p>
+					<input v-model="body.email" type="text" placeholder="Your email" :class="isSubmitted && !body.email ? 'w-input-error' : 'w-input'" />
+					<p v-if="isSubmitted && !body.email" class="msg-error">Email is required!</p>
+				</div>
+				<div v-if="!isLogging" @click="forgotPassword" class="btn-default mt24">SEND</div>
+				<div v-else class="btn-default mt24">LOADING...</div>
 			</div>
-			<div v-if="!isLogging" @click="forgotPassword" class="btn-default mt24">SEND</div>
-			<div v-else class="btn-default mt24">LOADING...</div>
 		</div>
 	</div>
 </div>

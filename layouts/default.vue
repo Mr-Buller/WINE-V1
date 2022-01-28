@@ -12,6 +12,7 @@
       <Footer></Footer>
       <Login></Login>
       <Register></Register>
+      <ForgotPassword></ForgotPassword>
     </client-only>
   </div>
 </template>
@@ -21,6 +22,7 @@ import Header from "./../components/the-header";
 import Footer from "./../components/the-footer";
 import Login from "./../components/auth/login";
 import Register from "./../components/auth/register";
+import ForgotPassword from "./../components/auth/forgot-password";
 import ContactService from "./../utils/services/ContactService";
 import ProductService from "./../utils/services/ProductService";
 import CustomerService from "./../utils/services/CustomerService";
@@ -31,6 +33,7 @@ export default {
     Header,
     Footer,
     Login,
+    ForgotPassword,
     Register
   },
   created() {
@@ -361,7 +364,15 @@ a {
   color: var(--dark-light);
   margin-right:6px;
 }
-
+.message-error{
+  width: 100%;margin-bottom: 12px;border-top:3px solid #ee3535;padding:16px 12px;background:#fff1f1;display: inline-block;position: relative;
+}
+.message-success{
+  width: 100%;margin-bottom: 12px;border-top:3px solid #01cb45;padding:16px 12px;background:#eeffee;display: inline-block;position: relative;
+}
+.message-info{
+  width: 100%;margin-bottom: 12px;border-top:3px solid #3498db;padding:16px 12px;background:#e9f6ff;display: inline-block;position: relative;
+}
 @media screen and (max-width: 991px) {
   .logo img {
     max-width: 100%;

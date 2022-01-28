@@ -118,6 +118,7 @@ export default {
                         this.data.products = this.data.products.concat(response.results)
                     }
                     if(response.results.length == 0){
+                        if(this.pagination.page == 0){ this.data.products = [] }
                         this.pagination.isEnded = true
                         return
                     }
@@ -152,6 +153,7 @@ export default {
         async searchProduct() {
             this.resetPagination()
             const query = Object.assign({}, this.$route.query);
+            query.page = 0;
             query.search = this.search.key;
             await this.$router.push({ query })
         },
@@ -161,6 +163,7 @@ export default {
             let categoryId = this.search.categoryId != this.data.categories[index].id ? this.data.categories[index].id : ""
             this.search.categoryId = categoryId
             const query = Object.assign({}, this.$route.query);
+            query.page = 0;
             query.categoryId = this.search.categoryId;
             await this.$router.push({ query })
         },
@@ -170,6 +173,7 @@ export default {
             let brandId = this.search.brandId != this.data.brands[index].id ? this.data.brands[index].id : ""
             this.search.brandId = brandId
             const query = Object.assign({}, this.$route.query);
+            query.page = 0;
             query.brandId = this.search.brandId;
             await this.$router.push({ query })
         },
@@ -179,6 +183,7 @@ export default {
             let countryId = this.search.countryId != this.data.countries[index].id ? this.data.countries[index].id : ""
             this.search.countryId = countryId
             const query = Object.assign({}, this.$route.query);
+            query.page = 0;
             query.countryId = this.search.countryId;
             await this.$router.push({ query })
         },
@@ -188,6 +193,7 @@ export default {
             let priceRange = this.search.priceRange != this.data.priceRange[index].price ? this.data.priceRange[index].price : ""
             this.search.priceRange = priceRange
             const query = Object.assign({}, this.$route.query);
+            query.page = 0;
             query.priceRange = this.search.priceRange;
             await this.$router.push({ query })
         },
@@ -195,6 +201,7 @@ export default {
         async searchByOrdering() {
             this.resetPagination()
             const query = Object.assign({}, this.$route.query);
+            query.page = 0;
             query.orderBy = this.search.orderBy;
             await this.$router.push({ query })
         },
@@ -216,15 +223,18 @@ export default {
             }
         },
 
-        handleScroll() {
+        async handleScroll() {
             let body = document.getElementsByTagName("body")[0];
             let scrollTop = window.scrollY;
             let screenHeight = window.screen.height
             let scrollHeight = body.scrollHeight;
             if (this.data.products.length > 0 && !this.pagination.isEnded && !this.isFetching) {
                 if (scrollTop + screenHeight >= (scrollHeight - (scrollTop * .3))) {
-                    this.pagination.page += 1
-                    this.getProduct()
+                    this.isFetching = true
+                    this.pagination.page = parseInt(this.pagination.page) +1
+                    const query = Object.assign({}, this.$route.query);
+                    query.page = this.pagination.page;
+                    await this.$router.push({ query })
                 }
             }
         },

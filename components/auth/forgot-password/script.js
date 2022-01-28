@@ -2,17 +2,16 @@ import CustomerService from './../../../utils/services/CustomerService'
 import { mapState } from 'vuex'
 
 export default {
-    name: "login",
+    name: "forgot-password",
     data() {
         return {
             isLogging: false,
             isSubmitted: false,
             body: {
-                email: "",
-                password: ""
+                email: ""
             },
             errorMessage: "",
-            successMessage: ""
+            infoMessage: "",
         }
     },
     created() {
@@ -30,27 +29,20 @@ export default {
         ])
     },
     methods: {
-        loginCustomer() {
+        forgotPassword() {
             this.isSubmitted = true
             let msgValidation = this.validateBody()
             if(msgValidation == "OK"){
                 this.isLogging = true
-                let body = {
-                    "username": this.body.email,
-                    "password": this.body.password
-                }
-                CustomerService.loginCustomer(body)
+                CustomerService.forgotPassword(this.body.email)
                 .then((response) => {
                     this.isLogging = false
                     if (response.response && response.response.status == 200) {
-                        this.$cookies.set('userId', response.results.customer.id)
-                        this.$cookies.set('token', response.results.jwtResponse.token)
-                        this.errorMessage = ""
-                        this.successMessage = "Logged in successfully!"
-                        location.reload()
+                        this.infoMessage = response.response.message
+                        this.isSubmitted = false
+                        this.body.email = ""
                     }
                     if (response.response && response.response.status >= 400) {
-                        this.successMessage = ""
                         this.errorMessage = response.response.message
                     }
                 }).catch(err => { console.log(err) })
@@ -59,7 +51,6 @@ export default {
 
         validateBody() {
 			if (!this.body.email) { return "Email is required." }
-			if (!this.body.password) { return "Password is required." }
 			return "OK"
 		},
 

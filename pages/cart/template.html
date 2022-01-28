@@ -229,8 +229,9 @@
 									<p class="mb3 font14">{{product.name}}</p>
 									<span class="font12">Variant :</span> <span class="font12 txt-dark-light">{{product.variant}}</span>
 									<div class="row">
-										<small class="font12 txt-dark-light">Quantity : {{product.qty}}</small>
-									<small class="font12 txt-dark-light">| Discount : {{product.discount}}%</small>
+										<small class="font12 txt-dark-light">Price : {{formatPrice(product.price)}}</small>
+										<small class="font12 txt-dark-light">| Quantity : {{product.qty}}</small>
+										<small class="font12 txt-dark-light">| Discount : {{product.discount}}%</small>
 									</div>
 								</td>
 								<td class="txt-right"><span class="font14">{{getSubtotal(product.price, product.discount, product.qty)}}</span></td>

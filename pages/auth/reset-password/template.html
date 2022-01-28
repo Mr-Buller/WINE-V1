@@ -1,0 +1,31 @@
+<section>
+	<div class="m-container">
+		<Loading v-if="isFetching"></Loading>
+		<div v-if="!successMessage" style="width: 560px;display: block;position: relative;margin:50px auto">
+			<div class="row">
+				<span class="font24">Reset Password</span>
+			</div>
+			<div class="row mv24">
+				<div v-if="errorMessage" class="message-error">
+					<p class="mb0"><b>ERROR: </b><span class="txt-dark-light">{{errorMessage}}</span></p>
+				</div>
+				<div class="row">
+					<p class="txt-dark-light">New Password <span class="txt-danger">*</span></p>
+					<input v-model="body.newPassword" type="password" placeholder="Enter new password" :class="isSubmitted && !body.newPassword ? 'w-input-error' : 'w-input'" />
+					<p v-if="isSubmitted && !body.newPassword" class="msg-error">New password is required!</p>
+				</div>
+				<div v-if="!isLogging" @click="resetPassword" class="btn-default mt24">SEND</div>
+				<div v-else class="btn-default mt24">LOADING...</div>
+			</div>
+		</div>
+
+		<div v-if="successMessage" class="row mv50 ph12 txt-center">
+			<img :src="require('~/assets/images/icons/success.png')" class="h100" />
+			<p class="font24 mt24">Reset Password</p>
+			<p class="txt-dark-light">{{successMessage}}</p>
+			<nuxt-link to="/">
+				<button class="btn-default">BACK HOME</button>
+			</nuxt-link>
+		</div>
+	</div>
+</section>

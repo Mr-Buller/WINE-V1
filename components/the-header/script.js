@@ -9,6 +9,7 @@ export default {
             isBoxSearch: false,
             isMenu: false,
             isMenuProduct: false,
+            routeName: "",
             keySearch: "",
             data:{
                 productInCart: [],
@@ -20,6 +21,12 @@ export default {
         CartSidebar
     },
     created() {
+        this.checkRouteName()
+    },
+    watch: {
+        "$route.fullPath": function () {
+            this.checkRouteName()
+        }
     },
     mounted() {
 
@@ -30,6 +37,9 @@ export default {
         ])
     },
     methods: {
+        checkRouteName(){
+            this.routeName = this.$route.name ? this.$route.name : ""
+        },
         hideCartSidebar(bool) {
             this.isCartSidebar = bool
         },

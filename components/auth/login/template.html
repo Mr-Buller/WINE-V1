@@ -3,11 +3,14 @@
 	<div class="block-auth">
 		<div class="row">
 			<span class="font24">Sign in</span>
-			<span @click="switchAuthDialog('register')" class="font20 go-right txt-primary pointer">Create An Account</span>
+			<span @click="switchAuthDialog('register')" class="font16 go-right txt-primary pointer">Create An Account</span>
 		</div>
 		<div class="row mv24">
-			<div v-if="isSubmitted && errorMessage" class="row mb12" style="border-top:3px solid #ee3535;padding:16px 12px;background:#fff1f1">
+			<div v-if="isSubmitted && errorMessage" class="message-error">
 				<p class="mb0"><b>ERROR: </b><span class="txt-dark-light">{{errorMessage}}</span></p>
+			</div>
+			<div v-if="isSubmitted && successMessage" class="message-success">
+				<p class="mb0"><b>SUCCESS: </b><span class="txt-dark-light">{{successMessage}}</span></p>
 			</div>
 			<div class="row">
 				<p class="txt-dark-light">Email <span class="txt-danger">*</span></p>
@@ -20,7 +23,7 @@
 				<p v-if="isSubmitted && !body.password" class="msg-error">Password is required!</p>
 			</div>
 			<div class="row txt-right mt12">
-				<span>Forgot password</span>
+				<span @click="switchAuthDialog('forgot_password')" class="txt-hover pointer">Forgot password</span>
 			</div>
 			<div v-if="!isLogging" @click="loginCustomer" class="btn-default mt24">LOGIN</div>
 			<div v-else class="btn-default mt24">LOADING...</div>

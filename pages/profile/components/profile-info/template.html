@@ -1,11 +1,11 @@
 <div class="row">
-	<div v-if="!data.customer.confirmed && !verify.message" class="row mb12" style="border-top:3px solid #ee3535;padding:16px 12px;background:#fff1f1">
+	<div v-if="!isFetching && data.customer.confirmed && !verify.message" class="message-error">
 		<p class="go-left">
 			<b class="txt-danger mb12">Your account has not been verified yet.</b>
 		</p>
 		<button @click="sendVerify" class="btn-default go-right">Verify now</button>
 	</div>
-	<div v-if="verify.message" class="row mb12" style="border-top:3px solid #3498db;padding:16px 12px;background:#e9f6ff">
+	<div v-if="verify.message" class="message-info">
 		<p class="go-left">
 			<b class="txt-info mb12">{{verify.message}}</b>
 		</p>

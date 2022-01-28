@@ -14,7 +14,7 @@
 					<input v-model="body.newPassword" type="password" placeholder="Enter new password" :class="isSubmitted && !body.newPassword ? 'w-input-error' : 'w-input'" />
 					<p v-if="isSubmitted && !body.newPassword" class="msg-error">New password is required!</p>
 				</div>
-				<div v-if="!isLogging" @click="resetPassword" class="btn-default mt24">SEND</div>
+				<div v-if="!isLogging" @click="resetPassword" class="btn-default mt24">RESET PASSWORD</div>
 				<div v-else class="btn-default mt24">LOADING...</div>
 			</div>
 		</div>

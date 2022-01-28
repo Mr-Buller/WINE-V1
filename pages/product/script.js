@@ -92,13 +92,24 @@ export default {
                 this.$set(option.productOptionValue, optionValueIndex, option.productOptionValue[optionValueIndex])
 
                 let variantArr = []
-                for (let v = 0; v < option.productOptionValue.length; v++) {
-                    let optionValue = option.productOptionValue[v]
-                    if(optionValue.isSelected){
-                        variantArr.push(optionValue.optionValue)
+                for(let o = 0; o < this.data.product.productOption.length; o++){
+                    let productOption = this.data.product.productOption[o]
+                    for (let v = 0; v < productOption.productOptionValue.length; v++) {
+                        let optionValue = productOption.productOptionValue[v]
+                        if(optionValue.isSelected){
+                            variantArr.push(optionValue.optionValue)
+                        }
                     }
                 }
-                console.log(variantArr)
+
+                let combination = variantArr.join('-').toLowerCase()
+                let variantIndex = this.data.product.productVariant.findIndex(function (variant) {
+                    return variant.combination == combination
+                });
+                console.log(variantIndex)
+                if(variantIndex > -1){
+                    this.data.product.price = this.data.product.productVariant[variantIndex].price
+                }
             } else {
                 this.$toast.info(resultMessage)
             }
@@ -137,7 +148,6 @@ export default {
                 this.$store.commit("STORE_PRODUCT_IN_WISHLIST", products);
             }
             this.$set(this.data.product, 'isWishlist', true)
-            this.$toast.info("Product was added to wishlist.")
         },
 
         addToCart() {
@@ -211,7 +221,6 @@ export default {
                     products.splice(index, 1)
                     this.$auth.$storage.setLocalStorage('productInWishlist', products)
                     this.$store.commit("STORE_PRODUCT_IN_WISHLIST", products);
-                    this.$toast.error("Product was removed from wishlist.")
                     this.$set(this.data.product, 'isWishlist', false)
                 }
             }

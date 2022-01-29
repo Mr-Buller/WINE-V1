@@ -15,7 +15,7 @@ export default {
             title: 'Albinomosaic',
             meta: [
                 { property: 'og:description', name: 'og:description', content: 'ប្រណិតភាពនៃការក្រេបក្លិន' },
-                { property: 'og:image', name: 'og:image', content: 'https://www.albinomosaic.com/_nuxt/img/logo.11b3d62.png' },
+                { property: 'og:image', name: 'og:image', content: 'https://www.albinomosaic.com/logo.png' },
                 { property: 'og:title', name: 'og:title', content: 'Albinomosaic' },
                 { property: 'og:type', name: 'og:type', content: 'website' },
                 { property: 'og:url', name: 'og:url', content: 'https://www.albinomosaic.com/' }

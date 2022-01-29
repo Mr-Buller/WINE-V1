@@ -20,7 +20,7 @@ export default {
         return {
             title: this.product.name,
             meta: [
-                { property: 'og:description', content: this.product.shortDescription },
+                { property: 'og:description', content: this.product.shortDescription ? this.product.shortDescription : "" },
                 { property: 'og:image', content: "https://api.albinomosaic.com"+this.product.photos },
                 { property: 'og:title', content: this.product.name },
                 { property: 'og:type', content: 'website' },

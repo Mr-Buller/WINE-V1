@@ -7,7 +7,6 @@ import TopSeller from './components/top-seller'
 import Brand from './components/brand'
 import Populated from './components/populated'
 import Loading from './../../components/loading'
-import { Carousel, Slide } from 'vue-carousel';
 
 export default {
     name: "home",
@@ -48,8 +47,6 @@ export default {
         Brand,
         Populated,
         Loading,
-        Carousel,
-        Slide
     },
     created() {
 

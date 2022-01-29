@@ -6,7 +6,7 @@ export default {
   ** spa : disabled server rendering
   ** production : is for production
   */
-  mode: 'universal',
+  mode: 'production',
   /*
   ** Headers of the page
   */

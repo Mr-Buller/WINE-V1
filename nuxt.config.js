@@ -17,12 +17,7 @@ export default {
     title: 'Albinomosaic',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no' },
-      { property: 'og:description', name: 'og:description', content: 'ប្រណិតភាពនៃការក្រេបក្លិន' },
-      { property: 'og:image', name: 'og:image', content: '/logo.png' },
-      { property: 'og:title', name: 'og:title', content: 'Albinomosaic' },
-      { property: 'og:type', name: 'og:type', content: 'website' },
-      { property: 'og:url', name: 'og:url', content: 'https://www.albinomosaic.com/' }
+      { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/logo.svg' },

@@ -5,22 +5,35 @@ import { mapState } from "vuex";
 
 export default {
     name: "product-detail",
+    async asyncData(context) {
+        let id = context.params.id
+        let header = {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        let { data } = await context.$axios.get('https://api.albinomosaic.com/v1/api/web/product/'+id+'/detail',header)
+        console.log(data)
+        return { product: data.results}
+    },
     head() {
         return {
-            title: 'Cambodia Business Journal',
+            title: this.product.name,
             meta: [
-                { property: 'og:description', name: 'og:description', content: 'CBJ ផ្តល់ជូននូវព័ត៌មានជាតិ និង អន្តរជាតិបែបឌីជីថល ព្រមទាំងចែករំលែកចំណេះដឹងនានា ផ្នែកអាជីវកម្ម ពាណិជ្ជកម្ម ការវិនិយោគទុន និងបច្ចេកវិទ្យាផងដែរ។ លោកអ្នកអាចតាមដាន និងទទួលបាននូវព័ត៌មានថ្មីៗ ពី CBJ តាមទូរស័ព្ទដៃ និងកុំព្យូទ័រ នៅគ្រប់ទីកន្លែង និងគ្រប់ពេលវេលា បានយ៉ាងងាយស្រួល!' },
-                { property: 'og:image', name: 'og:image', content: 'https://www.cambodiabusinessjournal.com/_nuxt/img/footer-logo.1160052.png' },
-                { property: 'og:title', name: 'og:title', content: 'Cambodia Business Journal' },
-                { property: 'og:type', name: 'og:type', content: 'website' },
-                { property: 'og:url', name: 'og:url', content: 'https://cbjnews-n9tu9.ondigitalocean.app' }
-            ],
+                { property: 'og:description', content: this.product.shortDescription },
+                { property: 'og:image', content: "https://api.albinomosaic.com"+this.product.thumnail },
+                { property: 'og:title', content: this.product.name },
+                { property: 'og:type', content: 'website' },
+                { property: 'og:url', content: "https://www.albinomosaic.com/product/"+this.product._id},
+                { property: 'fb:app_id', content: '112456712745118' },
+            ]
         }
     },
     data() {
         return {
             isFetching: true,
             isFetchingProductRelated: true,
+            product: "",
             data: {
                 product: "",
                 productRelated: []

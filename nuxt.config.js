@@ -18,12 +18,11 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no' },
-      // { property: 'og:description', content: 'HotNews Faster than service 5 stars' },
-      // { property: 'og:image', content: 'https://www.cambodiabusinessjournal.com//_nuxt/img/9e17f83.png' },
-      // { property: 'og:title', content: 'Cambodia Business Journal' },
-      // { property: 'og:type', content: 'website' },
-      // { property: 'og:url', content: 'https://www.cambodiabusinessjournal.com'},
-      // { property: 'fb:app_id', content: '112456712745118' },
+      { property: 'og:description', name: 'og:description', content: 'ប្រណិតភាពនៃការក្រេបក្លិន' },
+      { property: 'og:image', name: 'og:image', content: '/logo.png' },
+      { property: 'og:title', name: 'og:title', content: 'Albinomosaic' },
+      { property: 'og:type', name: 'og:type', content: 'website' },
+      { property: 'og:url', name: 'og:url', content: 'https://www.albinomosaic.com/' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/logo.svg' },

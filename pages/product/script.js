@@ -24,7 +24,7 @@ export default {
                 { property: 'og:image', content: "https://api.albinomosaic.com"+this.product.photos },
                 { property: 'og:title', content: this.product.name },
                 { property: 'og:type', content: 'website' },
-                { property: 'og:url', content: "https://www.albinomosaic.com/product/"+this.product._id},
+                { property: 'og:url', content: "https://www.albinomosaic.com/product/"+this.product.id},
                 { property: 'fb:app_id', content: '112456712745118' },
             ]
         }

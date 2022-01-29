@@ -10,18 +10,18 @@ import Loading from './../../components/loading'
 
 export default {
     name: "home",
-    head() {
-        return {
-            title: 'Albinomosaic',
-            meta: [
-                { property: 'og:description', name: 'og:description', content: 'ប្រណិតភាពនៃការក្រេបក្លិន' },
-                { property: 'og:image', name: 'og:image', content: 'https://www.albinomosaic.com/_nuxt/img/logo.eddc2a5.svg' },
-                { property: 'og:title', name: 'og:title', content: 'Albinomosaic' },
-                { property: 'og:type', name: 'og:type', content: 'website' },
-                { property: 'og:url', name: 'og:url', content: 'https://www.albinomosaic.com/' }
-            ],
-        }
-    },
+    // head() {
+    //     return {
+    //         title: 'Albinomosaic',
+    //         meta: [
+    //             { property: 'og:description', name: 'og:description', content: 'ប្រណិតភាពនៃការក្រេបក្លិន' },
+    //             { property: 'og:image', name: 'og:image', content: 'https://www.albinomosaic.com/_nuxt/img/logo.eddc2a5.svg' },
+    //             { property: 'og:title', name: 'og:title', content: 'Albinomosaic' },
+    //             { property: 'og:type', name: 'og:type', content: 'website' },
+    //             { property: 'og:url', name: 'og:url', content: 'https://www.albinomosaic.com/' }
+    //         ],
+    //     }
+    // },
     data() {
         return {
             isFetching: true,

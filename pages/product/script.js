@@ -21,7 +21,7 @@ export default {
             title: this.product.name,
             meta: [
                 { property: 'og:description', content: this.product.shortDescription },
-                { property: 'og:image', content: "https://api.albinomosaic.com"+this.product.thumnail },
+                { property: 'og:image', content: "https://api.albinomosaic.com"+this.product.photos },
                 { property: 'og:title', content: this.product.name },
                 { property: 'og:type', content: 'website' },
                 { property: 'og:url', content: "https://www.albinomosaic.com/product/"+this.product._id},

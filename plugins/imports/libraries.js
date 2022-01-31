@@ -4,6 +4,9 @@ import VueSocialSharing from 'vue-social-sharing'
 import VueGtag from "vue-gtag";
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
+import VueAgile from 'vue-agile'
+
+Vue.use(VueAgile)
 // import VueFbCustomerChat from 'vue-fb-customer-chat'
 
 Vue.use(VueGtag, {

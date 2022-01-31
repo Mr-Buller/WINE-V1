@@ -2,8 +2,13 @@
 	<Loading v-if="isFetching"></Loading>
 	<div v-if="!isFetching" class="row">
 		<div class="m-container">
-			<Slider v-if="slide.vfImages.length > 0" :vfOptions="slide.vfOptions" :vfImages="slide.vfImages"
-				:vfTransitions="slide.vfTransitions" :vfCaptions="slide.vfCaptions"></Slider>
+			<agile :autoplay="true">
+				<div v-for="(slide,slideIndex) in slide.vfImages" :key="(slide,slideIndex)" class="slide">
+					<img :src="slide" class="slide-img" />
+				</div>
+			</agile>
+			<!-- <Slider v-if="slide.vfImages.length > 0" :vfOptions="slide.vfOptions" :vfImages="slide.vfImages"
+				:vfTransitions="slide.vfTransitions" :vfCaptions="slide.vfCaptions"></Slider> -->
 			<Category :categories="data.categories"></Category>
 		</div>
 		<FeaturedProduct v-if="data.home" :products="data.home.products"></FeaturedProduct>

@@ -1,5 +1,5 @@
 <div class="row">
-	<div v-if="!isFetching && data.customer.confirmed && !verify.message" class="message-error">
+	<div v-if="!isFetching && !data.customer.confirmed && !verify.message" class="message-error">
 		<p class="go-left">
 			<b class="txt-danger mb12">Your account has not been verified yet.</b>
 		</p>

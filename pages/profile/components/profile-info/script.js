@@ -1,7 +1,7 @@
 import CustomerService from './../../../../utils/services/CustomerService'
 
 export default {
-    name: "order-history",
+    name: "profile-info",
     data() {
         return {
             isFetching: true,
@@ -60,6 +60,7 @@ export default {
 
         getCustomerDetail() {
             CustomerService.getCustomerDetail().then((response) => {
+                this.isFetching = false
                 if (response.response && response.response.status == 200) {
                     let customer = response.results
                     this.data.customer = customer

@@ -124,7 +124,7 @@ export default {
                     this.data.product.price = this.data.product.productVariant[variantIndex].price
                 }
             } else {
-                this.$toast.info(resultMessage)
+                // this.$toast.info(resultMessage)
             }
         },
 

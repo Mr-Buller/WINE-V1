@@ -4,7 +4,10 @@ import VueSocialSharing from 'vue-social-sharing'
 import VueGtag from "vue-gtag";
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
-// import VueFbCustomerChat from 'vue-fb-customer-chat'
+import VueAgile from 'vue-agile'
+
+Vue.use(VueAgile)
+import VueFbCustomerChat from 'vue-fb-customer-chat'
 
 Vue.use(VueGtag, {
   config: { id: "UA-207031188-1" }
@@ -15,8 +18,8 @@ Vue.use(require('vue-moment'))
 Vue.use(Toast, {
   // registration props here
 });
-// Vue.use(VueFbCustomerChat, {
-//   page_id: "2082978481942860", //  change 'null' to your Facebook Page ID,
-//   theme_color: '#333333', // theme color in HEX
-//   locale: 'en_US', // default 'en_US'
-// })
+Vue.use(VueFbCustomerChat, {
+  page_id: "2082978481942860", //  change 'null' to your Facebook Page ID,
+  theme_color: '#333333', // theme color in HEX
+  locale: 'en_US', // default 'en_US'
+})

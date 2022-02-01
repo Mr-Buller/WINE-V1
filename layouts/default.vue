@@ -358,6 +358,49 @@ a {
 .message-info{
   width: 100%;margin-bottom: 12px;border-top:3px solid #3498db;padding:16px 12px;background:#e9f6ff;display: inline-block;position: relative;
 }
+.agile__nav-button--prev{
+  background: none;
+  border-radius: 50%;
+  padding: 6px 8px;
+  border: 1px solid #fff;
+  color: #fff;
+  font-size: 20px;
+  position: absolute;
+  top:50%;
+  left:12px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+.agile__nav-button--next{
+  background: none;
+  border-radius: 50%;
+  padding: 6px 8px;
+  border: 1px solid #fff;
+  color: #fff;
+  font-size: 20px;
+  position: absolute;
+  top:50%;
+  right:12px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+.agile__dots{
+  position: absolute;
+  bottom:0px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.agile__dot button{
+  background: #fff;
+  width: 16px;
+  height: 4px;
+  border: none;
+  margin: 0 2px;
+  cursor: pointer;
+}
+.slide-img{
+  width: 100%;height: 550px;object-fit: cover;
+}
 @media screen and (max-width: 991px) {
   .logo img {
     max-width: 100%;
@@ -368,6 +411,9 @@ a {
 }
 
 @media screen and (max-width: 767px) {
+  .pt72{
+    padding-top: 49px;
+  }
   .post-content-area iframe {
     height: 240px;
   }
@@ -386,11 +432,23 @@ a {
   .p-price{
     font-size: 14px;
   }
+  .slide-img{
+    height: 400px;
+  }
 }
 
 @media screen and (max-width: 600px) {
   .block-auth{
     width: 90%;
+  }
+  .slide-img{
+    height: 320px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .slide-img{
+    height: 240px;
   }
 }
 </style>

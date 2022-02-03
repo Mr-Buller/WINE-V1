@@ -117,7 +117,8 @@
 				<FeaturedProduct :products="data.products"></FeaturedProduct>
 				<Loading v-if="isFetching"></Loading>
 				<div v-if="data.products && data.products.length == 0" class="row pv50 txt-center">
-					No Data
+					<img :src="require('~/assets/images/icons/no-result.png')" class="h72" />
+					<p class="font18 mt12">No Result</p>
 				</div>
 			</div>
 		</div>

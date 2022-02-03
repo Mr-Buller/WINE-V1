@@ -53,8 +53,8 @@
 						<div class="row txt-center mt12">
 							<nuxt-link :to="'/product/'+product.id">
 								<p class="p-name txt-ellipsis"><span hidden>{{product.isWishlist}}</span>{{product.name}}</p>
-								<p v-if="product.discount == 0" class="p-price">{{formatPrice(product.price)}}</p>
-								<p v-else><del class="p-discount">{{formatPrice(product.price)}}</del> <span class="p-discount">${{getDiscount(product.price,product.discount)}}</span></p>
+								<p v-if="product.discount == 0" class="p-discount">{{formatPrice(product.price)}}</p>
+								<p v-else><del class="p-price">{{formatPrice(product.price)}}</del> <span class="p-discount">{{getDiscount(product.price,product.discount)}}</span></p>
 							</nuxt-link>
 						</div>
 				</div>

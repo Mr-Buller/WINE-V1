@@ -6,9 +6,9 @@ export default {
     data() {
         return {
             isCreating: false,
-            body:{
+            body: {
                 name: "",
-                emai: "",
+                email: "",
                 phone: "",
                 message: ""
             }
@@ -26,16 +26,16 @@ export default {
         ...mapState(["MainStore"])
     },
     methods: {
-        askQuestion(){
+        askQuestion() {
             let msgValidation = this.validateBody()
-            if(msgValidation == "OK"){
+            if (msgValidation == "OK") {
                 this.isCreating = true
                 let body = {
-                    "name": "string",
-                    "email": "string",
-                    "phone": "string",
-                    "message": "string"
-                  }
+                    "name": this.body.name,
+                    "email": this.body.email,
+                    "phone": this.body.phone,
+                    "message": this.body.message
+                }
                 ContactService.askQuestion(body).then((response) => {
                     this.isCreating = false
                     if (response.response && response.response.status == 200) {
@@ -46,20 +46,20 @@ export default {
                         this.$toast.error(response.response.message)
                     }
                 }).catch(err => { console.log(err) })
-            }else{
+            } else {
                 this.$toast.error(msgValidation)
             }
         },
 
         validateBody() {
-			if (!this.body.name) { return "Name is required." }
-			if (!this.body.email) { return "Email is required." }
-			if (!this.body.phone) { return "Phone is required." }
-			if (!this.body.message) { return "Message is required." }
-			return "OK"
+            if (!this.body.name) { return "Name is required." }
+            if (!this.body.email) { return "Email is required." }
+            if (!this.body.phone) { return "Phone is required." }
+            if (!this.body.message) { return "Message is required." }
+            return "OK"
         },
-        
-        resetBody(){
+
+        resetBody() {
             this.body = {
                 name: "",
                 emai: "",

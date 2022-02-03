@@ -57,7 +57,13 @@ export default {
     created() {
         if(process.client)
         this.getInnerWidth()
-        this.getProduct()
+        if(this.$route.query.page && this.$route.query.page > 0){
+            const query = Object.assign({}, this.$route.query);
+            query.page = 0;
+            this.$router.push({ query })
+        }else{
+            this.getProduct()
+        }
         this.getCategory()
         this.getBrand()
         this.getCountry()

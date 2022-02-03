@@ -39,7 +39,8 @@
 							</thead>
 						</table>
 						<div v-if="data.products && data.products.length == 0" class="row pv50 txt-center">
-							No Data
+							<img :src="require('~/assets/images/icons/no-cart.png')" class="h72" />
+							<p class="font18 mt12">Empty cart</p>
 						</div>
 					</div>
 					<div class="row sm-show ph12">

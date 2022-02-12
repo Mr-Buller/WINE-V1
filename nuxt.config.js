@@ -50,7 +50,7 @@ export default {
   ** Global JS
   */
   script: [
-
+    { src: '~/assets/js/dropdown.js'}
   ],
   /*
   ** Plugins to load before mounting the App

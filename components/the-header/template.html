@@ -58,9 +58,9 @@
 					<span @click="switchAuthDialog('register')" class="font14 txt-hover">REGISTER</span>
 				</div>
 				<div class="inner-item">
-					<img @click="isBoxSearch = !isBoxSearch" :src="require('~/assets/images/icons/search.png')" class="h20" />
-					<div v-if="isBoxSearch" class="box-search">
-						<input @keyup.enter="onSearch" v-model="keySearch" type="text" placeholder="Search something ..." />
+					<img @click="showBoxSearch" :src="require('~/assets/images/icons/search.png')" class="showBoxSearch h20" />
+					<div id="showBoxSearch" class="box-search">
+						<input @keyup.enter="onSearch" v-model="keySearch" type="text" class="input-search" placeholder="Search something ..." />
 					</div>
 				</div>
 				<nuxt-link to="/wishlist" class="inner-item">

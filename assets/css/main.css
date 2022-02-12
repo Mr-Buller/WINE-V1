@@ -56,7 +56,7 @@ body{
     text-align: left;
     overflow-y: auto;
 }
-h1, h2, h3, h4, h5, h6, p, a, small, span {
+h1, h2, h3, h4, h5, h6, p, a, small, span, select, option, input, textarea, button {
     font-family: 'Marcellus', serif;
     line-height: initial;
 }
@@ -119,7 +119,6 @@ button:focus {
 }
 button,
 input {
-  font-family: 'Poppins';
   overflow: visible;
 }
 
@@ -128,7 +127,6 @@ select {
   text-transform: none;
 }
 select {
-  font-family: 'Poppins', sans-serif;
     word-wrap: normal;
 }
 button,
@@ -184,9 +182,6 @@ pre{
 .m-scroll::-webkit-scrollbar {
     width: 4px;
     height: 5px;
-}
-button, input, select, option, textarea{
-    font-family: 'Poppins', sans-serif;
 }
 .absolute{
     position: absolute;

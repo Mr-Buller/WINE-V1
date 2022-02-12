@@ -11,7 +11,7 @@ export default {
             isMenuProduct: false,
             routeName: "",
             keySearch: "",
-            data:{
+            data: {
                 productInCart: [],
                 productInWishlist: []
             }
@@ -37,18 +37,21 @@ export default {
         ])
     },
     methods: {
-        checkRouteName(){
+        checkRouteName() {
             this.routeName = this.$route.name ? this.$route.name : ""
         },
         hideCartSidebar(bool) {
             this.isCartSidebar = bool
         },
+        showBoxSearch(){
+            document.getElementById("showBoxSearch").classList.toggle("show");
+        },
         onSearch() {
             this.isBoxSearch = false
-            $nuxt.$router.push({ path: '/search?search='+this.keySearch })
+            $nuxt.$router.push({ path: '/search?search=' + this.keySearch })
         },
-        navigateTo(path){
-            this.$router.push({path: path})
+        navigateTo(path) {
+            this.$router.push({ path: path })
             this.isMenu = false
         },
         switchAuthDialog(type) {

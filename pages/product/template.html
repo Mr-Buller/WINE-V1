@@ -71,8 +71,7 @@
 		<Loading v-if="isFetching"></Loading>
 		<div v-if="data.product.description" class="row pt50 border-top">
 			<p class="font26 txt-center">DESCRIPTION</p>
-			<div class="row ph50">
-				<p class="txt-dark-light" style="line-height: 24px;">{{data.product.description}}</p>
+			<div v-html="data.product.description" class="row ph50">
 			</div>
 		</div>
 		<div v-if="!isFetching" class="row pv70 ph12">

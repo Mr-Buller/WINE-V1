@@ -23,3 +23,32 @@ Vue.use(VueFbCustomerChat, {
   theme_color: '#333333', // theme color in HEX
   locale: 'en_US', // default 'en_US'
 })
+Vue.directive('click-outside', {
+  bind: function (el, binding, vnode) {
+  el.clickOutsideEvent = function (event) {
+      // here I check that click was outside the el and his childrens
+      if (!(el == event.target || el.contains(event.target))) {
+      // and if it did, call method provided in attribute value
+      vnode.context[binding.expression](event);
+      }
+  };
+  document.body.addEventListener('click', el.clickOutsideEvent)
+  },
+  unbind: function (el) {
+  document.body.removeEventListener('click', el.clickOutsideEvent)
+  },
+});
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function (event) {
+  if (!event.target.matches('.showBoxSearch') && !event.target.matches('.box-search') && !event.target.matches('.input-search')) {
+      var dropdowns = document.getElementsByClassName("box-search");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+              openDropdown.classList.remove('show');
+          }
+      }
+  }
+}

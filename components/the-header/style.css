@@ -61,6 +61,7 @@ a{
     border: 1px solid #ddd;
     padding: 12px;
     z-index: 999;
+    display: none;
 }
 .box-search input{
     width: 100%;
@@ -98,11 +99,17 @@ a{
     width: 100%;display: none;padding: 0 12px;
 }
 
+
+.show {display: block;}
+
 @media screen and (max-width: 767px) {
     .topbar-inner {
         display: none !important;
     }
     .m-topbar-inner{
         display: block;
+    }
+    .inner-item{
+        padding: 0 6px 0 6px;
     }
 }

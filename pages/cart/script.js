@@ -56,7 +56,6 @@ export default {
     created() {
         if (process.client)
         this.getProductInCart()
-        this.getProvince()
         this.getCountry()
     },
     mounted() {
@@ -95,8 +94,8 @@ export default {
             }).catch(err => { console.log(err) })
         },
 
-        getProvince() {
-            AddressService.getProvice().then((response) => {
+        getProvince(countryId) {
+            CountryService.getProvinceByCountry(countryId).then((response) => {
                 if (response.response && response.response.status == 200) {
                     this.data.provinces = response.results
                     if (this.data.provinces.length > 0) {
@@ -116,6 +115,8 @@ export default {
                         this.body.countryId = this.data.countries[0].id
                         this.userAddress.countryId = this.data.countries[0].id
                         this.address.countryId = this.data.countries[0].id
+
+                        this.getProvince(this.body.countryId)
                     }
                 }
             }).catch(err => { console.log(err) })
@@ -281,6 +282,15 @@ export default {
             if (!this.address.email) { return "Email is required." }
             if (!this.address.address) { return "Address is required." }
             return "OK"
+        },
+
+        chooseCountry(){
+            if(this.isUserInfo){
+                this.getProvince(this.userAddress.countryId)
+            }else{
+                this.getProvince(this.address.countryId)
+            }
+            
         },
 
         getSubtotalPrice(product) {

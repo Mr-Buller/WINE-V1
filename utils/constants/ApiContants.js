@@ -31,6 +31,8 @@ const ApiContant = {
 
     // Country
     listCountry : baseUrl + v1 + '/country/all',
+    // Country
+    getProvinceByCountry : baseUrl + v1 + '/province/all/country',
 
     // Contact
     contact : baseUrl + v1 + '/contact-us',

@@ -157,7 +157,7 @@
 						<p class="font20" style="font-weight: bold;">Address Info</p>
 						<div class="row">
 							<p class="txt-dark-light mt6">Country <span class="txt-danger">*</span></p>
-							<select v-if="data.countries.length > 0" v-model="userAddress.provinceId" :class="isSubmitted && !userAddress.countryId ? 'w-input-error' : 'w-input'">
+							<select @change="chooseCountry" v-if="data.countries.length > 0" v-model="userAddress.countryId" :class="isSubmitted && !userAddress.countryId ? 'w-input-error' : 'w-input'">
 								<option v-for="(country,countryIndex) in data.countries" 
 									:key="(country,countryIndex)"
 									:value="country.id">
@@ -168,7 +168,7 @@
 						</div>
 						<div class="row">
 							<p class="txt-dark-light mt24">City/Province <span class="txt-danger">*</span></p>
-							<select v-if="data.provinces.length > 0" v-model="userAddress.provinceId" :class="isSubmitted && !userAddress.provinceId ? 'w-input-error' : 'w-input'">
+							<select v-model="userAddress.provinceId" :class="isSubmitted && !userAddress.provinceId ? 'w-input-error' : 'w-input'">
 								<option v-for="(province,provinceIndex) in data.provinces" 
 									:key="(province,provinceIndex)"
 									:value="province.id">
@@ -322,8 +322,8 @@
 				</div>
 				<div class="row mb6">
 					<div class="col-12 ph12">
-						<p class="mb6">Country <span class="txt-danger">*</span></p>
-						<select v-model="address.countryId" class="w-input">
+						<p class="mb6">Country<span class="txt-danger">*</span></p>
+						<select @change="chooseCountry" v-model="address.countryId" class="w-input">
 							<option v-for="(country, countryIndex) in data.countries" 
 								:key="(country, countryIndex)"
 								:value="country.id">{{country.name}}</option>

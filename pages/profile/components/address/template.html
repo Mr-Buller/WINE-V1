@@ -77,7 +77,7 @@
 				<div class="row mb6">
 					<div class="col-12 ph12">
 						<p class="mb6">Country <span class="txt-danger">*</span></p>
-						<select v-model="body.countryId" class="w-input">
+						<select @change="chooseCountry" v-model="body.countryId" class="w-input">
 							<option v-for="(country, countryIndex) in data.countries" 
 								:key="(country, countryIndex)"
 								:value="country.id">{{country.name}}</option>

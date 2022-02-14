@@ -26,4 +26,14 @@ CountryService.getCountry = async function (){
     })
 };
 
+CountryService.getProvinceByCountry = async function (countryId){
+    return await axios.get(ApiContant.getProvinceByCountry+"/"+countryId,
+        MainService.headerWithoutToken())
+    .then((response) => {
+        return MainService.validateError(response);
+    }).catch(function (error) {
+        return error.response.data;
+    })
+};
+
 export default CountryService;

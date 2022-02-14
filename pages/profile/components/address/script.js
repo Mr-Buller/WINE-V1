@@ -53,7 +53,6 @@ export default {
                 this.$store.commit("SHOW_LOGIN_DIALOG", "login");
             } else {
                 this.getAddress()
-                this.getProvince()
                 this.getCountry()
                 if (this.MainStore.user) {
                     this.body.firstname = this.MainStore.user.firstName
@@ -128,13 +127,14 @@ export default {
                     this.data.countries = response.results
                     if (this.data.countries.length > 0) {
                         this.body.countryId = this.data.countries[0].id
+                        this.getProvince(this.body.countryId)
                     }
                 }
             }).catch(err => { console.log(err) })
         },
 
-        getProvince() {
-            AddressService.getProvice().then((response) => {
+        getProvince(countryId) {
+            CountryService.getProvinceByCountry(countryId).then((response) => {
                 if (response.response && response.response.status == 200) {
                     this.data.provinces = response.results
                     if (this.data.provinces.length > 0) {
@@ -142,6 +142,10 @@ export default {
                     }
                 }
             }).catch(err => { console.log(err) })
+        },
+
+        chooseCountry(){
+            this.getProvince(this.body.countryId)
         },
 
         validateBody() {

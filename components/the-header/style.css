@@ -98,6 +98,20 @@ a{
 .m-topbar-inner{
     width: 100%;display: none;padding: 0 12px;
 }
+.m-nav-menu{
+    width: 100%;
+    max-height: 80%;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    position: fixed;
+    top:48px;
+    left:0;
+    padding:12px 0;
+    z-index:9999;
+    overflow-y: auto;
+    display: none;
+}
 
 
 .show {display: block;}

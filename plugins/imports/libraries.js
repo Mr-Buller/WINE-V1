@@ -25,30 +25,45 @@ Vue.use(VueFbCustomerChat, {
 })
 Vue.directive('click-outside', {
   bind: function (el, binding, vnode) {
-  el.clickOutsideEvent = function (event) {
+    el.clickOutsideEvent = function (event) {
       // here I check that click was outside the el and his childrens
       if (!(el == event.target || el.contains(event.target))) {
-      // and if it did, call method provided in attribute value
-      vnode.context[binding.expression](event);
+        // and if it did, call method provided in attribute value
+        vnode.context[binding.expression](event);
       }
-  };
-  document.body.addEventListener('click', el.clickOutsideEvent)
+    };
+    document.body.addEventListener('click', el.clickOutsideEvent)
   },
   unbind: function (el) {
-  document.body.removeEventListener('click', el.clickOutsideEvent)
+    document.body.removeEventListener('click', el.clickOutsideEvent)
   },
 });
 
 // Close the dropdown if the user clicks outside of it
 window.onclick = function (event) {
-  if (!event.target.matches('.showBoxSearch') && !event.target.matches('.box-search') && !event.target.matches('.input-search')) {
-      var dropdowns = document.getElementsByClassName("box-search");
-      var i;
-      for (i = 0; i < dropdowns.length; i++) {
-          var openDropdown = dropdowns[i];
-          if (openDropdown.classList.contains('show')) {
-              openDropdown.classList.remove('show');
-          }
+  console.log(!event.target.matches('.btnMobileMenu'))
+  if (!event.target.matches('.btnMobileMenu')) {
+    var dropdowns = document.getElementsByClassName("mobileMenu");
+    console.log(dropdowns)
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
       }
+    }
   }
+
+  if (!event.target.matches('.showBoxSearch') && !event.target.matches('.box-search') && !event.target.matches('.input-search')) {
+    var dropdowns = document.getElementsByClassName("box-search");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+
+  
 }

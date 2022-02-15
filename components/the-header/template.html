@@ -77,7 +77,7 @@
 		</div>
 		<div class="m-topbar-inner">
 			<div class="mb0 go-left">
-				<img @click="isMenu = !isMenu" :src="require('~/assets/images/icons/menu.png')" class="h20 go-left mt14 mr12 ml6" />
+				<img @click="showMobileMenu" :src="require('~/assets/images/icons/menu.png')" class="btnMobileMenu h20 go-left mt14 mr12 ml6" />
 				<nuxt-link to="/" class="go-left">
 					<img :src="require('@/assets/images/logos/logo.svg')"
 					class="h40 go-left mv4" />
@@ -88,10 +88,14 @@
 					<img :src="require('~/assets/images/icons/user.png')" class="h20" />
 				</div>
 				<div class="inner-item">
-					<img @click="isBoxSearch = !isBoxSearch" :src="require('~/assets/images/icons/search.png')" class="h20" />
+					<img @click="showBoxSearch" :src="require('~/assets/images/icons/search.png')" class="showBoxSearch h20" />
+					<div id="mobileShowBoxSearch" class="box-search">
+						<input @keyup.enter="onSearch" v-model="keySearch" type="text" class="input-search" placeholder="Search something ..." />
+					</div>
+					<!-- <img @click="isBoxSearch = !isBoxSearch" :src="require('~/assets/images/icons/search.png')" class="h20" />
 					<div v-if="isBoxSearch" class="box-search">
 						<input @keyup.enter="onSearch" v-model="keySearch" type="text" placeholder="Search something ..." />
-					</div>
+					</div> -->
 				</div>
 				<nuxt-link to="/wishlist" class="inner-item">
 					<img :src="require('~/assets/images/icons/heart.png')" class="h20" />
@@ -105,7 +109,7 @@
 				</nuxt-link>
 			</div>
 		</div>
-		<div v-if="isMenu" style="width: 100%;max-height: 80%;background: #fff;border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;position: fixed;top:50px;left:0;padding:12px 0;z-index:9999;overflow-y: auto;">
+		<div id="mobileMenu" class="mobileMenu m-nav-menu">
 			<div @click="navigateTo('/')" class="row pv6 ph12 txt-dark">
 				<span>Home</span>
 			</div>

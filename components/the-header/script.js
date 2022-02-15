@@ -45,6 +45,10 @@ export default {
         },
         showBoxSearch(){
             document.getElementById("showBoxSearch").classList.toggle("show");
+            document.getElementById("mobileShowBoxSearch").classList.toggle("show");
+        },
+        showMobileMenu(){
+            document.getElementById("mobileMenu").classList.toggle("show");
         },
         onSearch() {
             this.isBoxSearch = false

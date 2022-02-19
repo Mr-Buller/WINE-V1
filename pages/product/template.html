@@ -3,12 +3,14 @@
 		<div v-if="data.product" class="row p12">
 			<div class="col-6 col-sm-12 ph32">
 				<div class="box-square border">
-					<img :src="getFullPath(data.product.thumbnail)" class="item-img" />
+					<img :src="getFullPath(data.photos[displayImageIndex])" class="item-img" />
 				</div>
-				<div hidden class="h-scroll mt12">
-					<div v-for="i in 10" class="item-scroll">
-						<img src="https://wpbingosite.com/wordpress/kowine/wp-content/webp-express/webp-images/uploads/2021/05/Product15-450x450.jpg.webp"
-							class="img-cover" />
+				<div class="h-scroll mt12">
+					<div v-for="(photo,photoIndex) in data.photos" 
+						:key="(photo,photoIndex)" 
+						:class="photoIndex == displayImageIndex ? 'item-scroll-active' : 'item-scroll'"
+						@click="displayImageIndex = photoIndex">
+						<img :src="getFullPath(photo)" class="img-cover" />
 					</div>
 				</div>
 			</div>

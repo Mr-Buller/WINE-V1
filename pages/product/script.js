@@ -21,7 +21,7 @@ export default {
             title: this.product.name,
             meta: [
                 { property: 'og:description', content: this.product.shortDescription ? this.product.shortDescription : "" },
-                { property: 'og:image', content: "https://api.albinomosaic.com"+this.product.photos },
+                { property: 'og:image', content: "https://api.albinomosaic.com"+this.product.thumbnail },
                 { property: 'og:title', content: this.product.name },
                 { property: 'og:type', content: 'website' },
                 { property: 'og:url', content: "https://www.albinomosaic.com/product/"+this.product.id},
@@ -33,6 +33,7 @@ export default {
         return {
             isFetching: true,
             isFetchingProductRelated: true,
+            displayImageIndex: 0,
             product: "",
             data: {
                 product: "",
@@ -71,6 +72,7 @@ export default {
                 this.isFetching = false
                 if (response.response && response.response.status == 200) {
                     this.data.product = response.results
+                    this.data.photos = response.results.photos.split(", ")
                     this.getProductByCategory(response.results.category.id)
                 }
             }).catch(err => { console.log(err) })

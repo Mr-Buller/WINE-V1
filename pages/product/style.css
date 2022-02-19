@@ -5,15 +5,24 @@
     white-space: nowrap;
 }
 .item-scroll{
-    width: 150px;
-    height:150px;
+    width: 100px;
+    height:100px;
     margin-right: 12px;
     display: inline-block;
     border:1px solid #ddd;
     cursor: pointer;
 }
+.item-scroll-active{
+    width: 100px;
+    height:100px;
+    margin-right: 12px;
+    display: inline-block;
+    border:1px solid #ddd;
+    cursor: pointer;
+    border: 2px solid var(--black);
+}
 .item-scroll:hover{
-    border: 1px solid var(--black);
+    border: 2px solid var(--black);
 }
 
 .box-add-to-cart{

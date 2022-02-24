@@ -2,151 +2,154 @@
 	<div class="m-container">
 		<div class="row p12">
 			<p class="cart-title ph12">SHOPPING CART</p>
-			<div v-if="!isUserInfo" class="col-12">
-				<div class="col-8 col-sm-12 mb12">
-					<div class="row sm-hidden ph12">
-						<table style="width: 100%;border: 1px solid #ddd;">
-							<thead>
-								<th>Thumbnail</th>
-								<th>Product</th>
-								<th>Price($)</th>
-								<th>Discount(%)</th>
-								<th>Quantity</th>
-								<th>Subtotal</th>
-							</thead>
-							<thead>
-								<tr v-for="(product,productIndex) in data.products" :key="(product,productIndex)" class="border">
-									<td>
-										<img :src="getFullPath(product.thumbnail)"
-										style="width: 72px;height:72px;object-fit: cover;" />
-									</td>
-									<td>
-										<p class="txt-primary mb6">{{product.name}}</p>
-										<span>Variant :</span> <span class="txt-dark-light">{{product.variant}}</span>
-									</td>
-									<td>{{formatPrice(product.price)}}</td>
-									<td class="txt-center">{{product.discount}}%</td>
-									<td>
-										<div style="width: 120px;padding: 0 32px;border:1px solid #ddd;position: relative;">
-											<i @click="increaseQty(productIndex)" class="fa fa-plus" style="position: absolute;top:50%;left:10px;transform: translateY(-50%);cursor: pointer;"></i>
-											<i @click="decreaseQty(productIndex)" class="fa fa-minus" style="position: absolute;top:50%;right:10px;transform: translateY(-50%);cursor: pointer;"></i>
-											<input v-model="product.qty" type="text" value="1" disabled="true" style="width: 100%;height: 36px;font-size: 16px;border: none;text-align: center;outline: none;" />
-										</div>
-									</td>
-									<td>{{getSubtotal(product.price, product.discount, product.qty)}}</td>
-									<td @click="removeProductFromCart(productIndex)"><i class="fa fa-times-circle pointer"></i></td>
-								</tr>
-							</thead>
-						</table>
-						<div v-if="data.products && data.products.length == 0" class="row pv50 txt-center">
-							<img :src="require('~/assets/images/icons/no-cart.png')" class="h72" />
-							<p class="font18 mt12">Empty cart</p>
+			<div v-if="!isUserInfo" class="row">
+				<div v-if="data.products && data.products.length > 0" class="col-12">
+					<div class="col-8 col-sm-12 mb12">
+						<div class="row sm-hidden ph12">
+							<table style="width: 100%;border: 1px solid #ddd;">
+								<thead>
+									<th>Thumbnail</th>
+									<th>Product</th>
+									<th>Price($)</th>
+									<th>Discount(%)</th>
+									<th>Quantity</th>
+									<th>Subtotal</th>
+								</thead>
+								<thead>
+									<tr v-for="(product,productIndex) in data.products" :key="(product,productIndex)" class="border">
+										<td>
+											<img :src="getFullPath(product.thumbnail)"
+											style="width: 72px;height:72px;object-fit: cover;" />
+										</td>
+										<td>
+											<p class="txt-primary mb6">{{product.name}}</p>
+											<span>Variant :</span> <span class="txt-dark-light">{{product.variant}}</span>
+										</td>
+										<td>{{formatPrice(product.price)}}</td>
+										<td class="txt-center">{{product.discount}}%</td>
+										<td>
+											<div style="width: 120px;padding: 0 32px;border:1px solid #ddd;position: relative;">
+												<i @click="increaseQty(productIndex)" class="fa fa-plus" style="position: absolute;top:50%;left:10px;transform: translateY(-50%);cursor: pointer;"></i>
+												<i @click="decreaseQty(productIndex)" class="fa fa-minus" style="position: absolute;top:50%;right:10px;transform: translateY(-50%);cursor: pointer;"></i>
+												<input v-model="product.qty" type="text" value="1" disabled="true" style="width: 100%;height: 36px;font-size: 16px;border: none;text-align: center;outline: none;" />
+											</div>
+										</td>
+										<td>{{getSubtotal(product.price, product.discount, product.qty)}}</td>
+										<td @click="removeProductFromCart(productIndex)"><i class="fa fa-times-circle pointer"></i></td>
+									</tr>
+								</thead>
+							</table>
 						</div>
-					</div>
-					<div class="row sm-show ph12">
-						<div v-for="(product,productIndex) in data.products" :key="(product,productIndex)" class="row p6 border mt-1" style="padding-left: 72px;padding-right: 50px;">
-							<img :src="getFullPath(product.thumbnail)"style="width: 60px;height:60px;object-fit: cover;position:absolute;top:8px;left:6px;" />
-							<p class="txt-primary font14 mb3">{{product.name}}</p>
-							<p class="font13 mb3"><span>Variant</span> : <span class="capitalize txt-dark-light">{{product.variant}}</span></p>
-							<p class="font13 mb3">
-								<span>Price</span> : <span class="capitalize txt-dark-light">{{formatPrice(product.price)}}</span>
-								<span class="ml12">Discount</span> : <span class="capitalize txt-dark-light">{{product.discount}}%</span>
-							</p>
-							<div class="font13 mb3">
-								<span class="go-left mt3 mr12">Quantity</span>
-								<div style="width: 110px;padding: 0 32px;border:1px solid #ddd;position: relative;float: left;">
-									<i @click="increaseQty(productIndex)" class="fa fa-plus" style="position: absolute;top:50%;left:10px;transform: translateY(-50%);cursor: pointer;"></i>
-									<i @click="decreaseQty(productIndex)" class="fa fa-minus" style="position: absolute;top:50%;right:10px;transform: translateY(-50%);cursor: pointer;"></i>
-									<input v-model="product.qty" type="text" value="1" disabled="true" style="width: 100%;height: 24px;font-size: 16px;border: none;text-align: center;outline: none;" />
+						<div class="row sm-show ph12">
+							<div v-for="(product,productIndex) in data.products" :key="(product,productIndex)" class="row p6 border mt-1" style="padding-left: 72px;padding-right: 50px;">
+								<img :src="getFullPath(product.thumbnail)"style="width: 60px;height:60px;object-fit: cover;position:absolute;top:8px;left:6px;" />
+								<p class="txt-primary font14 mb3">{{product.name}}</p>
+								<p class="font13 mb3"><span>Variant</span> : <span class="capitalize txt-dark-light">{{product.variant}}</span></p>
+								<p class="font13 mb3">
+									<span>Price</span> : <span class="capitalize txt-dark-light">{{formatPrice(product.price)}}</span>
+									<span class="ml12">Discount</span> : <span class="capitalize txt-dark-light">{{product.discount}}%</span>
+								</p>
+								<div class="font13 mb3">
+									<span class="go-left mt3 mr12">Quantity</span>
+									<div style="width: 110px;padding: 0 32px;border:1px solid #ddd;position: relative;float: left;">
+										<i @click="increaseQty(productIndex)" class="fa fa-plus" style="position: absolute;top:50%;left:10px;transform: translateY(-50%);cursor: pointer;"></i>
+										<i @click="decreaseQty(productIndex)" class="fa fa-minus" style="position: absolute;top:50%;right:10px;transform: translateY(-50%);cursor: pointer;"></i>
+										<input v-model="product.qty" type="text" value="1" disabled="true" style="width: 100%;height: 24px;font-size: 16px;border: none;text-align: center;outline: none;" />
+									</div>
+								</div>
+								<div @click="removeProductFromCart(productIndex)" style="width: 50px;height: 100%;position: absolute;top:0;right:0">
+									<i class="fa fa-times-circle pointer" style="position: absolute;top:50%;left: 50%;transform: translate(-50%,-50%);"></i>
 								</div>
 							</div>
-							<div @click="removeProductFromCart(productIndex)" style="width: 50px;height: 100%;position: absolute;top:0;right:0">
-								<i class="fa fa-times-circle pointer" style="position: absolute;top:50%;left: 50%;transform: translate(-50%,-50%);"></i>
+						</div>
+					</div>
+					<div class="col-4 col-sm-12 ph12">
+						<div class="row" style="background: #ddd;padding: 14px;">
+							<span>CART TOTALS</span>
+						</div>
+						<table style="background: #f2f2f2;">
+							<tbody>
+								<tr hidden>
+									<td width="30%">Subtotal</td>
+									<td>$700.00</td>
+								</tr>
+								<tr v-if="MainStore.token && data.products && data.products.length > 0">
+									<td style="vertical-align: top;">Shipping</td>
+									<td>
+										<p class="txt-dark-light">Shipping to : <span @click="displayCreateDialog" class="font14 txt-danger go-right pointer">Create address</span></p>
+										<select v-if="data.addresses.length > 0" v-model="body.customerAddressId" class="w-input">
+											<option v-for="(address,addressIndex) in data.addresses" 
+												:key="(address,addressIndex)"
+												:value="address.id">
+												{{address.address}}
+											</option>
+										</select>
+										<!-- <p v-if="data.addresses.length > 0" class="txt-dark-light">Shipping to : <span class="txt-dark">{{data.addresses[body.addressIndex].address}}</span></p>
+										<p class="txt-danger txt-right pointer mv6">Change address <i class="fa fa-angle-down"></i></p>
+										<div class="btn-default go-right pv6 ph24 mt12">UPDATE</div> -->
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="row pv6 mt12 border-bottom" v-if="data.products && data.products.length > 0">
+							<span class="font16 go-left">Total</span>
+							<span class="font16 txt-right go-right">{{sumSubtotal()}}</span>
+						</div>
+						<div class="row pv6 border-bottom" v-if="data.products && data.products.length > 0">
+							<span class="font16 go-left">Total Discount</span>
+							<span class="font16 txt-right go-right">- {{sumDiscount()}}</span>
+						</div>
+						<div class="row pv6 mb12 border-bottom" v-if="data.products && data.products.length > 0">
+							<span class="font16 go-left">Grand Total</span>
+							<span class="font16 txt-right go-right">{{getGrandTotal()}}</span>
+						</div>
+						<div class="row pv12">
+							<p class="font18">Payment Method</p>
+							<div class="row">
+								<div @click="body.paymentMethod = 'CASH_ON_DELIVERY'" class="item-filter border p12" style="margin-bottom: 0;">
+									<div :class="body.paymentMethod == 'CASH_ON_DELIVERY' ? 'item-radio-active' : 'item-radio'">
+										<i class="fa fa-check item-ic"></i>
+									</div>
+									<span>Pay by Cash on Delivery</span>
+								</div>
+								<div @click="body.paymentMethod = 'ABA_PAY'" class="item-filter border p12" style="margin-bottom: 0;margin-top: -1px;">
+									<div :class="body.paymentMethod == 'ABA_PAY' ? 'item-radio-active' : 'item-radio'">
+										<i class="fa fa-check item-ic"></i>
+									</div>
+									<span>Pay by ABA on Delivery</span>
+								</div>
 							</div>
+							<div class="row pv12">
+								<p class="font14 txt-dark-light">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <span class="txt-danger pointer">privacy policy</span>.</p>
+								<div class="row">
+									<label for="term-condition-checkbox" class="font14 txt-dark-light mb0"><input id="term-condition-checkbox" type="checkbox"> I have read and agree to the website <span class="txt-danger">terms and conditions *</span></label>
+								</div>
+							</div>
+						</div>
+			
+						<div v-if="!isCreating" class="row">
+							<div v-if="MainStore.token" class="row">
+								<div v-if="data.products && data.products.length > 0" @click="createOrder" class="btn-checkout">PROCEED TO CHECKOUT</div>
+								<nuxt-link to="/search" v-else>
+									<div class="btn-checkout">SHOPPING NOW</div>
+								</nuxt-link>
+							</div>
+							<div v-else class="row">
+								<div v-if="data.products && data.products.length > 0" @click="isUserInfo = true"class="btn-checkout">PROCEED TO CHECKOUT</div>
+								<nuxt-link to="/search" v-else>
+									<div class="btn-checkout">SHOPPING NOW</div>
+								</nuxt-link>
+							</div>
+						</div>
+						<div v-if="isCreating" class="row">
+							<div class="btn-checkout">LOADING...</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-4 col-sm-12 ph12">
-					<div class="row" style="background: #ddd;padding: 14px;">
-						<span>CART TOTALS</span>
-					</div>
-					<table style="background: #f2f2f2;">
-						<tbody>
-							<tr hidden>
-								<td width="30%">Subtotal</td>
-								<td>$700.00</td>
-							</tr>
-							<tr v-if="MainStore.token && data.products && data.products.length > 0">
-								<td style="vertical-align: top;">Shipping</td>
-								<td>
-									<p class="txt-dark-light">Shipping to : <span @click="displayCreateDialog" class="font14 txt-danger go-right pointer">Create address</span></p>
-									<select v-if="data.addresses.length > 0" v-model="body.customerAddressId" class="w-input">
-										<option v-for="(address,addressIndex) in data.addresses" 
-											:key="(address,addressIndex)"
-											:value="address.id">
-											{{address.address}}
-										</option>
-									</select>
-									<!-- <p v-if="data.addresses.length > 0" class="txt-dark-light">Shipping to : <span class="txt-dark">{{data.addresses[body.addressIndex].address}}</span></p>
-									<p class="txt-danger txt-right pointer mv6">Change address <i class="fa fa-angle-down"></i></p>
-									<div class="btn-default go-right pv6 ph24 mt12">UPDATE</div> -->
-								</td>
-							</tr>
-						</tbody>
-					</table>
-					<div class="row pv6 mt12 border-bottom" v-if="data.products && data.products.length > 0">
-						<span class="font16 go-left">Total</span>
-						<span class="font16 txt-right go-right">{{sumSubtotal()}}</span>
-					</div>
-					<div class="row pv6 border-bottom" v-if="data.products && data.products.length > 0">
-						<span class="font16 go-left">Total Discount</span>
-						<span class="font16 txt-right go-right">- {{sumDiscount()}}</span>
-					</div>
-					<div class="row pv6 mb12 border-bottom" v-if="data.products && data.products.length > 0">
-						<span class="font16 go-left">Grand Total</span>
-						<span class="font16 txt-right go-right">{{getGrandTotal()}}</span>
-					</div>
-					<div class="row pv12">
-						<p class="font18">Payment Method</p>
-						<div class="row">
-							<div @click="body.paymentMethod = 'CASH_ON_DELIVERY'" class="item-filter border p12" style="margin-bottom: 0;">
-								<div :class="body.paymentMethod == 'CASH_ON_DELIVERY' ? 'item-radio-active' : 'item-radio'">
-									<i class="fa fa-check item-ic"></i>
-								</div>
-								<span>Pay by Cash on Delivery</span>
-							</div>
-							<div @click="body.paymentMethod = 'ABA_PAY'" class="item-filter border p12" style="margin-bottom: 0;margin-top: -1px;">
-								<div :class="body.paymentMethod == 'ABA_PAY' ? 'item-radio-active' : 'item-radio'">
-									<i class="fa fa-check item-ic"></i>
-								</div>
-								<span>Pay by ABA on Delivery</span>
-							</div>
-						</div>
-						<div class="row pv12">
-							<p class="font14 txt-dark-light">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <span class="txt-danger pointer">privacy policy</span>.</p>
-							<div class="row">
-								<label for="term-condition-checkbox" class="font14 txt-dark-light mb0"><input id="term-condition-checkbox" type="checkbox"> I have read and agree to the website <span class="txt-danger">terms and conditions *</span></label>
-							</div>
-						</div>
-					</div>
-		
-					<div v-if="!isCreating" class="row">
-						<div v-if="MainStore.token" class="row">
-							<div v-if="data.products && data.products.length > 0" @click="createOrder" class="btn-checkout">PROCEED TO CHECKOUT</div>
-							<nuxt-link to="/search" v-else>
-								<div class="btn-checkout">SHOPPING NOW</div>
-							</nuxt-link>
-						</div>
-						<div v-else class="row">
-							<div v-if="data.products && data.products.length > 0" @click="isUserInfo = true"class="btn-checkout">PROCEED TO CHECKOUT</div>
-							<nuxt-link to="/search" v-else>
-								<div class="btn-checkout">SHOPPING NOW</div>
-							</nuxt-link>
-						</div>
-					</div>
-					<div v-if="isCreating" class="row">
-						<div class="btn-checkout">LOADING...</div>
-					</div>
+
+				<div v-if="data.products && data.products.length == 0" class="row pv50 txt-center">
+					<img :src="require('~/assets/images/icons/no-cart.png')" class="h72" />
+					<p class="font18 mt12">Empty cart</p>
 				</div>
 			</div>
 

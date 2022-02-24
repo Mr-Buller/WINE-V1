@@ -12,19 +12,22 @@
 			<Category :categories="data.categories"></Category>
 		</div>
 		<FeaturedProduct v-if="data.home" :products="data.home.products"></FeaturedProduct>
-		<section class="row pt42">
-			<div class="box-explore">
-				<img src="https://wpbingosite.com/wordpress/kowine/wp-content/uploads/2021/05/banner8.jpg"
-					class="img-cover" />
-				<div class="explore-info">
-					<p class="font30">
-						<span class="txt-white">HANDPICKED WINES, UNMISSABLE DEALS,</span>
-						<span class="txt-primary">UP TO 80% DISCOUNT</span>
-					</p>
-					<div class="btn-explore">EXPLORE NOW</div>
+		<agile :autoplay="true">
+			<section v-for="(discount, discountIndex) in data.home.discount" :key="(discount, discountIndex)" class="row pt42">
+				<div class="box-explore">
+					<img :src="getFullPath(discount.thumbnail)" class="img-cover" />
+					<div class="explore-info">
+						<p class="font30">
+							<span>{{discount.title}}</span>
+						</p>
+						<p v-if="discount.subTitle" class="font12">{{discount.subTitle}}</p>
+						<nuxt-link :to="'/discount/'+discount.id">
+							<div class="btn-explore pointer">EXPLORE NOW</div>
+						</nuxt-link>
+					</div>
 				</div>
-			</div>
-		</section>
+			</section>
+		</agile>
 		
 		<div class="m-container">
 			<TopSeller :products="data.home.topSell"></TopSeller>

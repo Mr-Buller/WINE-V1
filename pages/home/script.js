@@ -76,6 +76,10 @@ export default {
             }).catch(err => { console.log(err) })
         },
 
+        getFullPath(path){
+            return process.env.BASE_URL+path
+        },
+
         getCategory() {
             CategoryService.getCategory().then((response) => {
                 if (response.response && response.response.status == 200) {

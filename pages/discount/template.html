@@ -1,0 +1,24 @@
+<section>
+	<div class="m-container">
+		<section v-if="data.discount" class="row p12">
+			<div class="box-explore">
+				<img :src="getFullPath(data.discount.thumbnail)" class="img-cover" />
+				<div class="explore-info">
+					<p class="font30">
+						<span>{{data.discount.title}}</span>
+					</p>
+					<p v-if="data.discount.subTitle" class="font12">{{data.discount.subTitle}}</p>
+				</div>
+			</div>
+			<div class="row mt12">
+				<ProductItem :products="data.discount.discountDetail"></ProductItem>
+				<div v-if="!isFetching && data.discount.discountDetail.length == 0" class="row pv50 txt-center">
+					<img :src="require('~/assets/images/icons/no-result.png')" class="h72" />
+					<p class="font18 mt12">No Product</p>
+				</div>
+			</div>
+		</section>
+
+		<Loading v-if="isFetching"></Loading>
+	</div>
+</section>

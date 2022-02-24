@@ -1,0 +1,32 @@
+
+table th {
+    padding: 12px;
+    font-size: 14px;
+}
+table tr td {
+    padding: 12px;
+    font-size: 14px;
+}
+.table-order{
+    width: 100%;border: 1px solid #ddd;margin-bottom: 24px;
+}
+.m-list-order{
+    width: 100%;
+    display: none;
+}
+
+.detail-header{
+    width: 100%;border:1px solid #ddd;display: inline-block;position: relative;padding: 12px;
+}
+.header-item{
+    width: 20%;padding: 0 16px;float: left;border-right: 1px solid #ddd;
+}
+.header-item:last-child{
+    border: none
+}
+
+@media screen and (max-width: 767px) {
+    .m-list-order{
+        display: inline-block
+    }
+}

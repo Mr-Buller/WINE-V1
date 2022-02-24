@@ -6,8 +6,7 @@
 					<img :src="getFullPath(data.photos[displayImageIndex])" class="item-img" />
 				</div>
 				<div class="h-scroll mt12">
-					<div v-for="(photo,photoIndex) in data.photos" 
-						:key="(photo,photoIndex)" 
+					<div v-for="(photo,photoIndex) in data.photos" :key="(photo,photoIndex)"
 						:class="photoIndex == displayImageIndex ? 'item-scroll-active' : 'item-scroll'"
 						@click="displayImageIndex = photoIndex">
 						<img :src="getFullPath(photo)" class="img-cover" />
@@ -20,7 +19,6 @@
 				<p v-if="data.product.discount == 0" class="txt-primary font24">${{data.product.price.toFixed(2)}}</p>
 				<p v-else class="font24"><del class="txt-dark-light mr12">${{data.product.price.toFixed(2)}}</del> <span
 						class="txt-primary">${{getDiscount(data.product.price,data.product.discount)}}</span></p>
-
 				<div v-for="(option,optionIndex) in data.product.productOption" :key="(option,optionIndex)"
 					class="row mb24">
 					<label>{{option.option}}</label>
@@ -49,10 +47,12 @@
 						<i @click="adjustQuantity(-1)" class="fa fa-minus ic-minus pointer"></i>
 						<input v-model="body.qty" disabled="true" type="text" value="1" class="input-text" />
 					</div>
-					<div v-show="isWishlist(data.product.id)" @click="removeProductFromWishlist(data.product)" class="btn-wishlist">
+					<div v-show="isWishlist(data.product.id)" @click="removeProductFromWishlist(data.product)"
+						class="btn-wishlist">
 						<img :src="require('~/assets/images/icons/heart-active.png')" />
 					</div>
-					<div v-show="!isWishlist(data.product.id)" @click="addToWishlist(data.product)" class="btn-wishlist">
+					<div v-show="!isWishlist(data.product.id)" @click="addToWishlist(data.product)"
+						class="btn-wishlist">
 						<img :src="require('~/assets/images/icons/heart.png')" />
 					</div>
 					<div @click="addToCart" class="btn-add-to-cart">ADD TO CART</div>

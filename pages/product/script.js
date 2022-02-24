@@ -11,8 +11,8 @@ export default {
           headers: {
             "Content-Type": "application/json",
           },
-        };
-        let { data } = await context.$axios.get('https://api.albinomosaic.com/v1/api/web/product/'+id+'/detail',header)
+        };//https://api.albinomosaic.com/v1/api/web/product/
+        let { data } = await context.$axios.get('http://localhost:8060/v1/api/web/product/'+id+'/detail',header)
         console.log(data)
         return { product: data.results}
     },
@@ -73,6 +73,13 @@ export default {
                 if (response.response && response.response.status == 200) {
                     this.data.product = response.results
                     this.data.photos = response.results.photos.split(", ")
+                    if(this.data.product.productVariant[0]){
+                        this.data.product.productVariant.map((el) => {
+                            if(el.imageUrl){
+                                this.data.photos.push(el.imageUrl)
+                            }
+                        })
+                    }
                     this.getProductByCategory(response.results.category.id)
                 }
             }).catch(err => { console.log(err) })

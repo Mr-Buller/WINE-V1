@@ -26,6 +26,9 @@ const ApiContant = {
     order : baseUrl + '/v1/api/customer/order',
     orderWithoutLogin : baseUrl + '/v1/api/customer/order-and-register',
 
+    // Discount
+    discount : baseUrl + v1 + '/discount',
+
     // Address
     province : baseUrl + v1 + '/province/all',
 

@@ -19,7 +19,7 @@ Vue.use(Toast, {
   // registration props here
 });
 Vue.use(VueFbCustomerChat, {
-  page_id: "2082978481942860", //  change 'null' to your Facebook Page ID,
+  page_id: "104401855473700", //  change 'null' to your Facebook Page ID,
   theme_color: '#333333', // theme color in HEX
   locale: 'en_US', // default 'en_US'
 })

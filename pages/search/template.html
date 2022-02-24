@@ -116,7 +116,7 @@
 				<div class="sm-show ph4 border-top pt6">Showing 1–12 of 29 item(s)</div>
 				<FeaturedProduct :products="data.products"></FeaturedProduct>
 				<Loading v-if="isFetching"></Loading>
-				<div v-if="data.products && data.products.length == 0" class="row pv50 txt-center">
+				<div v-if="!isFetching && data.products && data.products.length == 0" class="row pv50 txt-center">
 					<img :src="require('~/assets/images/icons/no-result.png')" class="h72" />
 					<p class="font18 mt12">No Result</p>
 				</div>

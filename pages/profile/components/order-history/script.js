@@ -1,12 +1,14 @@
 import CustomerService from './../../../../utils/services/CustomerService'
 import Helper from './../../../../utils/Helper'
 import Loading from './../../../../components/loading'
+import Detail from './detail'
 
 export default {
     name: "order-history",
     data() {
         return {
             isFetching: true,
+            detailIndex: -1,
             data: {
                 orders: []
             },
@@ -18,7 +20,8 @@ export default {
         }
     },
     components: {
-        Loading
+        Loading,
+        Detail
     },
     created() {
         if(process.client)
@@ -75,7 +78,7 @@ export default {
             let scrollTop = window.scrollY;
             let screenHeight = window.screen.height
             let scrollHeight = body.scrollHeight;
-            if (this.data.orders.length > 0 && !this.pagination.isEnded && !this.isFetching) {
+            if (this.data.orders.length > 0 && !this.pagination.isEnded && !this.isFetching && this.detailIndex == -1) {
                 if (scrollTop + screenHeight >= (scrollHeight - (scrollTop * .3))) {
                     this.pagination.page += 1
                     this.getOrderHistory()

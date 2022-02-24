@@ -1,0 +1,102 @@
+<div class="m-container">
+	<p class="font20">
+		<img @click="close" :src="require('~/assets/images/icons/arrow-left.png')" class="h20 pointer" />
+		<b>Order History Detail</b>
+	</p>
+	
+	<div class="detail-header">
+		<div class="header-item">
+			<p class="font13 txt-dark-light mb3">Order number:</p>
+			<b class="font14">{{order.ref}}</b>
+		</div>
+		<div class="header-item">
+			<p class="font13 txt-dark-light mb3">Date:</p>
+			<b class="font14">{{order.created | moment("MMM-DD-YYYY")}}</b>
+		</div>
+		<div class="header-item">
+			<p class="font13 txt-dark-light mb3">Email:</p>
+			<p class="font14">{{order.customer.email}}</p>
+		</div>
+		<div class="header-item">
+			<p class="font13 txt-dark-light mb3">Total:</p>
+			<p class="font14">{{formatPrice(order.grandTotal)}}</p>
+		</div>
+		<div class="header-item">
+			<p class="font13 txt-dark-light mb3">Payment method:</p>
+			<p class="font14">{{order.paymentMethod}}</p>
+		</div>
+	</div>
+
+	<div class="row mt6">
+		<table v-if="order" class="table-order" style="margin-bottom: 0;">
+			<thead class="bg-secondary">
+				<th>Order Ref : {{order.ref}}</th>
+				<th class="txt-right">Discount(%)</th>
+				<th class="txt-right">Price($)</th>
+				<th class="txt-right">Quantity</th>
+			</thead>
+			<thead>
+				<tr v-for="(product,productIndex) in order.orderDetail" :key="(product,productIndex)" class="border">
+					<td>
+						<img :src="getFullPath(product.product.thumbnail)"
+							style="width: 50px;height:50px;object-fit: cover;float: left;margin-right: 12px;" />
+						<div class="go-left">
+							<p class="txt-primary mb6">{{product.product.name}}</p>
+							<span>Variant :</span> <span
+								class="capitalize txt-dark-light">{{formatVariant(product.variant)}}</span>
+						</div>
+					</td>
+					</td>
+					<td class="txt-right">
+						<span>{{product.product.discount}}%</span>
+					</td>
+					<td class="txt-right">
+						<span>{{formatPrice(product.product.price)}}</span>
+					</td>
+					<td class="txt-right">
+						<span>{{product.quantity}}</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<p class="font14 mb6">Date : <span
+								class="txt-dark-light">{{order.created | moment("MMM-DD-YYYY")}}</span></p>
+						<p class="font14 mb6">Status :
+							<span v-if="order.orderState == 'PENDING'" class="txt-warning">Pending</span>
+							<span v-if="order.orderState == 'CONFIRM'" class="txt-info">Confirm</span>
+							<span v-if="order.orderState == 'CANCEL'" class="txt-danger">Cancelled</span>
+							<span v-if="order.orderState == 'COMPLETED'" class="txt-success">Completed</span>
+						</p>
+						<p class="font14 mb6">Address : <span
+								class="txt-dark-light">{{order.customerAddress.address}}</span></p>
+					</td>
+					<td class="txt-right" colspan="3">
+						<p class="font14 mb6">Total :
+							<span v-if="order.total">{{formatPrice(order.total)}}</span>
+							<span v-else>N/A</span>
+						</p>
+						<p class="font14 mb6">Total Discount :
+							<span v-if="order.totalPriceDiscount != null">-
+								{{formatPrice(order.totalPriceDiscount)}}</span>
+							<span v-else>N/A</span>
+						</p>
+						<p class="font14 mb6">Grand Total :
+							<span v-if="order.grandTotal">{{formatPrice(order.grandTotal)}}</span>
+							<span v-else>N/A</span>
+						</p>
+					</td>
+				</tr>
+			</thead>
+		</table>
+	</div>
+
+	<div class="row bg-secondary p12 border mt6">
+		Billing Address
+	</div>
+	<div class="row border p12 mt-1">
+		<p class="font14 mb6 txt-dark-light">{{order.customerAddress.fullName}}</p>
+		<p class="font14 mb6 txt-dark-light">{{order.customerAddress.address}}</p>
+		<p class="font14 mb6 txt-dark-light">{{order.customerAddress.province ? order.customerAddress.province.province : ''}} {{order.customerAddress.countryAddress ? " / "+order.customerAddress.countryAddress.name : ''}}</p>
+		<p class="font14 mb6 txt-dark-light">{{order.customerAddress.phone}}</p>
+	</div>
+</div>

@@ -27,7 +27,7 @@
 				<nuxt-link :to="'/product/'+product.id">
 					<p class="p-name txt-ellipsis ph6" :title="product.name"><span hidden>{{product.isWishlist}}</span> {{product.name}}</p>
 					<p v-if="product.discount == 0" class="p-discount font16">${{product.price.toFixed(2)}}</p>
-					<p v-else class="font16">
+					<p v-else class="font16" style="height: 17.5px;">
 						<del v-if="product.price" class="p-price mr6">${{product.price.toFixed(2)}}</del>
 						<span class="p-discount">${{getDiscount(product.price,product.discount)}}</span>
 					</p>

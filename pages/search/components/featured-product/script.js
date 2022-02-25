@@ -84,6 +84,10 @@ export default {
             }
         },
 
+        checkImageError(index){
+            this.$set(this.products[index], "imageError", true)
+        },
+
         getUniqueArray(array){
             let uniqueArray = array.filter((c, index) => {
                 return array.indexOf(c) === index;

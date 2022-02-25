@@ -7,7 +7,6 @@ export default {
     },
     data() {
         return {
-            imageError : false
         }
     },
     components: {
@@ -84,6 +83,10 @@ export default {
             }else{
                 return false
             }
+        },
+
+        checkImageError(index){
+            this.$set(this.products[index], "imageError", true)
         },
 
         getUniqueArray(array){

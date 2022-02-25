@@ -11,8 +11,8 @@ export default {
           headers: {
             "Content-Type": "application/json",
           },
-        };//https://api.albinomosaic.com/v1/api/web/product/
-        let { data } = await context.$axios.get('http://localhost:8060/v1/api/web/product/'+id+'/detail',header)
+        };
+        let { data } = await context.$axios.get('https://api.albinomosaic.com/v1/api/web/product/'+id+'/detail',header)
         console.log(data)
         return { product: data.results}
     },

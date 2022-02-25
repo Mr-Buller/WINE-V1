@@ -3,8 +3,8 @@
 		<div class="row border">
 			<div class="p-item-hover box-square">
 				<nuxt-link :to="'/product/'+product.id">
-					<img :src="imageError ? require('~/assets/images/image-default.jpeg') : getFullPath(product.thumbnail)"  
-					@error="imageError = true"
+					<img :src="product.imageError ? require('~/assets/images/image-default.jpeg') : getFullPath(product.thumbnail)"  
+					@error="checkImageError(productIndex)"
 					class="item-img" />
 					<div v-if="product.discount > 0" class="tag-discount">-{{product.discount}}%</div>
 					<div v-if="product.brand" class="tag-type">{{product.brand.name}}</div>
@@ -26,8 +26,8 @@
 			<div class="row txt-center mt12">
 				<nuxt-link :to="'/product/'+product.id">
 					<p class="p-name txt-ellipsis ph6" :title="product.name"><span hidden>{{product.isWishlist}}</span> {{product.name}}</p>
-					<p v-if="product.discount == 0" class="p-discount font16">${{product.price.toFixed(2)}}</p>
-					<p v-else class="font16" style="height: 17.5px;">
+					<p v-if="product.discount == 0" class="p-discount font16 h17">${{product.price.toFixed(2)}}</p>
+					<p v-else class="font16 h17">
 						<del v-if="product.price" class="p-price mr6">${{product.price.toFixed(2)}}</del>
 						<span class="p-discount">${{getDiscount(product.price,product.discount)}}</span>
 					</p>

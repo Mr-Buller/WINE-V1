@@ -10,7 +10,7 @@ export default {
     data() {
         return {
             isFetching: true,
-            isFilter: true,
+            isFilter: false,
             data: {
                 products: [],
                 categories: [],
@@ -57,6 +57,9 @@ export default {
     created() {
         if(process.client)
         this.getInnerWidth()
+        this.getCategory()
+        this.getBrand()
+        this.getCountry()
         if(this.$route.query.page && this.$route.query.page > 0){
             const query = Object.assign({}, this.$route.query);
             query.page = 0;
@@ -64,9 +67,6 @@ export default {
         }else{
             this.getProduct()
         }
-        this.getCategory()
-        this.getBrand()
-        this.getCountry()
     },
     watch: {
         "$route.fullPath": function () {
@@ -87,6 +87,8 @@ export default {
             let width = window.innerWidth
             if(width <= 767){
                 this.isFilter = false
+            }else{
+                this.isFilter = true
             }
         },
         getProduct() {

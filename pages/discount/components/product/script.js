@@ -24,9 +24,11 @@ export default {
     },
     methods: {
         addToWishlist(productIndex){
-            let product = this.products[productIndex]
+            let product = this.products[productIndex].product
             let products = []
-            let productInCart = this.$auth.$storage.getLocalStorage('productInWishlist')
+            let productInCart = []
+            let productInLocalStrage = this.$auth.$storage.getLocalStorage('productInWishlist')
+            if(productInLocalStrage && productInLocalStrage[0]){ productInCart = productInLocalStrage }
             let index = productInCart.findIndex(p => p.id == product.id);
             if(index < 0){
                 let obj = {

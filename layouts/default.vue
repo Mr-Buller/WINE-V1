@@ -284,6 +284,7 @@ a {
 }
 
 .tag-type {
+  max-width: 100px;
   background: #c0a483;
   color: #fff;
   position: absolute;
@@ -291,6 +292,9 @@ a {
   right: 12px;
   padding: 2px 6px;
   font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .item-filter {

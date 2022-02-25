@@ -149,7 +149,10 @@
 
 				<div v-if="data.products && data.products.length == 0" class="row pv50 txt-center">
 					<img :src="require('~/assets/images/icons/no-cart.png')" class="h72" />
-					<p class="font18 mt12">Empty cart</p>
+					<p class="font18 mt12 mb12">Empty cart</p>
+					<nuxt-link to="/search">
+						<div class="btn-default" style="display: inline-block;">SHOPPING NOW</div>
+					</nuxt-link>
 				</div>
 			</div>
 

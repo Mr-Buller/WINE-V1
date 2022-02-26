@@ -1,19 +1,14 @@
 <section class="row pv50">
 	<p class="font24 txt-center">TOP <span class="txt-primary">BRANDS</span></p>
 	<div class="row mt12 p13">
-		<hooper 
-			:itemsToShow="itemsToShow" 
-			:itemsToSlide="itemsToShow" 
-			:mouseDrag="false" 
-			:touchDrag="false"
-			:wheelControl="false"
-			:keysControl="false"
-			:hoverPause="true">
+		<hooper :itemsToShow="itemsToShow" :itemsToSlide="itemsToShow" :mouseDrag="false" :touchDrag="false"
+			:wheelControl="false" :keysControl="false" :hoverPause="true">
 			<slide v-for="(brand, brandIndex) in brands" :key="(brand, brandIndex)">
 				<div class="row ph12">
 					<nuxt-link :to="'/search?brandId='+brand.id">
 						<div class="row border pv32 ph24 txt-center">
-							<img :src="imageError ? require('~/assets/images/image-default.jpeg') : getFullPath(brand.logo)" @error="imageError = true" class="h100" style="max-width: 100%;object-fit: contain;"/>
+							<img :src="brand.imageError ? require('~/assets/images/image-default.jpeg') : getFullPath(brand.logo)"
+								@error="checkImageError(brandIndex)" class="h100" style="max-width: 100%;object-fit: contain;" />
 						</div>
 					</nuxt-link>
 				</div>

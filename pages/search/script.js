@@ -10,7 +10,7 @@ export default {
     data() {
         return {
             isFetching: true,
-            isFilter: true,
+            isFilter: false,
             data: {
                 products: [],
                 categories: [],

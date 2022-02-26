@@ -37,6 +37,11 @@ export default {
                 this.itemsToShow = 2
             }
         },
+
+        checkImageError(index){
+            this.$set(this.brands[index], "imageError", true)
+        },
+
         getFullPath(path){
             return process.env.BASE_URL+path
         }

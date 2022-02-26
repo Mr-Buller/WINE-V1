@@ -14,10 +14,8 @@ export default {
 
     },
     created() {
-
     },
     mounted() {
-
     },
     computed: {
         ...mapState(["MainStore"])
@@ -82,6 +80,14 @@ export default {
             }else{
                 return false
             }
+        },
+
+        getFirstPhoto(photos){
+            let newPhotos = []
+            if(photos){
+                newPhotos = photos.split(", ")
+            }
+            return this.getFullPath(newPhotos[0])
         },
 
         checkImageError(index){

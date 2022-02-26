@@ -7,8 +7,8 @@
 				<div class="p-item-hover row ph12">
 					<nuxt-link :to="'/search?categoryId='+category.id">
 						<div class="box-square">
-							<img :src="imageError ? require('~/assets/images/image-default.jpeg') : getFullPath(category.image)"
-								@error="imageError = true" class="item-img"
+							<img :src="category.imageError ? require('~/assets/images/image-default.jpeg') : getFullPath(category.image)"
+								@error="checkImageError(categoryIndex)" class="item-img"
 								style="box-shadow: 0 0 8px rgb(0 0 0 / 30%);border-bottom: 1px solid rgb(221, 221, 221);" />
 						</div>
 						<div class="btn-category txt-dark">{{category.name}}</div>

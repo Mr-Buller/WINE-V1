@@ -3,6 +3,7 @@ import AddressService from "./../../utils/services/AddressService"
 import Helper from './../../utils/Helper'
 import { mapState } from 'vuex'
 import CountryService from "../../utils/services/CountryService"
+import Loading from './../../components/loading'
 
 export default {
     name: "cart",
@@ -52,16 +53,15 @@ export default {
         }
     },
     components: {
-
+        Loading
     },
     created() {
-        if (process.client)
+        if(process.client)
         this.getProductInCart()
         this.getCountry()
     },
     mounted() {
-
-        // this.getAddress()
+        
     },
     computed: {
         ...mapState([
@@ -81,6 +81,7 @@ export default {
             if (products) {
                 this.data.products = products
             }
+            this.isFetching = false
         },
 
         getAddress() {

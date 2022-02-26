@@ -63,8 +63,9 @@ export default {
                     this.data.home = response.results
                     for (let i = 0; i < response.results.slides.length; i++) {
                         let slide = response.results.slides[i]
-                        let image = process.env.BASE_URL + slide.image
-                        this.slide.vfImages.push(image.replaceAll(' ', '%20'))
+                        let fullImage = process.env.BASE_URL + slide.image
+                        slide.image = fullImage.replaceAll(' ', '%20')
+                        this.slide.vfImages.push(slide)
 
                         let caption = {
                             title: slide.title,

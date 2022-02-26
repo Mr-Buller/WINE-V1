@@ -37,7 +37,8 @@ export default {
     Register
   },
   created() {
-    if (process.client) this.getToken();
+    if (process.client) 
+    this.getToken();
     this.getContact();
     this.getProductEachBrand();
     this.getProductFromCartAndWishlist()

@@ -173,7 +173,7 @@ export default {
             this.$set(this.data.product, 'isWishlist', true)
         },
 
-        addToCart() {
+        addToCart(showMsg = true) {
             let options = this.getVariantCombination()
             if (options) {
                 let products = []
@@ -223,12 +223,14 @@ export default {
                         this.$store.commit("STORE_PRODUCT_IN_CART", products);
                         this.$auth.$storage.setLocalStorage('productInCart', products)
                     }
-                    this.$toast.info("Product was added to cart.")
+
+                    if(showMsg){ this.$toast.info("Product was added to cart.") }
+                    
                 }else{
                     productInCart[indexOfProductInCart].qty = parseInt(productInCart[indexOfProductInCart].qty) + 1
                     this.$store.commit("STORE_PRODUCT_IN_CART", productInCart);
                     this.$auth.$storage.setLocalStorage('productInCart', productInCart)
-                    this.$toast.info("Product was added to cart.")
+                    if(showMsg){ this.$toast.info("Product was added to cart.") }
                 }
             } else {
                 this.$toast.error("All options are required.")
@@ -263,7 +265,7 @@ export default {
         buyNow() {
             let options = this.getVariantCombination()
             if (options) {
-                this.addToCart()
+                this.addToCart(false)
                 this.$router.push({ path: "/cart" })
             } else {
                 this.$toast.error("All options are required.")

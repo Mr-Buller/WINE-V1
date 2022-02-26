@@ -4,7 +4,10 @@
 		<div class="m-container">
 			<agile :autoplay="true">
 				<div v-for="(slide,slideIndex) in slide.vfImages" :key="(slide,slideIndex)" class="slide">
-					<img :src="slide" class="slide-img" />
+					<a v-if="slide.actionUrl" :href="slide.actionUrl" target="_blank">
+						<img :src="slide.image" class="slide-img" />
+					</a>
+					<img v-else :src="slide.image" class="slide-img" />
 				</div>
 			</agile>
 			<!-- <Slider v-if="slide.vfImages.length > 0" :vfOptions="slide.vfOptions" :vfImages="slide.vfImages"

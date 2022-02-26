@@ -55,17 +55,18 @@ export default {
         Loading
     },
     created() {
-        if(process.client)
-        this.getInnerWidth()
-        this.getCategory()
-        this.getBrand()
-        this.getCountry()
-        if(this.$route.query.page && this.$route.query.page > 0){
-            const query = Object.assign({}, this.$route.query);
-            query.page = 0;
-            this.$router.push({ query })
-        }else{
-            this.getProduct()
+        if(process.client){
+            this.getInnerWidth()
+            if(this.$route.query.page && this.$route.query.page > 0){
+                const query = Object.assign({}, this.$route.query);
+                query.page = 0;
+                this.$router.push({ query })
+            }else{
+                this.getProduct()
+            }
+            this.getCategory()
+            this.getBrand()
+            this.getCountry()
         }
     },
     watch: {

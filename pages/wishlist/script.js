@@ -5,6 +5,7 @@ export default {
     name: "wishlist",
     data() {
         return {
+            isFetching: true,
             data:{
                 products: []
             }
@@ -33,6 +34,9 @@ export default {
             if (products) {
                 this.data.products = products
             }
+            setTimeout(() => {
+                this.isFetching = false
+            })
         },
 
         removeProductFromWishlist(index) {

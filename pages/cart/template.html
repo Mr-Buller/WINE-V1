@@ -1,6 +1,6 @@
 <section>
 	<div class="m-container">
-		<div class="row p12">
+		<div v-if="!isFetching" class="row p12">
 			<p class="cart-title ph12">SHOPPING CART</p>
 			<div v-if="!isUserInfo" class="row">
 				<div v-if="data.products && data.products.length > 0" class="col-12">
@@ -293,6 +293,8 @@
 				</div>
 			</div>
 		</div>
+
+		<Loading v-if="isFetching"></Loading>
 	</div>
 
 	<div v-if="showCreateDialog" class="auth-container">

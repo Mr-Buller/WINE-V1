@@ -14,6 +14,7 @@ export default {
             isSubmittedAddress: false,
             isUserInfo: false,
             showCreateDialog: false,
+            isReadTermAndCondition: false,
             data: {
                 products: [],
                 addresses: [],
@@ -123,6 +124,10 @@ export default {
         },
 
         createOrder() {
+            if(!this.isReadTermAndCondition){
+                this.$toast.error("Check terms and conditions before checkout.")
+                return
+            }
             if(this.body.customerAddressId){
                 this.isCreating = true
                 let products = []
@@ -290,7 +295,18 @@ export default {
             }else{
                 this.getProvince(this.address.countryId)
             }
-            
+        },
+
+        getFirstPhoto(photos){
+            let newPhotos = []
+            if(photos){
+                newPhotos = photos.split(", ")
+            }
+            return this.getFullPath(newPhotos[0])
+        },
+
+        checkImageError(index){
+            this.$set(this.data.products[index], "imageError", true)
         },
 
         getSubtotalPrice(product) {

@@ -3,17 +3,17 @@
 		<div class="row border">
 			<div class="p-item-hover box-square">
 				<nuxt-link :to="'/product/'+product.id">
-					<img :src="getFullPath(product.thumbnail)"  
-					class="item-img" />
+					<img :src="product.imageError ? require('~/assets/images/image-default.jpeg') : getFirstPhoto(product.photos)"
+						@error="checkImageError(productIndex)" class="item-img"/>
 					<div v-if="product.discount > 0" class="tag-discount">-{{product.discount}}%</div>
 					<div v-if="product.brand" class="tag-type">{{product.brand}}</div>
 				</nuxt-link>
 				<div class="hover-btn-cart">
 					<nuxt-link :to="'/product/'+product.id" class="btn-cart-item mr3">
-						<img :src="require('~/assets/images/icons/detail.png')"/>
+						<img :src="require('~/assets/images/icons/detail.png')" />
 					</nuxt-link>
 					<div @click="removeProductFromWishlist(productIndex)" class="btn-cart-item">
-						<img :src="require('~/assets/images/icons/trash.png')"/>
+						<img :src="require('~/assets/images/icons/trash.png')" />
 					</div>
 				</div>
 			</div>

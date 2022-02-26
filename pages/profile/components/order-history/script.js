@@ -60,6 +60,18 @@ export default {
             }).catch(err => { console.log(err) })
         },
 
+        getFirstPhoto(photos){
+            let newPhotos = []
+            if(photos){
+                newPhotos = photos.split(", ")
+            }
+            return this.getFullPath(newPhotos[0])
+        },
+
+        checkImageError(orderIndex, productIndex){
+            this.$set(this.data.orders[orderIndex].orderDetail[productIndex].product, "imageError", true)
+        },
+
         getFullPath(path) {
             return process.env.BASE_URL + path
         },

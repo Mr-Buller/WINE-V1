@@ -33,6 +33,7 @@ export default {
                 let obj = {
                     id: product.id,
                     thumbnail: product.thumbnail,
+                    photos: product.photos,
                     name: product.name,
                     qty: product.qty,
                     price: product.price,

@@ -1,14 +1,11 @@
 <div class="row">
-	<Detail v-if="detailIndex > -1" 
-		:order="data.orders[detailIndex]" 
-		@close="detailIndex = -1"></Detail>
+	<Detail v-if="detailIndex > -1" :order="data.orders[detailIndex]" @close="detailIndex = -1"></Detail>
 
 	<div v-if="detailIndex == -1" class="row">
 		<p class="font20">
 			<b>Order History</b>
 		</p>
-		<table v-for="(order,orderIndex) in data.orders" :key="(order,orderIndex)"
-			class="table-order">
+		<table v-for="(order,orderIndex) in data.orders" :key="(order,orderIndex)" class="table-order">
 			<thead class="bg-secondary">
 				<th>Order Ref : {{order.ref}}</th>
 				<th class="txt-right">Discount(%)</th>
@@ -19,11 +16,12 @@
 			<thead>
 				<tr v-for="(product,productIndex) in order.orderDetail" :key="(product,productIndex)" class="border">
 					<td>
-						<img :src="getFullPath(product.product.thumbnail)"
-							style="width: 72px;height:72px;object-fit: cover;float: left;margin-right: 12px;" />
+						<img :src="product.product.imageError ? require('~/assets/images/image-default.jpeg') : getFirstPhoto(product.product.photos)"
+							@error="checkImageError(orderIndex,productIndex)" style="width: 72px;height:72px;object-fit: cover;float: left;margin-right: 12px;" />
 						<div class="go-left pt10">
 							<p class="txt-primary mb6">{{product.product.name}}</p>
-							<span>Variant :</span> <span class="capitalize txt-dark-light">{{formatVariant(product.variant)}}</span>
+							<span>Variant :</span> <span
+								class="capitalize txt-dark-light">{{formatVariant(product.variant)}}</span>
 						</div>
 					</td>
 					<td class="txt-right">
@@ -40,7 +38,7 @@
 					<td>
 						<p class="font14 mb6">Date : <span
 								class="txt-dark-light">{{order.created | moment("MMM-DD-YYYY")}}</span></p>
-						<p class="font14 mb6">Status : 
+						<p class="font14 mb6">Status :
 							<span v-if="order.orderState == 'PENDING'" class="txt-warning">Pending</span>
 							<span v-if="order.orderState == 'CONFIRM'" class="txt-info">Confirm</span>
 							<span v-if="order.orderState == 'CANCEL'" class="txt-danger">Cancelled</span>
@@ -55,7 +53,8 @@
 							<span v-else>N/A</span>
 						</p>
 						<p class="font14 mb6">Total Discount :
-							<span v-if="order.totalPriceDiscount != null">- {{formatPrice(order.totalPriceDiscount)}}</span>
+							<span v-if="order.totalPriceDiscount != null">-
+								{{formatPrice(order.totalPriceDiscount)}}</span>
 							<span v-else>N/A</span>
 						</p>
 						<p class="font14 mb6">Grand Total :
@@ -65,23 +64,30 @@
 					</td>
 				</tr>
 				<tr class="border txt-center bg-secondart">
-					<td @click="detailIndex = orderIndex" colspan="4" style="background: #ddd;cursor: pointer;">Detail</td>
+					<td @click="detailIndex = orderIndex" colspan="4" style="background: #ddd;cursor: pointer;">Detail
+					</td>
 				</tr>
 			</thead>
 		</table>
-	
+
 		<div class="m-list-order">
 			<div v-for="(order,orderIndex) in data.orders" :key="(order,orderIndex)" class="row mb12">
 				<p class="mb0 p6 bg-secondary border">Order Ref: {{order.ref}}</p>
-				<div v-for="(product,productIndex) in order.orderDetail" :key="(product,productIndex)" class="row p6 border mt-1" style="padding-left: 72px;">
-					<img :src="getFullPath(product.product.thumbnail)"style="width: 60px;height:60px;object-fit: cover;position:absolute;top:8px;left:6px;border:1px solid #ddd" />
+				<div v-for="(product,productIndex) in order.orderDetail" :key="(product,productIndex)"
+					class="row p6 border mt-1" style="padding-left: 72px;">
+					<img :src="product.product.imageError ? require('~/assets/images/image-default.jpeg') : getFirstPhoto(product.product.photos)"
+						@error="checkImageError(orderIndex,productIndex)" style="width: 60px;height:60px;object-fit: cover;position:absolute;top:8px;left:6px;border:1px solid #ddd" />
 					<p class="txt-primary font14 mb3">{{product.product.name}}</p>
-					<p class="font12 mb3"><span>Variant</span> : <span class="capitalize txt-dark-light">{{formatVariant(product.variant)}}</span></p>
+					<p class="font12 mb3"><span>Variant</span> : <span
+							class="capitalize txt-dark-light">{{formatVariant(product.variant)}}</span></p>
 					<p class="font12 mb3">
-						<span>Price</span> : <span class="capitalize txt-dark-light">{{formatPrice(product.product.price)}}</span>
-						<span class="ml12">Discount</span> : <span class="capitalize txt-dark-light">{{product.product.discount}}%</span>
+						<span>Price</span> : <span
+							class="capitalize txt-dark-light">{{formatPrice(product.product.price)}}</span>
+						<span class="ml12">Discount</span> : <span
+							class="capitalize txt-dark-light">{{product.product.discount}}%</span>
 					</p>
-					<p class="font12 mb3"><span>Quantity</span> : <span class="capitalize txt-dark-light">{{product.quantity}}</span></p>
+					<p class="font12 mb3"><span>Quantity</span> : <span
+							class="capitalize txt-dark-light">{{product.quantity}}</span></p>
 				</div>
 				<div class="row border p6 mt-1">
 					<div class="row font13">
@@ -90,7 +96,8 @@
 					</div>
 					<div class="row font13">
 						<span class="go-left">Status:</span>
-						<span :class="order.orderState == 'PENDING' ? 'txt-warning go-right' : 'go-right'">{{order.orderState}}</span>
+						<span
+							:class="order.orderState == 'PENDING' ? 'txt-warning go-right' : 'go-right'">{{order.orderState}}</span>
 					</div>
 					<div class="row font13">
 						<span class="go-left">Address:</span>
@@ -103,7 +110,8 @@
 					</div>
 					<div class="row font13">
 						<span class="go-left">Total Discount:</span>
-						<span v-if="order.totalPriceDiscount != null" class="go-right">- {{formatPrice(order.totalPriceDiscount)}}</span>
+						<span v-if="order.totalPriceDiscount != null" class="go-right">-
+							{{formatPrice(order.totalPriceDiscount)}}</span>
 						<span v-else class="go-right">N/A</span>
 					</div>
 					<div class="row font13">

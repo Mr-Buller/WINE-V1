@@ -152,6 +152,7 @@ export default {
             let obj = {
                 id: product.id,
                 thumbnail: product.thumbnail,
+                photos: product.photos,
                 name: product.name,
                 qty: product.qty,
                 price: product.price,
@@ -204,6 +205,7 @@ export default {
                     let obj = {
                         id: this.data.product.id,
                         thumbnail: this.data.product.thumbnail,
+                        photos: this.data.product.photos,
                         name: this.data.product.name,
                         qty: this.body.qty,
                         price: this.data.product.price,

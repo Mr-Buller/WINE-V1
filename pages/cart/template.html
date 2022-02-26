@@ -18,8 +18,8 @@
 								<thead>
 									<tr v-for="(product,productIndex) in data.products" :key="(product,productIndex)" class="border">
 										<td>
-											<img :src="getFullPath(product.thumbnail)"
-											style="width: 72px;height:72px;object-fit: cover;" />
+											<img :src="product.imageError ? require('~/assets/images/image-default.jpeg') : getFirstPhoto(product.photos)"
+											@error="checkImageError(productIndex)" style="width: 72px;height:72px;object-fit: cover;" />
 										</td>
 										<td>
 											<p class="txt-primary mb6">{{product.name}}</p>
@@ -42,7 +42,8 @@
 						</div>
 						<div class="row sm-show ph12">
 							<div v-for="(product,productIndex) in data.products" :key="(product,productIndex)" class="row p6 border mt-1" style="padding-left: 72px;padding-right: 50px;">
-								<img :src="getFullPath(product.thumbnail)"style="width: 60px;height:60px;object-fit: cover;position:absolute;top:8px;left:6px;" />
+								<img :src="product.imageError ? require('~/assets/images/image-default.jpeg') : getFirstPhoto(product.photos)"
+									@error="checkImageError(productIndex)" style="width: 60px;height:60px;object-fit: cover;position:absolute;top:8px;left:6px;" />
 								<p class="txt-primary font14 mb3">{{product.name}}</p>
 								<p class="font13 mb3"><span>Variant</span> : <span class="capitalize txt-dark-light">{{product.variant}}</span></p>
 								<p class="font13 mb3">
@@ -122,7 +123,7 @@
 							<div class="row pv12">
 								<p class="font14 txt-dark-light">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <span class="txt-danger pointer">privacy policy</span>.</p>
 								<div class="row">
-									<label for="term-condition-checkbox" class="font14 txt-dark-light mb0"><input id="term-condition-checkbox" type="checkbox"> I have read and agree to the website <span class="txt-danger">terms and conditions *</span></label>
+									<label for="term-condition-checkbox" class="font14 txt-dark-light mb0"><input v-model="isReadTermAndCondition" id="term-condition-checkbox" type="checkbox"> I have read and agree to the website <span class="txt-danger">terms and conditions *</span></label>
 								</div>
 							</div>
 						</div>
@@ -230,7 +231,8 @@
 						<tbody>
 							<tr v-for="(product,productIndex) in data.products" :key="(product,productIndex)" class="border">
 								<td>
-									<img :src="getFullPath(product.thumbnail)" style="width: 42px;height:42px;object-fit: cover;" />
+									<img :src="product.imageError ? require('~/assets/images/image-default.jpeg') : getFirstPhoto(product.photos)"
+									@error="checkImageError(productIndex)" style="width: 42px;height:42px;object-fit: cover;" />
 								</td>
 								<td>
 									<p class="mb3 font14">{{product.name}}</p>
@@ -275,7 +277,7 @@
 							</div>
 						</div>
 						<div class="row pv12">
-							<p class="font14 txt-dark-light">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <span class="txt-danger pointer">privacy policy</span>.</p>
+							<p class="font14 txt-dark-light">bbbYour personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <span class="txt-danger pointer">privacy policy</span>.</p>
 							<div class="row">
 								<label for="term-condition-checkbox" class="font14 txt-dark-light mb0"><input type="checkbox" id="term-condition-checkbox"> I have read and agree to the website<span class="txt-danger">terms and conditions *</span></label>
 							</div>

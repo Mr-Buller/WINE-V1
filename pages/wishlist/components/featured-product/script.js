@@ -29,6 +29,7 @@ export default {
             let obj = {
                 id: product.id,
                 thumbnail: product.thumbnail,
+                photos: product.photos,
                 name: product.name,
                 qty: product.qty,
                 price: product.price,
@@ -54,6 +55,18 @@ export default {
             this.$auth.$storage.setLocalStorage('productInWishlist', this.products)
             this.$store.commit("STORE_PRODUCT_IN_WISHLIST", this.products);
             this.$toast.success("Product was removed from wishlist.")
+        },
+
+        getFirstPhoto(photos){
+            let newPhotos = []
+            if(photos){
+                newPhotos = photos.split(", ")
+            }
+            return this.getFullPath(newPhotos[0])
+        },
+
+        checkImageError(index){
+            this.$set(this.products[index], "imageError", true)
         },
 
         getUniqueArray(array){

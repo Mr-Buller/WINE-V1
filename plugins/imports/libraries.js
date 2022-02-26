@@ -41,7 +41,6 @@ Vue.directive('click-outside', {
 
 // Close the dropdown if the user clicks outside of it
 window.onclick = function (event) {
-  console.log(!event.target.matches('.btnMobileMenu'))
   if (!event.target.matches('.btnMobileMenu')) {
     var dropdowns = document.getElementsByClassName("mobileMenu");
     console.log(dropdowns)

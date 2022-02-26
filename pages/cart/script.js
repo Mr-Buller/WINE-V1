@@ -56,12 +56,12 @@ export default {
         Loading
     },
     created() {
+        
+    },
+    mounted() {
         if(process.client)
         this.getProductInCart()
         this.getCountry()
-    },
-    mounted() {
-        
     },
     computed: {
         ...mapState([

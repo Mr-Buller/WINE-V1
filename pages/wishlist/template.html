@@ -1,13 +1,15 @@
 <section>
-	<div class="m-container">
-		<p class="font24 pt24 ph16">WISHLIST</p>
-		<FeaturedProduct v-if="data.products.length > 0" :products="data.products"></FeaturedProduct>
-		<div v-else class="row txt-center pv50 mb50">
-			<div class="row txt-center mb12">
-				<img :src="require('~/assets/images/icons/no-wishlist.png')" class="h72" />
-				<p class="mt12">No Data</p>
+	<client-only>
+		<div class="m-container">
+			<p class="font24 pt24 ph16">WISHLIST</p>
+			<FeaturedProduct v-if="data.products.length > 0" :products="data.products"></FeaturedProduct>
+			<div v-else class="row txt-center pv50 mb50">
+				<div class="row txt-center mb12">
+					<img :src="require('~/assets/images/icons/no-wishlist.png')" class="h72" />
+					<p class="mt12">No Data</p>
+				</div>
+				<nuxt-link to="/search" class="btn-default">FIND PRODUCT NOW</nuxt-link>
 			</div>
-			<nuxt-link to="/search" class="btn-default">FIND PRODUCT NOW</nuxt-link>
 		</div>
-	</div>
+	</client-only>
 </section>

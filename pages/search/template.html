@@ -1,126 +1,128 @@
 <section>
-	<div class="m-container">
-		<div class="row mb24 txt-center">
-			<img src="https://wpbingosite.com/wordpress/kowine/wp-content/uploads/2021/06/Slide5.jpg"
-				class="img-bg-search" />
-			<div class="search-bg-overlay"></div>
-			<div class="box-search-info">
-				<p class="search-title">SEARCHING</p>
-				<p style="font-size: 18px;color:#fff;">Search something in your mind</p>
-				<input @keyup.enter="searchProduct" v-model="search.key" type="text" placeholder="Product name"
-					class="search-input" />
+	<client-only>
+		<div class="m-container">
+			<div class="row mb24 txt-center">
+				<img src="https://wpbingosite.com/wordpress/kowine/wp-content/uploads/2021/06/Slide5.jpg"
+					class="img-bg-search" />
+				<div class="search-bg-overlay"></div>
+				<div class="box-search-info">
+					<p class="search-title">SEARCHING</p>
+					<p style="font-size: 18px;color:#fff;">Search something in your mind</p>
+					<input @keyup.enter="searchProduct" v-model="search.key" type="text" placeholder="Product name"
+						class="search-input" />
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div v-if="isFilter" @click="hiddenFilter" class="col-3 sm-hidden p12 m-filter-sidebar">
-				<div class="row border p16 m-block-filter">
-					<p class="font20 p10 txt-center bg-secondary sm-show">PRODUCT FILTER</p>
-					<div class="row border-bottom pb12">
-						<p class="font18"><b>PRICE RANGES</b></p>
-						<div v-for="(price,priceIndex) in data.priceRange" 
-							:key="(price,priceIndex)"
-							class="item-filter txt-dark-light"
-							@click="searchByPriceRange(priceIndex)">
-							<div :class="search.priceRange == price.price ? 'item-radio-active' : 'item-radio'">
-								<i class="fa fa-check item-ic"></i>
+			<div class="row">
+				<div v-if="isFilter" @click="hiddenFilter" class="col-3 sm-hidden p12 m-filter-sidebar">
+					<div class="row border p16 m-block-filter">
+						<p class="font20 p10 txt-center bg-secondary sm-show">PRODUCT FILTER</p>
+						<div class="row border-bottom pb12">
+							<p class="font18"><b>PRICE RANGES</b></p>
+							<div v-for="(price,priceIndex) in data.priceRange" 
+								:key="(price,priceIndex)"
+								class="item-filter txt-dark-light"
+								@click="searchByPriceRange(priceIndex)">
+								<div :class="search.priceRange == price.price ? 'item-radio-active' : 'item-radio'">
+									<i class="fa fa-check item-ic"></i>
+								</div>
+								<span style="line-height: 20px;">$ {{price.price}}</span>
 							</div>
-							<span style="line-height: 20px;">$ {{price.price}}</span>
 						</div>
-					</div>
-					<div class="row border-bottom pb12 mt24">
-						<p class="font18"><b>CATEGORIES</b></p>
-						<div v-for="(category,categoryIndex) in data.categories" 
-							:key="(category,categoryIndex)"
-							@click="searchByCategory(categoryIndex)"
-							class="item-filter txt-dark-light">
-							<div :class="search.categoryId == category.id ? 'item-radio-active' : 'item-radio'">
-								<i class="fa fa-check item-ic"></i>
-							</div>
-							{{category.name}}</div>
-					</div>
-					<div class="row border-bottom pb12 mt24">
-						<p class="font18"><b>BRANDS</b></p>
-						<div v-for="(brand,brandIndex) in data.brands" :key="(brand,brandIndex)"
-							class="item-filter txt-dark-light"
-							@click="searchByBrand(brandIndex)">
-							<div :class="search.brandId == brand.id ? 'item-radio-active' : 'item-radio'">
-								<i class="fa fa-check item-ic"></i>
-							</div>
-							{{brand.name}}</div>
-					</div>
-					<div class="row mt24">
-						<p class="font18"><b>COUNTRIES</b></p>
-						<div v-for="(country,countryIndex) in data.countries" :key="(country,countryIndex)"
-							class="item-filter txt-dark-light"
-							@click="searchByCountry(countryIndex)">
-							<div :class="search.countryId == country.id ? 'item-radio-active' : 'item-radio'">
-								<i class="fa fa-check item-ic"></i>
-							</div>
-							{{country.name}}</div>
-					</div>
-					<div hidden class="row mt40">
-						<p class="font18"><b>COUNTRIES</b></p>
-						<div class="row">
+						<div class="row border-bottom pb12 mt24">
+							<p class="font18"><b>CATEGORIES</b></p>
+							<div v-for="(category,categoryIndex) in data.categories" 
+								:key="(category,categoryIndex)"
+								@click="searchByCategory(categoryIndex)"
+								class="item-filter txt-dark-light">
+								<div :class="search.categoryId == category.id ? 'item-radio-active' : 'item-radio'">
+									<i class="fa fa-check item-ic"></i>
+								</div>
+								{{category.name}}</div>
+						</div>
+						<div class="row border-bottom pb12 mt24">
+							<p class="font18"><b>BRANDS</b></p>
+							<div v-for="(brand,brandIndex) in data.brands" :key="(brand,brandIndex)"
+								class="item-filter txt-dark-light"
+								@click="searchByBrand(brandIndex)">
+								<div :class="search.brandId == brand.id ? 'item-radio-active' : 'item-radio'">
+									<i class="fa fa-check item-ic"></i>
+								</div>
+								{{brand.name}}</div>
+						</div>
+						<div class="row mt24">
+							<p class="font18"><b>COUNTRIES</b></p>
 							<div v-for="(country,countryIndex) in data.countries" :key="(country,countryIndex)"
-								@click="searchByCountry(countryIndex)"
-								:class="search.countryId == country.id ? 'item-tag-active' : 'item-tag'">{{country.name}}</div>
+								class="item-filter txt-dark-light"
+								@click="searchByCountry(countryIndex)">
+								<div :class="search.countryId == country.id ? 'item-radio-active' : 'item-radio'">
+									<i class="fa fa-check item-ic"></i>
+								</div>
+								{{country.name}}</div>
 						</div>
-					</div>
-					<div hidden class="row mt36">
-						<div class="row">
-							<div class="col-6 pr6">
-								<p class="font18"><b>Min</b></p>
-								<input v-model="search.minPrice" @keyup.enter="searchByPriceRange" type="number"
-									class="w-input" />
-							</div>
-							<div class="col-6 ph6">
-								<p class="font18"><b>Max</b></p>
-								<input v-model="search.maxPrice" @keyup.enter="searchByPriceRange" type="number"
-									class="w-input" />
+						<div hidden class="row mt40">
+							<p class="font18"><b>COUNTRIES</b></p>
+							<div class="row">
+								<div v-for="(country,countryIndex) in data.countries" :key="(country,countryIndex)"
+									@click="searchByCountry(countryIndex)"
+									:class="search.countryId == country.id ? 'item-tag-active' : 'item-tag'">{{country.name}}</div>
 							</div>
 						</div>
-						<div hidden class="row ph16">
-							<!-- <price-range-slider :trackHeight="0.5" /> -->
+						<div hidden class="row mt36">
+							<div class="row">
+								<div class="col-6 pr6">
+									<p class="font18"><b>Min</b></p>
+									<input v-model="search.minPrice" @keyup.enter="searchByPriceRange" type="number"
+										class="w-input" />
+								</div>
+								<div class="col-6 ph6">
+									<p class="font18"><b>Max</b></p>
+									<input v-model="search.maxPrice" @keyup.enter="searchByPriceRange" type="number"
+										class="w-input" />
+								</div>
+							</div>
+							<div hidden class="row ph16">
+								<!-- <price-range-slider :trackHeight="0.5" /> -->
+							</div>
 						</div>
-					</div>
-					<div hidden class="row mt40">
-						<p class="font18"><b>BRANDS</b></p>
-						<div class="row">
-							<div v-for="(brand,brandIndex) in data.brands" :key="(brand,brandIndex)" class="col-4 p3">
-								<div class="row border">
-									<img :src="getFullPath(brand.logo)" class="img-cover" />
+						<div hidden class="row mt40">
+							<p class="font18"><b>BRANDS</b></p>
+							<div class="row">
+								<div v-for="(brand,brandIndex) in data.brands" :key="(brand,brandIndex)" class="col-4 p3">
+									<div class="row border">
+										<img :src="getFullPath(brand.logo)" class="img-cover" />
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-9 col-sm-12 p10">
-				<div class="row pt8 ph10 mb10">
-					<span class="sm-hidden">Showing 1–12 of 29 item(s)</span>
-					<div @click="isFilter = !isFilter" class="sm-show go-left">
-						<img :src="require('~/assets/images/icons/setting.png')" class="h26 go-left" style="margin-left: -12px;"/>
-						<div class="font20 go-left ml6" style="margin-top: -1px;">Filter</div>
+				<div class="col-9 col-sm-12 p10">
+					<div class="row pt8 ph10 mb10">
+						<span class="sm-hidden">Showing 1–12 of 29 item(s)</span>
+						<div @click="isFilter = !isFilter" class="sm-show go-left">
+							<img :src="require('~/assets/images/icons/setting.png')" class="h26 go-left" style="margin-left: -12px;"/>
+							<div class="font20 go-left ml6" style="margin-top: -1px;">Filter</div>
+						</div>
+						<div style="border: 1px solid #000;padding: 5px 12px;float: right;cursor: pointer;">
+							<select @change="searchByOrdering" v-model="search.orderBy"
+								style="max-width: 146px;border:none;background:#fff;outline: none;font-size: 16px;padding-right: 6px;cursor: pointer;">
+								<option value="DEFAULT">Default Shorting</option>
+								<option value="POPULAR">Sort By Popularity</option>
+								<option value="LATEST">Sort By Latest</option>
+								<option value="LOW_PRICE">Sort By Price: Low To High</option>
+								<option value="HIGH_PRICE">Sort By Price: High To Low</option>
+							</select>
+						</div>
 					</div>
-					<div style="border: 1px solid #000;padding: 5px 12px;float: right;cursor: pointer;">
-						<select @change="searchByOrdering" v-model="search.orderBy"
-							style="max-width: 146px;border:none;background:#fff;outline: none;font-size: 16px;padding-right: 6px;cursor: pointer;">
-							<option value="DEFAULT">Default Shorting</option>
-							<option value="POPULAR">Sort By Popularity</option>
-							<option value="LATEST">Sort By Latest</option>
-							<option value="LOW_PRICE">Sort By Price: Low To High</option>
-							<option value="HIGH_PRICE">Sort By Price: High To Low</option>
-						</select>
+					<div class="sm-show ph4 border-top pt6">Showing 1–12 of 29 item(s)</div>
+					<FeaturedProduct :products="data.products"></FeaturedProduct>
+					<Loading v-if="isFetching"></Loading>
+					<div v-if="!isFetching && data.products && data.products.length == 0" class="row pv50 txt-center">
+						<img :src="require('~/assets/images/icons/no-result.png')" class="h72" />
+						<p class="font18 mt12">No Result</p>
 					</div>
-				</div>
-				<div class="sm-show ph4 border-top pt6">Showing 1–12 of 29 item(s)</div>
-				<FeaturedProduct :products="data.products"></FeaturedProduct>
-				<Loading v-if="isFetching"></Loading>
-				<div v-if="!isFetching && data.products && data.products.length == 0" class="row pv50 txt-center">
-					<img :src="require('~/assets/images/icons/no-result.png')" class="h72" />
-					<p class="font18 mt12">No Result</p>
 				</div>
 			</div>
 		</div>
-	</div>
+	</client-only>
 </section>

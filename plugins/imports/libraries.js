@@ -40,29 +40,29 @@ Vue.directive('click-outside', {
 });
 
 // Close the dropdown if the user clicks outside of it
-window.onclick = function (event) {
-  if (!event.target.matches('.btnMobileMenu')) {
-    var dropdowns = document.getElementsByClassName("mobileMenu");
-    console.log(dropdowns)
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
+// window.onclick = function (event) {
+//   if (!event.target.matches('.btnMobileMenu')) {
+//     var dropdowns = document.getElementsByClassName("mobileMenu");
+//     console.log(dropdowns)
+//     var i;
+//     for (i = 0; i < dropdowns.length; i++) {
+//       var openDropdown = dropdowns[i];
+//       if (openDropdown.classList.contains('show')) {
+//         openDropdown.classList.remove('show');
+//       }
+//     }
+//   }
 
-  if (!event.target.matches('.showBoxSearch') && !event.target.matches('.box-search') && !event.target.matches('.input-search')) {
-    var dropdowns = document.getElementsByClassName("box-search");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
+//   if (!event.target.matches('.showBoxSearch') && !event.target.matches('.box-search') && !event.target.matches('.input-search')) {
+//     var dropdowns = document.getElementsByClassName("box-search");
+//     var i;
+//     for (i = 0; i < dropdowns.length; i++) {
+//       var openDropdown = dropdowns[i];
+//       if (openDropdown.classList.contains('show')) {
+//         openDropdown.classList.remove('show');
+//       }
+//     }
+//   }
 
   
-}
+// }

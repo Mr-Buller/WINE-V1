@@ -1,0 +1,9 @@
+p, li{
+    color: #555;
+}
+ol, ul{
+    margin-left: 16px;
+}
+li{
+    margin-bottom: 6px;
+}

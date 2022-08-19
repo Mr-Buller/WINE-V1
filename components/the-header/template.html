@@ -45,6 +45,7 @@
 							</nuxt-link>
 						</div>
 					</li>
+					<li><nuxt-link to="/static/about-us" :class="routeName == 'static-about-us' ? 'active menu-title' : 'menu-title'">About Us</nuxt-link></li>
 					<li><nuxt-link to="/contact-us" :class="routeName == 'contact-us' ? 'active menu-title' : 'menu-title'">Contact Us</nuxt-link></li>
 				</ul>
 			</div>
@@ -121,6 +122,9 @@
 						<span class="font14 txt-dark-light">{{brand.brand.brand}}</span>
 					</div>
 				</div>
+			</div>
+			<div @click="navigateTo('/static/about-us')" class="row pv6 ph12 txt-dark">
+				<span>About Us</span>
 			</div>
 			<div @click="navigateTo('contact-us')" class="row pv6 ph12 txt-dark">
 				<span>Contact Us</span>

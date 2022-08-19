@@ -31,9 +31,9 @@
 				<p v-if="isSubmitted && !body.phone" class="msg-error">Phone is required.</p>
 			</div>
 			<div class="col-6 col-sm-12 ph12 mb12">
-				<p class="mb6">Email address <span class="txt-danger">*</span></p>
-				<input v-model="body.email" type="email" :class="isSubmitted && !body.email ? 'w-input-error' : 'w-input'" />
-				<p v-if="isSubmitted && !body.email" class="msg-error">Email is required.</p>
+				<p class="mb6">Email address</p>
+				<input disabled v-model="body.email" type="email" :class="isSubmitted && !body.email ? 'w-input-error' : 'w-input'" />
+				<!-- <p v-if="isSubmitted && !body.email" class="msg-error">Email is required.</p> -->
 			</div>
 		</div>
 		<div class="row p12">

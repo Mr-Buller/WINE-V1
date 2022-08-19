@@ -124,7 +124,7 @@ export default {
         },
 
         validateBody() {
-			if (!this.body.email) { return "Email is required." }
+			// if (!this.body.email) { return "Email is required." }
             if (!this.body.firstname) { return "First name is required." }
             if (!this.body.lastname) { return "Last name is required." }
             if (!this.body.phone) { return "Phone is required." }

@@ -1,4 +1,5 @@
 import CustomerService from "../../utils/services/CustomerService"
+import PaymentService from "../../utils/services/PaymentService"
 import AddressService from "./../../utils/services/AddressService"
 import Helper from './../../utils/Helper'
 import { mapState } from 'vuex'
@@ -160,10 +161,14 @@ export default {
                 CustomerService.createOrder(body).then((response) => {
                     this.isCreating = false
                     if (response.response && response.response.status == 200) {
-                        this.$auth.$storage.removeLocalStorage('productInCart')
-                        this.$store.commit("STORE_PRODUCT_IN_WISHLIST", []);
-                        this.$toast.success("Checkout is successfully.")
-                        this.$router.push({ path: '/profile?tab=order' })
+                        if(this.body.paymentMethod === "ABA_PAY"){
+                            this.createPayment(response.results.ref)
+                        }else{
+                            this.$auth.$storage.removeLocalStorage('productInCart')
+                            this.$store.commit("STORE_PRODUCT_IN_WISHLIST", []);
+                            this.$toast.success("Checkout is successfully.")
+                            this.$router.push({ path: '/payment?res_code=00&paymentReference='+response.results.ref})
+                        }
                     } else {
                         this.$toast.error("Something went wrong.")
                     }
@@ -225,12 +230,16 @@ export default {
                 CustomerService.createOrderWithoutLogin(body).then((response) => {
                     this.isCreating = false
                     if (response.response && response.response.status == 200) {
-                        this.$auth.$storage.removeLocalStorage('productInCart')
-                        this.$toast.success("Checkout is successfully.")
-
                         this.$cookies.set('userId', response.results.jwtCustomerResponse.customer.id)
                         this.$cookies.set('token', response.results.jwtCustomerResponse.jwtResponse.token)
-                        location.href = "/profile?tab=order"
+
+                        if(this.body.paymentMethod === "ABA_PAY"){
+                            this.createPayment(response.results.order.ref)
+                        }else{
+                            this.$auth.$storage.removeLocalStorage('productInCart')
+                            this.$toast.success("Checkout is successfully.")
+                            this.$router.push({ path: '/payment?res_code=00&paymentReference='+response.results.order.ref})
+                        }
                     } else {
                         this.$toast.error(response.response.message)
                     }
@@ -238,6 +247,17 @@ export default {
             }else{
                 // this.$toast.error(msgValidation)
             }
+        },
+
+        createPayment(orderRef){
+            let body = {
+                "orderRef": orderRef
+            }
+            PaymentService.createPayment(body).then((response) => {
+                if (response.response && response.response.status == 200) {
+                    window.location.href = "https://payment.albinomosaic.com/payment/"+response.results.token
+                }
+            }).catch(err => { console.log(err) })
         },
 
         createAddress() {

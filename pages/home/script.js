@@ -49,11 +49,12 @@ export default {
         Loading,
     },
     created() {
-
+        
     },
     mounted() {
         this.getHomePage()
         this.getCategory()
+        // window.location.href = 'https://payment.albinomosaic.com/payment/8d1cae33-1ff2-4058-9ba1-8903d9a1833b';
     },
     methods: {
         getHomePage() {

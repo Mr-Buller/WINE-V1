@@ -1,0 +1,26 @@
+<section>
+	<div v-if="paymentSuccess" class="m-container txt-center pv50">
+		<img :src="require('~/assets/images/icons/payment-success.png')" width="120px" />
+		<p class="font24 txt-success"><b>Payment Successful!</b></p>
+		<p class="mb3 txt-dark-light">Thank you for your purchasing.</p>
+		<p class="mb3 txt-dark-light">Your payment was successful.</p>
+		<div class="row mv12">
+			<nuxt-link to="/profile?tab=order">
+				<button style="width: 120px;height:36px;background:green;color:white;border: none;cursor: pointer;">View Order</button>
+			</nuxt-link>
+		</div>
+		<nuxt-link to="/" class="txt-dark">Back home</nuxt-link>
+	</div>
+	<div v-if="!paymentSuccess" class="m-container txt-center pv50">
+		<img :src="require('~/assets/images/icons/payment-fail.png')" width="120px" />
+		<p class="font24 txt-warning"><b>Payment Failed!</b></p>
+		<p class="mb3 txt-dark-light">Something went wrong.</p>
+		<p class="mb3 txt-dark-light">We couldn't process your payment.</p>
+		<div class="row mv12">
+			<nuxt-link to="/cart">
+				<button style="width: 120px;height:36px;background:orange;color:white;border: none;cursor: pointer;">Back to Cart</button>
+			</nuxt-link>
+		</div>
+		<nuxt-link to="/" class="txt-dark">Back home</nuxt-link>
+	</div>
+</section>

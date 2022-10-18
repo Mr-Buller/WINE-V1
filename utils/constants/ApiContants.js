@@ -1,4 +1,5 @@
 const baseUrl = process.env.BASE_URL
+const baseUrlPayment = process.env.BASE_URL_PAYMENT
 const v1 = '/v1/api/web'
 
 const ApiContant = {
@@ -45,7 +46,10 @@ const ApiContant = {
     sendEmailVerify : baseUrl + '/v1/api/customer/send-email-verify',
     verifyAccount : baseUrl + '/v1/api/customer/verify-account',
     forgotPassword: baseUrl + '/v1/api/customer/forget-password',
-    resetPassword: baseUrl + '/v1/api/customer/reset-password'
+    resetPassword: baseUrl + '/v1/api/customer/reset-password',
+
+    // Payment
+    payment : baseUrlPayment + '/payment'
     
 }
 
